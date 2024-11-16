@@ -6,4 +6,11 @@ editor: visual
 
 ## Gaia
 
+Hello, world!
+
+```{r}
+x <- 2+2
+print(x)
+```
+
 ## Gioele
