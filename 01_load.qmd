@@ -4,4 +4,15 @@ format: html
 editor: visual
 ---
 
-## 
+## Loading libraries
+
+```{r}
+library("tidyverse")
+```
+
+## Loading data
+
+```{r}
+file_path <- "data/_raw/data.csv"
+df <- read.csv(file_path)
+```
