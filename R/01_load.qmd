@@ -4,20 +4,15 @@ format: html
 editor: visual
 ---
 
-## Loading libraries (are we sure we need them?)
-
-```{r}
-library("tidyverse")
-```
-
 ## Loading data
 
 ```{r}
-file_path <- "data/_raw/data.csv"
+file_path <- "data/_raw/data.csv" # eventually adjust "data.csv" bc after downloading, it assumes a different name
 df <- read.csv(file_path)
 #df
 ```
 
 ```{r}
-write.csv(df, file = "data/01_dat_load.csv", row.names = FALSE)
+df |>
+  write_tsv(file = "data/01_dat_load.tsv")
 ```
