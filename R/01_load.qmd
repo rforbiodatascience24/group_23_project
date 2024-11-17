@@ -7,12 +7,12 @@ editor: visual
 ## Loading data
 
 ```{r}
-file_path <- "data/_raw/Data_Cortex_Nuclear.csv" 
+file_path <- "~/projects/R_project/data/_raw/Data_Cortex_Nuclear.csv" 
 df <- read.csv(file_path)
 #df
 ```
 
 ```{r}
 df |>
-  write_tsv(file = "data/01_dat_load.tsv")
+  write_tsv(file = "~/projects/R_project/data/01_dat_load.tsv")
 ```

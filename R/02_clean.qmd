@@ -4,6 +4,12 @@ format: html
 editor: visual
 ---
 
+## Loading libraries
+
+```{r}
+library("dplyr")
+```
+
 ## Loading data
 
 ```{r}
@@ -14,64 +20,32 @@ df |>
 ## Cleaning data
 
 ```{r}
-# Controlling missin values
+# I'm not sure if this is necessary to deal with the NAs
+#df_clean <- df |>
+  #mutate(across(everything(), ~ ifelse(is.na(.), "N/A", .)))
+```
+
+Checking how many missing values appear in each column.
+
+```{r}
 missing_summary <- colSums(is.na(df))
 print(missing_summary)
-# we miss 569 values of the variable X = all the values of the variable X
-
-# Controlling duplicated data
-duplicates <- df[duplicated(df), ]
-print(duplicates)
-# we have no duplicated data
 ```
 
-Removing the X column, since it has no real data, but it's only composed of NA
+Removing the columns with a significant number of missing values compared with the size of the dataset (chosen threshold: \>100 NAs).
 
 ```{r}
-df_new <- df |> 
-  select(-ncol(df))
-#df_new
+df_clean <- df |> 
+  select(-"BAD_N", 
+         -"H3AcK18_N", 
+         -"BCL2_N", 
+         -"EGR1_N", 
+         -"H3MeK4_N")
 ```
 
-Unit of measurement should be mm, mm\^2, as cited here:
-
-<https://visualsonline.cancer.gov/details.cfm?imageid=12163>
-
-**1. radius (unit: mm)**\
-The mean radius of the tumor, calculated as the distance from the center to the edge. A larger radius suggests a more extensive tumor mass.
-
-**2. texture (unit: dimensionless)**\
-The variation in surface intensity levels of the tumor in the image, calculated using a GLCM (Gray Level Co-occurrence Matrix).
-
-**3. perimeter (unit: mm)**\
-The perimeter of the tumor, representing the length of its boundary in the image.
-
-**4. area (unit: mm²)**\
-The area occupied by the tumor mass in the image.
-
-**5. smoothness (unit: dimensionless)**\
-The local variation in radius lengths. Tumors with irregular shapes have lower smoothness values.
-
-**6. compactness (unit: dimensionless)**\
-A measure of how compact the tumor is, calculated as:
-
-Compactness=(perimeter²)area\text{Compactness} = \frac{\text{(perimeter²)}}{\text{area}}Compactness=area(perimeter²)​
-
-**7. concavity (unit: dimensionless)**\
-The extent to which the shape of the tumor is concave (inward curves).
-
-**8. concave points (unit: dimensionless)**\
-The number of distinct concave points along the tumor boundary.
-
-**9. symmetry (unit: dimensionless)**\
-How symmetric the shape of the tumor appears.
-
-**10. fractal dimension (unit: dimensionless)**\
-A measure of the complexity of the tumor's boundary, calculated as the fractal dimension of its contour.
-
-Creating the cleaned file
+Creating the cleaned tsv file.
 
 ```{r}
-df |>
+df_clean |>
   write_tsv(file = "data/02_dat_clean.tsv")
 ```
