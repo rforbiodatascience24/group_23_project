@@ -4,7 +4,7 @@ format: html
 editor: visual
 ---
 
-## Loading libraries
+## Loading libraries (are we sure we need them?)
 
 ```{r}
 library("tidyverse")
@@ -15,4 +15,9 @@ library("tidyverse")
 ```{r}
 file_path <- "data/_raw/data.csv"
 df <- read.csv(file_path)
+#df
+```
+
+```{r}
+write.csv(df, file = "data/01_dat_load.csv", row.names = FALSE)
 ```

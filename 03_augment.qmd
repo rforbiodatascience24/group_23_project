@@ -4,4 +4,41 @@ format: html
 editor: visual
 ---
 
-## 
+## Loading libraries
+
+```{r}
+library("tidyverse")
+```
+
+Loading data
+
+```{r}
+file_path <- "data/02_dat_clean.csv"
+df <- read.csv(file_path)
+```
+
+```{r}
+num <- 1:569
+ggplot(df,
+       aes(x = num,
+           y = radius_mean,
+           color = diagnosis)) +
+  geom_point()
+```
+
+Adding columns
+
+```{r}
+df1 <- df |>
+  mutate(radius_gravity = case_when(
+    radius_mean < 10 ~ "Low",
+    radius_mean >= 10 & radius_mean < 20 ~ "Medium",
+    radius_mean >= 20 ~ "High"),
+    radius_gravity = factor(radius_gravity, levels = c("Low", "Medium", "High")))
+
+```
+
+```{r}
+df2 <- df1 |> 
+  mutate(diagnosis_binary = if_else(diagnosis == "M", 1, 0))
+```
