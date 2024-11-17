@@ -10,12 +10,14 @@ editor: visual
 library("tidyverse")
 ```
 
-Loading data
+## Loading files
 
 ```{r}
-file_path <- "data/02_dat_clean.csv"
-df <- read.csv(file_path)
+df |> 
+  read_tsv(file = "data/02_dat_clean.tsv")
 ```
+
+## Augmenting data
 
 ```{r}
 num <- 1:569
