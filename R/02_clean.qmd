@@ -4,18 +4,14 @@ format: html
 editor: visual
 ---
 
-## Loading libraries
+## Loading data
 
 ```{r}
-library("tidyverse")
+df |> 
+  read_tsv(file = "data/01_dat_load.tsv")
 ```
 
-Loading data
-
-```{r}
-file_path <- "data/01_dat_load.csv"
-df <- read.csv(file_path)
-```
+## Cleaning data
 
 ```{r}
 # Controlling missin values
@@ -76,5 +72,6 @@ A measure of the complexity of the tumor's boundary, calculated as the fractal d
 Creating the cleaned file
 
 ```{r}
-write.csv(df_new, file = "data/02_dat_clean.csv", row.names = FALSE)
+df |>
+  write_tsv(file = "data/02_dat_clean.tsv")
 ```
