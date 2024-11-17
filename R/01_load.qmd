@@ -7,12 +7,14 @@ editor: visual
 ## Loading data
 
 ```{r}
-file_path <- "~/projects/R_project/data/_raw/Data_Cortex_Nuclear.csv" 
+file_path <- "data/_raw/Data_Cortex_Nuclear.csv" 
 df <- read.csv(file_path)
 #df
 ```
 
 ```{r}
 df |>
-  write_tsv(file = "~/projects/R_project/data/01_dat_load.tsv")
+  write_tsv(file = "data/01_dat_load.tsv")
 ```
+
+The eight classes of mice are described based on features such as genotype, behavior and treatment. According to genotype, mice can be control or trisomic. According to behavior, some mice have been stimulated to learn (context-shock) and others have not (shock-context) and in order to assess the effect of the drug memantine in recovering the ability to learn in trisomic mice, some mice have been injected with the drug and others have not.

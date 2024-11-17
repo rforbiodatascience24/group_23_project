@@ -43,6 +43,11 @@ df_clean <- df |>
          -"H3MeK4_N")
 ```
 
+```{r}
+# Alternative to automatize this step (no missing_summary needed):
+# select(where(~ sum(is.na(.)) < 100))
+```
+
 Creating the cleaned tsv file.
 
 ```{r}
