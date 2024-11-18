@@ -4,17 +4,30 @@ format: html
 editor: visual
 ---
 
+## **Loading libriaries**
+
+```{r}
+library("tidyverse")
+```
+
 ## Loading data
 
 ```{r}
+#For Gioele's PC, I might need the absolute path, IDK
+#first_path <- "/net/pupil1/home/people/s242150/projects/R_project/"
 file_path <- "data/_raw/Data_Cortex_Nuclear.csv" 
+#full_path <- file.path(first_path, file_path)
 df <- read.csv(file_path)
-#df
+#df <- read.csv(full_path)
 ```
 
 ```{r}
+# For Gioele!
+file_path <- "data/01_dat_load.tsv"
+#full_path <- file.path(first_path, file_path)
 df |>
-  write_tsv(file = "data/01_dat_load.tsv")
+  write_tsv(file = file_path)
+  #write_tsv(file = full_path)
 ```
 
 The eight classes of mice are described based on features such as genotype, behavior and treatment. According to genotype, mice can be control or trisomic. According to behavior, some mice have been stimulated to learn (context-shock) and others have not (shock-context) and in order to assess the effect of the drug memantine in recovering the ability to learn in trisomic mice, some mice have been injected with the drug and others have not.

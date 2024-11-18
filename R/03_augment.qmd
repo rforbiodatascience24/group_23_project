@@ -13,8 +13,11 @@ library("tidyverse")
 ## Loading data
 
 ```{r}
-df_clean |> 
-  read_tsv(file = "data/02_dat_clean.tsv")
+first_path <- "/net/pupil1/home/people/s242150/projects/R_project/"
+file_path <- "data/02_dat_clean.tsv" 
+full_path <- file.path(first_path, file_path)
+#df_clean <- read_tsv(file = "data/02_dat_clean.tsv")
+df_clean <- read_tsv(file = full_path)
 ```
 
 ## Augmenting data
@@ -29,3 +32,35 @@ df_aug <- df_clean |>
                                 Behavior == "S/C" ~ 0)) |>
   select(MouseID, Genotype, Treatment, Stimulated, DYRK1A_N:CaNA_N)
 ```
+
+**Creating 2 New Variables**
+
+1\)
+
+IT'S NOT WORKING YET... I WAS TRYING, BUT IT SEEMS THAT THE VARIABLE NAMES PRESENT IN THE KAGGLE PRESENTATION ARE DIFFERENT FROM THE ONES THAT WE GET WHEN WE DOWNLOAD THE DATASET.
+
+I'M ACTUALLY NOT SURE THE DATA SHOWN ON THE WEBSITE IS THE SAME OF THE DATASET. OUR DATA IS "FULL" (NO MISSING DATA), AT LEAST IN THE FIRST 10 ROWS, WHILE THERE ARE SOME VARIABLES IN THE WEBSITE THAT DON'T HAVE ALL THE VALUES IN THE FIRST ROWS.
+
+```{r}
+
+df_aug1 <- df_aug |>
+  mutate(BCL2_EGR1_Balance = BCL2_N / EGR1_N)
+```
+
+**BCL2_N**: This protein is part of the BCL-2 family, which plays a key role in regulating apoptosis (programmed cell death). It functions as an anti-apoptotic protein by preserving mitochondrial integrity and preventing the release of apoptogenic factors that initiate cell death. Dysregulation of BCL-2 is associated with cancer, as it allows cells to avoid apoptosis and proliferate uncontrollably
+
+**EGR1_N**: Early Growth Response 1 (EGR1) is a transcription factor involved in cell proliferation, differentiation, and response to stress signals. It is known to regulate genes linked to apoptosis and has been implicated in various cancers due to its dual role in promoting or suppressing cell growth depending on context.
+
+**BCL2_EGR1_Balance** = BCL2_N / EGR1_N.
+
+This ratio indicates the balance between anti-apoptotic (BCL-2) and stress-response or pro-apoptotic signaling (EGR1).
+
+2\)
+
+**BRAF_N**: BRAF is a protein kinase that plays a key role in the MAPK/ERK signaling pathway, which regulates cell growth, differentiation, and survival. Mutations in BRAF are commonly associated with cancers, especially melanoma.
+
+**pERK_N**: Phosphorylated ERK (pERK) is a downstream target of the MAPK pathway and is activated by BRAF. It is involved in transmitting growth signals within cells and is essential for proliferation.
+
+**MAPK_Activity** = BRAF_N \* pERK_N
+
+This product could represent the pathway's activity, as pERK depends on upstream signals like BRAF for its activation.
