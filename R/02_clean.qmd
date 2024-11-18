@@ -15,8 +15,8 @@ library("tidyverse")
 ```{r}
 #first_path <- "/net/pupil1/home/people/s242150/projects/R_project/"
 #file_path <- file.path(first_path, "data/01_dat_load.tsv")
-#df <-  read_tsv(file = file_path)
-df <- read_tsv(file = "data/01_dat_load.tsv")
+file_path <- "data/01_dat_load.tsv"
+df <- read_tsv(file = file_path)
 
 ```
 
@@ -54,9 +54,9 @@ df_clean <- df |>
 Creating the cleaned tsv file.
 
 ```{r}
-#full_path <- file.path(first_path, "data/02_dat_clean.tsv")
+file_path <- "data/02_dat_clean.tsv"
+#file_path <- file.path(first_path, file_path)
 
 df_clean |>
-  write_tsv(file = "data/02_dat_clean.tsv")
-  #write_tsv(file = full_path)
+  write_tsv(file = file_path)
 ```
