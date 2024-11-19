@@ -1,0 +1,69 @@
+---
+title: "04_describe"
+format: html
+editor: visual
+---
+
+## Loading libraries
+
+```{r}
+library("tidyverse")
+library("broom")
+library("purrr")
+```
+
+## Loading data
+
+```{r}
+first_path <- "/net/pupil1/home/people/s242150/projects/R_project/"
+file_path <- "data/03_dat_aug.tsv" 
+file_path <- file.path(first_path, file_path)
+df_aug <- read_tsv(file = file_path)
+```
+
+## **Creating The model**
+
+```{r}
+df_nested <- df_aug |>
+  group_by(Genotype, Treatment, Stimulated) |>
+  nest()
+```
+
+linear model between the 2 variables BRAF_N and pERK_N
+
+```{r}
+df_models <- df_nested |>
+  mutate(model = map(data, 
+                     ~lm(BRAF_N ~ pERK_N, 
+                         data = .x))  )
+```
+
+getting the coefficients
+
+```{r}
+df_results <- df_models |>
+  mutate(model_summary = map(model, 
+                             tidy)) |>
+  unnest(model_summary)
+```
+
+showing results
+
+```{r}
+df_results |>
+  select(Genotype, Treatment, Stimulated, term, estimate, std.error, p.value)
+```
+
+adding q.value and the variable is_signficant
+
+```{r}
+df_estimates <- df_results |>
+  mutate(q.value = p.adjust(p.value),
+         is_significant = case_when(q.value <= 0.01 ~ "yes",
+                                    q.value > 0.01 ~ "no"))
+```
+
+```{r}
+df_final <- df_estimates |>
+  unnest(data)
+```
