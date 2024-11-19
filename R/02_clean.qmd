@@ -14,7 +14,7 @@ library("dplyr")
 
 ```{r}
 df |> 
-  read_tsv(file = "data/01_dat_load.tsv")
+  read_tsv(file = "~/projects/R_project/data/01_dat_load.tsv")
 ```
 
 ## Cleaning data
@@ -52,5 +52,5 @@ Creating the cleaned tsv file.
 
 ```{r}
 df_clean |>
-  write_tsv(file = "data/02_dat_clean.tsv")
+  write_tsv(file = "~/projects/R_project/data/02_dat_clean.tsv")
 ```
