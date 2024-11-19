@@ -7,14 +7,15 @@ editor: visual
 ## Loading libraries
 
 ```{r}
-library("dplyr")
+library("tidyverse")
 ```
 
 ## Loading data
 
 ```{r}
-df |> 
-  read_tsv(file = "~/projects/R_project/data/01_dat_load.tsv")
+first_path <- "~/projects/R_project/"
+file_path <- file.path(first_path, "data/01_dat_load.tsv")
+df <- read_tsv(file = file_path)
 ```
 
 ## Cleaning data
@@ -36,21 +37,15 @@ Removing the columns with a significant number of missing values compared with t
 
 ```{r}
 df_clean <- df |> 
-  select(-"BAD_N", 
-         -"H3AcK18_N", 
-         -"BCL2_N", 
-         -"EGR1_N", 
-         -"H3MeK4_N")
-```
-
-```{r}
-# Alternative to automatize this step (no missing_summary needed):
-# select(where(~ sum(is.na(.)) < 100))
+  select(where(~ sum(is.na(.)) < 100))
 ```
 
 Creating the cleaned tsv file.
 
 ```{r}
+file_path <- "data/02_dat_clean.tsv"
+file_path <- file.path(first_path, file_path)
+
 df_clean |>
-  write_tsv(file = "~/projects/R_project/data/02_dat_clean.tsv")
+  write_tsv(file = file_path)
 ```
