@@ -17,6 +17,7 @@ library("tidyverse")
 first_path <- "~/projects/R_project/"
 file_path <- "data/02_dat_clean.tsv" 
 file_path <- file.path(first_path, file_path)
+
 df_clean <- read_tsv(file = file_path)
 ```
 
@@ -67,6 +68,44 @@ This ratio could highlight the balance between kinase-driven cellular signaling 
 file_path <- "data/03_dat_aug.tsv"
 file_path <- file.path(first_path, file_path)
 
+
+df_aug2 |>
+  write_tsv(file = file_path)
+```
+
+**Creating 2 New Variables**
+
+```{r}
+df_aug1 <- df_aug |>
+  mutate(MAPK_Activity = BRAF_N * pERK_N)
+```
+
+**BRAF_N**: BRAF is a protein kinase that plays a key role in the MAPK/ERK signaling pathway, which regulates cell growth, differentiation, and survival. Mutations in BRAF are commonly associated with cancers, especially melanoma.
+
+**pERK_N**: Phosphorylated ERK (pERK) is a downstream target of the MAPK pathway and is activated by BRAF. It is involved in transmitting growth signals within cells and is essential for proliferation.
+
+**MAPK_Activity** = BRAF_N \* pERK_N
+
+This product could represent the pathway's activity, as pERK depends on upstream signals like BRAF for its activation.
+
+```{r}
+df_aug2 <- df_aug1 |>
+  mutate(Chromatin_Activation_Index = AcetylH3K9_N / DYRK1A_N)
+```
+
+**AcetylH3K9_N**: Refers to the acetylation of lysine 9 on histone H3, a key epigenetic modification. It is associated with active chromatin and transcriptional activation, regulating gene expression during cell cycle progression and development.
+
+**DYRK1A_N**: Represents the Dual-specificity tyrosine-regulated kinase 1A, a kinase involved in various biological processes, including neural development, synaptic function, and cell proliferation. DYRK1A is also implicated in diseases such as Down syndrome and Alzheimer’s disease
+
+**Chromatin_Activation_Index** = AcetylH3K9_N / DYRK1A_N
+
+This ratio could highlight the balance between kinase-driven cellular signaling (DYRK1A) and chromatin activation (AcetylH3K9).
+
+## Saving the file
+
+```{r}
+file_path <- "data/03_dat_aug.tsv"
+file_path <- file.path(first_path, file_path)
 
 df_aug2 |>
   write_tsv(file = file_path)
