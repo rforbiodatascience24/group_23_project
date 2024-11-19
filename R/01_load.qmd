@@ -14,7 +14,7 @@ library("tidyverse")
 ## Loading data
 
 ```{r}
-# !! REMEMBER TO EXPLAIN THE ABSOLUTE PATH THING
+# !! REMEMBER TO EXPLAIN THE ABSOLUTE PATH THING ON THE README DOC
 
 first_path <- "~/projects/R_project/"
 file_path <- "data/_raw/Data_Cortex_Nuclear.csv" 
@@ -26,6 +26,7 @@ df <- read.csv(file_path)
 ```{r}
 file_path <- "data/01_dat_load.tsv"
 file_path <- file.path(first_path, file_path)
+
 df |>
   write_tsv(file = file_path)
 ```
