@@ -8,6 +8,10 @@ editor: visual
 
 ```{r}
 library("tidyverse")
+library(dendextend)
+library(reshape2)
+library(tibble)
+library(broom)
 ```
 
 ## Loading data
@@ -15,7 +19,7 @@ library("tidyverse")
 ```{r}
 #first_path <- "/net/pupil1/home/people/s242150/projects/R_project/"
 #file_path <- file.path(first_path, "data/01_dat_load.tsv")
-file_path <- "data/01_dat_load.tsv"
+file_path <- "/net/pupil1/home/people/s243057/projects/group_23_project/data/01_dat_load.tsv"
 df <- read_tsv(file = file_path)
 
 ```
@@ -35,7 +39,79 @@ missing_summary <- colSums(is.na(df))
 print(missing_summary)
 ```
 
-Removing the columns with a significant number of missing values compared with the size of the dataset (chosen threshold: \>100 NAs).
+Replacing the missing data with mean values 
+```{r}
+df <- as.data.frame(df)
+df_mean <- df |>
+  group_by(class) |>
+  mutate(across(everything(), ~ ifelse(is.na(.), mean(., na.rm = TRUE), .))) |>
+  ungroup()
+
+missing_summary <- colSums(is.na(df_mean))
+print(missing_summary)
+```
+
+Plotting both replacements
+```{r}
+# Reshape data for visualization
+df_long <- df |>
+  pivot_longer(cols = c(H3MeK4_N, EGR1_N, H3AcK18_N, BCL2_N, pCFOS_N, BAD_N),
+               names_to = "Protein", values_to = "Expression")
+
+df_mean_long <- df_mean |>
+  pivot_longer(cols = c(H3MeK4_N, EGR1_N, H3AcK18_N, BCL2_N, pCFOS_N, BAD_N),
+               names_to = "Protein", values_to = "Expression")
+
+
+# Combine datasets for comparison
+df_compare <- bind_rows(
+  mutate(df_long, Method = "Original"),
+  mutate(df_mean_long, Method = "Mean Replacement")
+)
+
+# Plot density
+ggplot(df_compare, aes(x = Expression, fill = Method)) +
+  geom_density(alpha = 0.5) +
+  facet_wrap(~Protein, scales = "free") +
+  theme_minimal() +
+  labs(title = "Distribution of Protein Expression After Replacements",
+       x = "Expression Level",
+       y = "Density")
+
+```
+
+
+Creating the cleaned tsv file.
+
+```{r}
+file_path <- "/net/pupil1/home/people/s243057/projects/group_23_project/data/02_dat_clean.tsv"
+#file_path <- file.path(first_path, file_path)
+
+df_clean <- df_mean
+
+df_clean |>
+  write_tsv(file = file_path)
+```
+
+
+
+
+Checking statistical importance - would not include
+```{r}
+# Calculate correlation with original data
+original <- df |>
+  select(H3MeK4_N, EGR1_N, H3AcK18_N, BCL2_N, pCFOS_N, BAD_N)
+
+mean_replaced <- df_mean |>
+  select(H3MeK4_N, EGR1_N, H3AcK18_N, BCL2_N, pCFOS_N, BAD_N)
+
+cor_original_mean <- cor(original, mean_replaced, use = "pairwise.complete.obs")
+
+print(cor_original_mean)
+
+```
+
+Removing the columns with a significant number of missing values compared with the size of the dataset (chosen threshold: \>100 NAs). - would not include
 
 ```{r}
 df_clean <- df |> 
@@ -51,12 +127,3 @@ df_clean <- df |>
 # select(where(~ sum(is.na(.)) < 100))
 ```
 
-Creating the cleaned tsv file.
-
-```{r}
-file_path <- "data/02_dat_clean.tsv"
-#file_path <- file.path(first_path, file_path)
-
-df_clean |>
-  write_tsv(file = file_path)
-```

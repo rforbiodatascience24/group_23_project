@@ -13,7 +13,7 @@ library("tidyverse")
 Loading data
 
 ```{r}
-file_path <- "data/02_dat_clean.csv"
+file_path <- "/net/pupil1/home/people/s243057/projects/group_23_project/data/02_dat_clean.csv"
 df <- read.csv(file_path)
 ```
 
