@@ -15,4 +15,4 @@ Scroll until you find "Data_Cortex_Nuclear.csv" preview
 
 Click on the download symbol 
 
-Save the downloaded file so that it follows this path: data/_raw/Data_Cortex_Nuclear.csv
+Save the downloaded file so that it follows this relative path: data/_raw/Data_Cortex_Nuclear.csv

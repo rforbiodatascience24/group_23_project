@@ -7,6 +7,7 @@ editor: visual
 ## Loading libraries
 
 ```{r}
+#| message: false
 library("tidyverse")
 library(dendextend)
 library(reshape2)
@@ -20,8 +21,9 @@ library(broom)
 #first_path <- "/net/pupil1/home/people/s242150/projects/R_project/"
 #file_path <- file.path(first_path, "data/01_dat_load.tsv")
 file_path <- "/net/pupil1/home/people/s243057/projects/group_23_project/data/01_dat_load.tsv"
+first_path <- "~/projects/R_project/"
+file_path <- file.path(first_path, "data/01_dat_load.tsv")
 df <- read_tsv(file = file_path)
-
 ```
 
 ## Cleaning data
@@ -94,8 +96,6 @@ df_clean |>
 ```
 
 
-
-
 Checking statistical importance - would not include
 ```{r}
 # Calculate correlation with original data
@@ -115,15 +115,15 @@ Removing the columns with a significant number of missing values compared with t
 
 ```{r}
 df_clean <- df |> 
-  select(-"BAD_N", 
-         -"H3AcK18_N", 
-         -"BCL2_N", 
-         -"EGR1_N", 
-         -"H3MeK4_N")
+  select(where(~ sum(is.na(.)) < 100))
 ```
+
+Creating the cleaned tsv file.
 
 ```{r}
-# Alternative to automatize this step (no missing_summary needed):
-# select(where(~ sum(is.na(.)) < 100))
-```
+file_path <- "data/02_dat_clean.tsv"
+file_path <- file.path(first_path, file_path)
 
+df_clean |>
+  write_tsv(file = file_path)
+```
