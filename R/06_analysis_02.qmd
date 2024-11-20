@@ -1,0 +1,24 @@
+## Load libraries
+
+```{r}
+install.packages("pheatmap")
+library(pheatmap)
+library(tidyverse)
+```
+
+## Loading data
+
+```{r}
+first_path <- "~/projects/R_project/"
+file_path <- "data/03_dat_aug.tsv" 
+file_path <- file.path(first_path, file_path)
+
+df_aug <- read_tsv(file = file_path)
+```
+
+```{r}
+# z-normalization of protein values
+df_aug[proteins] <- scale(df_aug[proteins])
+
+```
+

@@ -40,13 +40,3 @@ Removing the columns with a significant number of missing values compared with t
 df_clean <- df |> 
   select(where(~ sum(is.na(.)) < 100))
 ```
-
-Creating the cleaned tsv file.
-
-```{r}
-file_path <- "data/02_dat_clean.tsv"
-file_path <- file.path(first_path, file_path)
-
-df_clean |>
-  write_tsv(file = file_path)
-```
