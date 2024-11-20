@@ -57,6 +57,8 @@ ggplot(data = df_aug,
   labs(title = "Count of each class")
 ```
 
+The classes related to control mice appear to have a slightly higher count compared to the classes related to trisomy mice, suggesting an imbalance in the data between the two groups. The imbalanced distribution could be significant, but not necessarily problematic, as it reflects a true disparity between the groups (e.g., more mice in the control group). So, for this study we won't apply techniques to address balancing.
+
 Going into details, we pick the two proteins that we used to create the model in 04_describe (BRAF_N and pERK_N), and we analize their expression levels based on the class.
 
 ```{r fig.width=8, fig.height=10}
