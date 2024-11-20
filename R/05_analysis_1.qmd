@@ -67,7 +67,6 @@ p1 <- ggplot(data = df_aug,
   geom_boxplot(alpha = 0.8) +
   scale_fill_viridis_d(option = "D") +
   theme_light(base_family = "Avenir") +
-  theme(legend.position = "none") +
   scale_y_continuous(limits = c(0, 3.75))
 
 p2 <- ggplot(data = df_aug,
@@ -77,7 +76,6 @@ p2 <- ggplot(data = df_aug,
   geom_boxplot(alpha = 0.8) +
   scale_fill_viridis_d(option = "D") +
   theme_light(base_family = "Avenir") +
-  theme(legend.position = "none") +
   scale_y_continuous(limits = c(0, 3.75))
 
 p1 / p2 +
