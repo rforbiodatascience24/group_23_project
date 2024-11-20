@@ -6,7 +6,7 @@ editor: visual
 
 # Pre-analysis
 
-Before going into descriptive statistics we analyze the general trend of our data.
+Before going into descriptive statistics, we analyze the general trend of the data to understand what we're dealing with.
 
 ## Loading libraries
 
@@ -14,6 +14,7 @@ Before going into descriptive statistics we analyze the general trend of our dat
 #| message: false
 library("tidyverse")
 library("viridis")
+library("patchwork")
 ```
 
 ## Loading data
@@ -55,3 +56,38 @@ ggplot(data = df_aug,
   theme_light(base_family = "Avenir") +
   labs(title = "Count of each class")
 ```
+
+Going into details, we pick the two proteins that we used to create the model in 04_describe (BRAF_N and pERK_N), and we analize their expression levels based on the class.
+
+```{r fig.width=8, fig.height=10}
+p1 <- ggplot(data = df_aug,
+       mapping = aes(x = class,
+                     y = BRAF_N,
+                     fill = class)) +
+  geom_boxplot(alpha = 0.8) +
+  scale_fill_viridis_d(option = "D") +
+  theme_light(base_family = "Avenir") +
+  theme(legend.position = "none") +
+  scale_y_continuous(limits = c(0, 3.75))
+
+p2 <- ggplot(data = df_aug,
+       mapping = aes(x = class,
+                     y = pERK_N,
+                     fill = class)) +
+  geom_boxplot(alpha = 0.8) +
+  scale_fill_viridis_d(option = "D") +
+  theme_light(base_family = "Avenir") +
+  theme(legend.position = "none") +
+  scale_y_continuous(limits = c(0, 3.75))
+
+p1 / p2 +
+  plot_annotation(title = "Distribution of Protein Expression Level by Class") &
+  theme(plot.title = element_text(size = 15, 
+                                   family = "Avenir"))
+```
+
+We may notice that just a few of the boxplots are similar between the two proteins.
+
+In particular, pERK_N is characterized by slightly larger boxplots at higher values, which suggests that this protein is expressed in a more various way. Moreover, its whiskers are longer than those of BRAF_N. However, they both present most of the outliers for c-CS-s class and a very small variance for c-SC-m and c-SC-s classes.
+
+--\> needs to be checked
