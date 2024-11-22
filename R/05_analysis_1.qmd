@@ -59,12 +59,12 @@ ggplot(data = df_aug,
 
 The classes related to control mice appear to have a slightly higher count compared to the classes related to trisomy mice, suggesting an imbalance in the data between the two groups. The imbalanced distribution could be significant, but not necessarily problematic, as it reflects a true disparity between the groups (e.g., more mice in the control group). So, for this study we won't apply techniques to address balancing.
 
-Going into details, we pick the two proteins that we used to create the model in 04_describe (BRAF_N and pERK_N), and we analize their expression levels based on the class.
+Going into details, we pick the two proteins that we used to create the model in 04_describe (BRAF and pERK), and we analize their expression levels based on the class.
 
 ```{r fig.width=8, fig.height=10}
 p1 <- ggplot(data = df_aug,
        mapping = aes(x = class,
-                     y = BRAF_N,
+                     y = BRAF,
                      fill = class)) +
   geom_boxplot(alpha = 0.8) +
   scale_fill_viridis_d(option = "D") +
@@ -73,7 +73,7 @@ p1 <- ggplot(data = df_aug,
 
 p2 <- ggplot(data = df_aug,
        mapping = aes(x = class,
-                     y = pERK_N,
+                     y = pERK,
                      fill = class)) +
   geom_boxplot(alpha = 0.8) +
   scale_fill_viridis_d(option = "D") +
@@ -88,6 +88,6 @@ p1 / p2 +
 
 We may notice that just a few of the boxplots are similar between the two proteins.
 
-The expression levels of BRAF_N appear to be more stable and less variable, especially in the control group. Instead, pERK_N shows greater variability across classes, particularly in the trisomy group: this is represented by larger boxes, longer whiskers and a higher number of outliers. However, they both present most of the outliers in c-CS-s and a very small variance in c-SC-m and c-SC-s.
+The expression levels of BRAF appear to be more stable and less variable, especially in the control group. Instead, pERK shows greater variability across classes, particularly in the trisomy group: this is represented by larger boxes, longer whiskers and a higher number of outliers. However, they both present most of the outliers in c-CS-s and a very small variance in c-SC-m and c-SC-s.
 
 --\> any more comments?
