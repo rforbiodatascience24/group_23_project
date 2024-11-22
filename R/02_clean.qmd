@@ -21,7 +21,7 @@ df <- read_tsv(file = file_path)
 
 ## Cleaning data
 
-Deleting _N from the protein names
+Deleting \_N from the protein names
 
 ```{r}
 #names(df) <- gsub("_N", "", names(df))
@@ -38,6 +38,7 @@ print(missing_summary)
 ```
 
 Replacing the NaNs with mean values
+
 ```{r}
 df <- as.data.frame(df)
 
@@ -51,8 +52,8 @@ missing_summary <- colSums(is.na(df_mean))
 print(missing_summary)
 ```
 
-
 # Reshape data for visualization
+
 ```{r}
 #df_long <- df |>
 #pivot_longer(cols = c(H3MeK4, EGR1, H3AcK18, BCL2, pCFOS, BAD),

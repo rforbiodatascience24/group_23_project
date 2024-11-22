@@ -89,5 +89,3 @@ p1 / p2 +
 We may notice that just a few of the boxplots are similar between the two proteins.
 
 The expression levels of BRAF_N appear to be more stable and less variable, especially in the control group. Instead, pERK_N shows greater variability across classes, particularly in the trisomy group: this is represented by larger boxes, longer whiskers and a higher number of outliers. However, they both present most of the outliers in c-CS-s and a very small variance in c-SC-m and c-SC-s.
-
---\> any more comments?
