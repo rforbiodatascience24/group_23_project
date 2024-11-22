@@ -1,0 +1,39 @@
+---
+title: "00_all"
+format: html
+editor: visual
+---
+
+Loading libraries
+
+```{r}
+#| message: false
+library("tidyverse")
+```
+
+Loading the .qmd files
+
+```{r}
+quarto::quarto_render("/net/pupil1/home/people/s242150/projects/R_project/R/01_load.qmd")
+#quarto::quarto_render("R/01_load.qmd")
+```
+
+```{r}
+quarto::quarto_render("/net/pupil1/home/people/s242150/projects/R_project/R/02_clean.qmd")
+#quarto::quarto_render("R/02_clean.qmd")
+```
+
+```{r}
+quarto::quarto_render("/net/pupil1/home/people/s242150/projects/R_project/R/03_augment.qmd")
+#quarto::quarto_render("R/03_augment.qmd")
+```
+
+```{r}
+quarto::quarto_render("/net/pupil1/home/people/s242150/projects/R_project/R/04_describe.qmd")
+#quarto::quarto_render("R/04_describe.qmd")
+```
+
+```{r}
+quarto::quarto_render("/net/pupil1/home/people/s242150/projects/R_project/R/05_analysis_1.qmd")
+#quarto::quarto_render("R/05_analysis_1.qmd")
+```

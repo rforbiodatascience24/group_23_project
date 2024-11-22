@@ -24,7 +24,7 @@ df_aug <- read_tsv(file = file_path)
 
 ## **Creating The model**
 
-I first created the 8 categories that the website indicates: genotype (control or Ts65Dn), treatment (Memantine or Saline), and Stimulated (yes = 1, no = 0)
+We first created the 8 categories that the website indicates: genotype (control or Ts65Dn), treatment (Memantine or Saline), and Stimulated (yes = 1, no = 0)
 
 ```{r}
 df_nested <- df_aug |>
@@ -32,7 +32,7 @@ df_nested <- df_aug |>
   nest()
 ```
 
-linear model between the 2 variables BRAF_N and pERK_N
+Then we created a linear model between the 2 variables BRAF_N and pERK_N
 
 ```{r}
 df_models <- df_nested |>
@@ -41,7 +41,7 @@ df_models <- df_nested |>
                          data = .x))  )
 ```
 
-getting the coefficients
+Here we get the coefficients
 
 ```{r}
 df_results <- df_models |>
@@ -50,14 +50,14 @@ df_results <- df_models |>
   unnest(model_summary)
 ```
 
-showing results
+Showing the results
 
 ```{r}
 df_results |>
   select(Genotype, Treatment, Stimulated, term, estimate, std.error, p.value)
 ```
 
-adding q.value and the variable is_signficant
+Adding q.value and the variable is_signficant
 
 ```{r}
 df_estimates <- df_results |>
