@@ -63,7 +63,7 @@ Loading the function that generates the densitograms.
 
 ```{r}
 # it doesn't work eheh
-#p1 <- densitogram(trisomic, "BRAF_N")
+#p1 <- densitogram(trisomic, "BRAF_N", deparse(substitute(trisomic)))
 #p1
 ```
 
