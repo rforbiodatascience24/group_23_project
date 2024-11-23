@@ -121,12 +121,10 @@ p4 <- p4 +
 p3 / p4
 ```
 
-For both groups the stimulation classes (CS, blue and purple) show main peaks around intermediate pERK_N values (approximately 0.6), and display flatter distributions compared to the non-stimulation classes (SC, green and yellow) classes, indicating greater variability in the data. On the other hand, the non-stimulation classes are concentrated around lower values, between 0.2 and 0.5.
+For both groups the stimulation classes (CS, blue and purple) show main peaks around intermediate pERK_N values (approximately 0.6), and display flatter distributions compared to the non-stimulation classes (SC, green and yellow) classes, indicating greater variability in the data. On the other hand, the non-stimulation classes are concentrated around lower values, between 0.2 and 0.5, and show higher peaks.
 
 This clear separation between the presence and the absence of stimulation suggests that the protein expression levels may be distinctive for these categories, just as BRAF_N.
 
 Unlike the previous one, in this case the SC-m class (no stimulation, treated with memantine) is dominant in the trisomic group as it is in the control group. The main difference is represented by the SC-s class (no stimulation, treated with saline), which is dominant in the control group but not in the trisomic group, suggesting a possible biological effect.
 
-In general, trisomic classes appear to have more diverse distributions than controls, which was also noticed in the first analysis and for BRAF_N as well.
-
---\> needs to be checked
+In general, trisomic classes appear to have more diverse distributions than controls, which was also noticed for BRAF_N and in the first analysis as well. The differences in the distribution of pERK_N between the two groups could suggest alterations in the phosphorylation levels of the ERK protein, potentially linked to differences in the molecular mechanisms between the two conditions.
