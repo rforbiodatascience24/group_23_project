@@ -1,24 +1,85 @@
 ---
-title: "presentation"
+title: "Presentation"
 format: revealjs
 editor: visual
 ---
 
-## Quarto
+## **Gruppo 23**
 
-Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
+Gaia Marraffa
 
-## Bullets
+Natalia Najuch
 
-When you click the **Render** button a document will be generated that includes:
+Gioele Tiraboschi
 
--   Content authored with markdown
--   Output from executable code
+------------------------------------------------------------------------
 
-## Code
+## Slide 2: Title
 
-When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
+You can write **bold text**, *italics text*, or also adding links [link](https://example.com).
+
+------------------------------------------------------------------------
+
+## Slide 3: Titolo
+
+You can add R code:
 
 ```{r}
-1 + 1
+x <- 1 + 2
 ```
+
+------------------------------------------------------------------------
+
+## Slide 4: Titolo
+
+You can add plots
+
+```{r}
+plot(mtcars$mpg, mtcars$hp)
+```
+
+------------------------------------------------------------------------
+
+## Slide 5: Titolo
+
+Adding a local image:
+
+![MY_IMAGE](images/example.png)
+
+------------------------------------------------------------------------
+
+## Slide 6: Titolo
+
+Contenuto della sesta slide.
+
+------------------------------------------------------------------------
+
+## Slide 7: Titolo
+
+Contenuto della settima slide.
+
+------------------------------------------------------------------------
+
+## Slide 8: Titolo
+
+Contenuto dell'ottava slide.
+
+------------------------------------------------------------------------
+
+## Slide 9: Titolo
+
+Contenuto della nona slide.
+
+------------------------------------------------------------------------
+
+## Slide 10: Titolo
+
+Contenuto della decima slide.
+
+------------------------------------------------------------------------
+
+## **Thanks for the attention**
+
+::: {style="text-align: center; font-size: 2em; font-weight: bold;"}
+Thanks for the attention
+:::
