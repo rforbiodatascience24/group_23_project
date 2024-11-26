@@ -36,6 +36,7 @@ control <- df_aug |>
 ```
 
 ```{r}
+#CHANGE THE COLORS (TO MAKE IT COLORBLIND FRIENDLY)
 p1 <- ggplot(data = trisomic,
              aes(x = BRAF_N,
                  fill = class)) +
