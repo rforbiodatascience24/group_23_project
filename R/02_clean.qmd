@@ -21,10 +21,13 @@ df <- read_tsv(file = file_path)
 
 ## Cleaning data
 
+Deleting \_N from the protein names
+
 ```{r}
-# I'm not sure if this is necessary to deal with the NAs
-#df_clean <- df |>
-  #mutate(across(everything(), ~ ifelse(is.na(.), "N/A", .)))
+#names(df) <- gsub("_N", "", names(df))
+proteins <- names(df[2:78])
+classes <- as.vector(unique(as.character(df$class)))
+
 ```
 
 Checking how many missing values appear in each column.
@@ -34,19 +37,61 @@ missing_summary <- colSums(is.na(df))
 print(missing_summary)
 ```
 
-Removing the columns with a significant number of missing values compared with the size of the dataset (chosen threshold: \>100 NAs).
+Replacing the NaNs with mean values
 
 ```{r}
-df_clean <- df |> 
-  select(where(~ sum(is.na(.)) < 100))
+df <- as.data.frame(df)
+
+df_mean <- df |>
+  group_by(class) |>
+  mutate(across(c(proteins),
+                ~ ifelse(is.na(.), mean(., na.rm = TRUE), .))) |>
+  ungroup()
+
+missing_summary <- colSums(is.na(df_mean))
+print(missing_summary)
 ```
 
-Creating the cleaned tsv file.
+# Reshape data for visualization
+
+```{r}
+#df_long <- df |>
+#pivot_longer(cols = c(H3MeK4, EGR1, H3AcK18, BCL2, pCFOS, BAD),
+#names_to = "Protein", values_to = "Expression")
+
+#df_mean_long <- df_mean |>
+#pivot_longer(cols = c(H3MeK4, EGR1, H3AcK18, BCL2, pCFOS, BAD),
+#names_to = "Protein", values_to = "Expression")
+
+df_long <- df |>
+pivot_longer(cols = c(H3MeK4_N, EGR1_N, H3AcK18_N, BCL2_N, pCFOS_N, BAD_N),
+names_to = "Protein", values_to = "Expression")
+
+df_mean_long <- df_mean |>
+pivot_longer(cols = c(H3MeK4_N, EGR1_N, H3AcK18_N, BCL2_N, pCFOS_N, BAD_N),
+names_to = "Protein", values_to = "Expression")
+
+
+# Combine all datasets for comparison
+df_compare <- bind_rows(
+mutate(df_long, Method = "Original"),
+mutate(df_mean_long, Method = "Mean Replacement")
+)
+
+# Plot density
+ggplot(df_compare, aes(x = Expression, fill = Method)) +
+geom_density(alpha = 0.5) +
+facet_wrap(~Protein, scales = "free") +
+theme_minimal() +
+labs(title = "Distribution of Protein Expression After Replacements",
+x = "Expression Level",
+y = "Density")
+```
 
 ```{r}
 file_path <- "data/02_dat_clean.tsv"
 file_path <- file.path(first_path, file_path)
 
-df_clean |>
+df |>
   write_tsv(file = file_path)
 ```
