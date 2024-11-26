@@ -1,0 +1,73 @@
+---
+title: "10_analysis_6"
+format: html
+editor: visual
+---
+
+## Analysis 6
+
+In this analysis we will implement PCA, since our dataset is quite large, so it will be useful to identify patterns and reduce redundancy.
+
+## Loading libraries
+
+```{r}
+#| message: false 
+library("tidyverse")
+library("broom")
+```
+
+## Loading data
+
+```{r}
+first_path <- "~/projects/R_project/" 
+file_path <- "data/03_dat_aug.tsv"  
+file_path <- file.path(first_path, file_path) 
+df_aug <- read_tsv(file = file_path)
+```
+
+## Analysis
+
+First, we ignore all the columns that don't contain protein expression levels, and we convert the data into a matrix.
+
+```{r}
+prot_only <- df_aug |>
+  select(ends_with("_N"))
+
+prot_only_mat <- prot.only <- as.matrix(prot_only)
+```
+
+Because the range of our data varies between different proteins, we standardize the data by transforming the values into z-scores. This is done by substracting the mean of each variable from its values and then dividing by the range.
+
+```{r}
+prot_only_norm <- apply(prot_only_mat, 
+                        2, 
+                        function(x){
+                          (x - mean(x)) / diff(range(x))
+                          })
+```
+
+Finally, we run the PCA.
+
+```{r}
+pca <- prot_only_norm |>
+  prcomp(center = TRUE,
+         scale = TRUE)
+```
+
+We plot the data in PC coordinates combining them with the original dataset, in order to distinguish into different categories.
+
+```{r}
+p_gen <- pca |>
+  augment(df_aug) |>
+  ggplot(aes(.fittedPC1, 
+             .fittedPC2, 
+             color = Genotype)) + 
+  geom_point(size = 1.5) 
+  #scale_color_manual(
+  #  values = c(control = "#D55E00", 
+  #             benign = "#0072B2")
+  #) +
+  #theme_half_open(12) + 
+  #background_grid()
+p_gen
+```

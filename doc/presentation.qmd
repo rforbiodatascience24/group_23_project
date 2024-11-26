@@ -4,7 +4,7 @@ format: revealjs
 editor: visual
 ---
 
-## **Gruppo 23**
+## **Group 23**
 
 ### **Analysis of Mice Protein Expression**
 
@@ -22,7 +22,7 @@ You can write **bold text**, *italics text*, or also adding links [link](https:/
 
 ------------------------------------------------------------------------
 
-## Slide 3: Titolo
+## Slide 3: Title
 
 You can add R code:
 

@@ -21,10 +21,7 @@ df <- read_tsv(file = file_path)
 
 ## Cleaning data
 
-Deleting \_N from the protein names
-
 ```{r}
-#names(df) <- gsub("_N", "", names(df))
 proteins <- names(df[2:78])
 classes <- as.vector(unique(as.character(df$class)))
 
@@ -92,6 +89,6 @@ y = "Density")
 file_path <- "data/02_dat_clean.tsv"
 file_path <- file.path(first_path, file_path)
 
-df |>
+df_mean |>
   write_tsv(file = file_path)
 ```

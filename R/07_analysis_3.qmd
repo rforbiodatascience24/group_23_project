@@ -6,7 +6,6 @@ editor: visual
 
 ## Analysis 3
 
-
 ## Loading libraries
 
 ```{r}
