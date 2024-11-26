@@ -1,0 +1,87 @@
+---
+title: "Presentation"
+format: revealjs
+editor: visual
+---
+
+## **Gruppo 23**
+
+### **Analysis of Mice Protein Expression**
+
+Gaia Marraffa
+
+Natalia Najuch
+
+Gioele Tiraboschi
+
+------------------------------------------------------------------------
+
+## Slide 2: Title
+
+You can write **bold text**, *italics text*, or also adding links [link](https://example.com).
+
+------------------------------------------------------------------------
+
+## Slide 3: Titolo
+
+You can add R code:
+
+```{r}
+x <- 1 + 2
+```
+
+------------------------------------------------------------------------
+
+## Slide 4: Titolo
+
+You can add plots
+
+```{r}
+plot(mtcars$mpg, mtcars$hp)
+```
+
+------------------------------------------------------------------------
+
+## Slide 5: Titolo
+
+Adding a local image:
+
+![MY_IMAGE](images/example.png)
+
+------------------------------------------------------------------------
+
+## Slide 6: Titolo
+
+Contenuto della sesta slide.
+
+------------------------------------------------------------------------
+
+## Slide 7: Titolo
+
+Contenuto della settima slide.
+
+------------------------------------------------------------------------
+
+## Slide 8: Titolo
+
+Contenuto dell'ottava slide.
+
+------------------------------------------------------------------------
+
+## Slide 9: Titolo
+
+Contenuto della nona slide.
+
+------------------------------------------------------------------------
+
+## Slide 10: Titolo
+
+Contenuto della decima slide.
+
+------------------------------------------------------------------------
+
+## **Thanks for the attention**
+
+::: {style="text-align: center; font-size: 2em; font-weight: bold;"}
+Thanks for the attention
+:::
