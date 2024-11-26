@@ -46,12 +46,14 @@ df_aug <- df_clean |>
 
 **Creating 2 New Variables**
 
+**VARIABLE 1: MAPK_Activity**
+
 ```{r}
 df_aug1 <- df_aug |>
   mutate(MAPK_Activity = BRAF_N * pERK_N)
 ```
 
-**BRAF_N**: BRAF is a protein kinase that plays a key role in the MAPK/ERK signaling pathway, which regulates cell growth, differentiation, and survival. Mutations in BRAF are commonly associated with cancers, especially melanoma.
+**BRAF_N**: BRAF (v-raf murine sarcoma viral oncogene homolog B) is a protein kinase that plays a key role in the MAPK/ERK (Mitogen-Activated Protein Kinase / Extracellular Signal-Regulated Kinase) signaling pathway, which regulates cell growth, differentiation, and survival. Mutations in BRAF are commonly associated with cancers.
 
 **pERK_N**: Phosphorylated ERK (pERK) is a downstream target of the MAPK pathway and is activated by BRAF. It is involved in transmitting growth signals within cells and is essential for proliferation.
 
@@ -59,14 +61,16 @@ df_aug1 <- df_aug |>
 
 This product could represent the pathway's activity, as pERK depends on upstream signals like BRAF for its activation.
 
+**VARIABLE 2: Chromatin_Activation_Index**
+
 ```{r}
 df_aug2 <- df_aug1 |>
   mutate(Chromatin_Activation_Index = AcetylH3K9_N / DYRK1A_N)
 ```
 
-**AcetylH3K9_N**: Refers to the acetylation of lysine 9 on histone H3, a key epigenetic modification. It is associated with active chromatin and transcriptional activation, regulating gene expression during cell cycle progression and development.
+**AcetylH3K9_N** (acetylation of histone H3 at lysine 9): Refers to the acetylation of lysine 9 on histone H3, a key epigenetic modification. It is associated with active chromatin and transcriptional activation, regulating gene expression during cell cycle progression and development.
 
-**DYRK1A_N**: Represents the Dual-specificity tyrosine-regulated kinase 1A, a kinase involved in various biological processes, including neural development, synaptic function, and cell proliferation. DYRK1A is also implicated in diseases such as Down syndrome and Alzheimer’s disease
+**DYRK1A_N** (Dual-specificity Tyrosine-phosphorylation Regulated Kinase 1A): Represents the Dual-specificity tyrosine-regulated kinase 1A, a kinase involved in various biological processes, including neural development, synaptic function, and cell proliferation. DYRK1A is also implicated in diseases such as Down syndrome and Alzheimer’s disease
 
 **Chromatin_Activation_Index** = AcetylH3K9_N / DYRK1A_N
 

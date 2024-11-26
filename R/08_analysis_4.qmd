@@ -74,9 +74,8 @@ df_aug |> ggplot(aes(x = Stimulated,
 -   **MAPK Activity vs. Stimulated**:\
     There is a **clear distinction** between the two groups. When Stimulated is 1, the MAPK activity is significantly higher, suggesting that stimulation strongly activates this pathway. The logarithmic scale highlights that this effect spans multiple orders of magnitude. This indicates a robust biological response to stimulation, aligning with the pathway's known role in transmitting activation signals.
 
-```{=html}
 <!-- -->
-```
+
 -   **MAPK Activity vs. Treatment**:\
     The distribution of MAPK activity is fairly similar between the two Treatment groups. The median values are comparable, and there isn't a significant difference in spread or outliers. This suggests that `Treatment` might not have a direct or strong impact on MAPK activity, at least under these conditions.
 

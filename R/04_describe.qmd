@@ -24,7 +24,7 @@ df_aug <- read_tsv(file = file_path)
 
 ## **Creating The model**
 
-We first created the 8 categories that the website indicates: genotype (control or Ts65Dn), treatment (Memantine or Saline), and Stimulated (yes = 1, no = 0)
+We first created the 8 categories that the website indicates: genotype (control = 0 or Ts65Dn = 1), treatment (Memantine = 1 or Saline = 0), and Stimulated (yes = 1, no = 0)
 
 ```{r}
 df_nested <- df_aug |>
