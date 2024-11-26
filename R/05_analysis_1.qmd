@@ -51,8 +51,8 @@ First, we count the occurance of each class in the dataset. The classes are the 
 ggplot(data = df_aug,
        mapping = aes(class, 
                      fill = class)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_viridis_d(option = "D") +
+  geom_bar(alpha = 0.7) +
+  scale_fill_viridis_d(option = "H") +
   theme_light(base_family = "Avenir") +
   labs(title = "Count of each class")
 ```
@@ -66,8 +66,8 @@ p1 <- ggplot(data = df_aug,
        mapping = aes(x = class,
                      y = BRAF_N,
                      fill = class)) +
-  geom_boxplot(alpha = 0.8) +
-  scale_fill_viridis_d(option = "D") +
+  geom_boxplot(alpha = 0.7) +
+  scale_fill_viridis_d(option = "H") +
   theme_light(base_family = "Avenir") +
   scale_y_continuous(limits = c(0, 3.75))
 
@@ -75,8 +75,8 @@ p2 <- ggplot(data = df_aug,
        mapping = aes(x = class,
                      y = pERK_N,
                      fill = class)) +
-  geom_boxplot(alpha = 0.8) +
-  scale_fill_viridis_d(option = "D") +
+  geom_boxplot(alpha = 0.7) +
+  scale_fill_viridis_d(option = "H") +
   theme_light(base_family = "Avenir") +
   scale_y_continuous(limits = c(0, 3.75))
 
