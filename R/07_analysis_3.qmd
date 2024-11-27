@@ -38,24 +38,19 @@ control <- df_aug |>
 ```
 
 ```{r}
-#CHANGE THE COLORS (TO MAKE IT COLORBLIND FRIENDLY)
 p1 <- ggplot(data = trisomic,
-             aes(x = BRAF_N,
-                 fill = class)) +
+             mapping = aes(x = BRAF_N,
+                           fill = class)) +
   geom_density(alpha = 0.5) +
-  scale_fill_viridis_d(option = "D") +
   labs(title = "Densitogram of BRAF_N for trisomic classes") +
   theme_minimal(base_family = "Avenir")
 
 p2 <- ggplot(data = control,
-             aes(x = BRAF_N,
-                 fill = class)) +
+             mapping = aes(x = BRAF_N,
+                           fill = class)) +
   geom_density(alpha = 0.5) + 
-  scale_fill_viridis_d(option = "D") +
   labs(title = "Densitogram of BRAF_N for control classes") +
   theme_minimal(base_family = "Avenir")
-
-p1 / p2
 ```
 
 Loading the function that generates the densitograms.
@@ -81,10 +76,11 @@ p2 <- p2 +
   xlim(0.1, 0.9) +
   ylim(0, 11.0)
 
-p1 / p2
+#p1 
+#p2
 ```
 
-For both groups the stimulation classes (CS, blue and purple) show main peaks around intermediate BRAF_N values (approximately 0.4), and display flatter distributions compared to the non-stimulation classes (SC, green and yellow) classes, indicating greater variability in the data. On the other hand, the non-stimulation classes are mainly overlapped and concentrated around lower values, between 0.1 and 0.3, with a relatively sharp density.
+For both groups the stimulation classes (CS, red and green) show main peaks around intermediate BRAF_N values (approximately 0.4), and display flatter distributions compared to the non-stimulation classes (SC, blue and purple) classes, indicating greater variability in the data. On the other hand, the non-stimulation classes are mainly overlapped and concentrated around lower values, between 0.1 and 0.3, with a relatively sharp density.
 
 This clear separation between the presence and the absence of stimulation suggests that the protein expression levels may be distinctive for these categories.
 
@@ -95,7 +91,6 @@ p3 <- ggplot(data = trisomic,
              aes(x = pERK_N,
                  fill = class)) +
   geom_density(alpha = 0.5) +
-  scale_fill_viridis_d(option = "D") +
   labs(title = "Densitogram of pERK_N for trisomic classes") +
   theme_minimal(base_family = "Avenir")
 
@@ -103,11 +98,8 @@ p4 <- ggplot(data = control,
              aes(x = pERK_N,
                  fill = class)) +
   geom_density(alpha = 0.5) + 
-  scale_fill_viridis_d(option = "D") +
   labs(title = "Densitogram of pERK_N for control classes") +
   theme_minimal(base_family = "Avenir")
-
-p3 / p4
 ```
 
 We set the same axis in order to better compare the two groups.
@@ -121,10 +113,11 @@ p4 <- p4 +
   xlim(0.1, 1.5) +   
   ylim(0, 10.0)  
 
-p3 / p4
+#p3
+#p4
 ```
 
-For both groups the stimulation classes (CS, blue and purple) show main peaks around intermediate pERK_N values (approximately 0.6), and display flatter distributions compared to the non-stimulation classes (SC, green and yellow) classes, indicating greater variability in the data. On the other hand, the non-stimulation classes are concentrated around lower values, between 0.2 and 0.5, and show higher peaks.
+For both groups the stimulation classes (CS, red and green) show main peaks around intermediate pERK_N values (approximately 0.6), and display flatter distributions compared to the non-stimulation classes (SC, blue and purple) classes, indicating greater variability in the data. On the other hand, the non-stimulation classes are concentrated around lower values, between 0.2 and 0.5, and show higher peaks.
 
 This clear separation between the presence and the absence of stimulation suggests that the protein expression levels may be distinctive for these categories, just as BRAF_N.
 
