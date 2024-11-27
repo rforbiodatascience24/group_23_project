@@ -70,3 +70,63 @@ df_estimates <- df_results |>
 df_final <- df_estimates |>
   unnest(data)
 ```
+
+### Final plot to analyze differences between the groups
+
+We first need a new variable we will be using in the plot showing which group we're studying.
+
+```{r}
+df_final <- df_final |>
+  mutate(Group = paste0("Genotype: ", Genotype, 
+                        ", Treatment: ", Treatment, 
+                        ", Stimulated: ", Stimulated))
+```
+
+Then we can do the plot, showing the 8 groups, each with the 2 bars coming from the statistics: Intercept (bar on the left of each group subplot), and pERK_N (bar on the right of each group subplot).
+
+```{r, fig.width=14, fig.height=7}
+df_final |>
+  ggplot(aes(x = term, 
+             y = estimate, 
+             fill = is_significant)) +
+  geom_bar(stat = "identity", 
+           position = "dodge") +
+  facet_wrap(~ Group) +
+  labs(title = "Coefficient estimate for each group",
+       x = "Predictive variable: Intercept (Left), pERK_N (Right)",
+       y = " ") +
+  scale_x_discrete(labels = c("(Intercept)" = "", "pERK_N" = "")) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 20, face = "bold"), 
+    axis.title = element_text(size = 16),                
+    axis.text = element_text(size = 14),                
+    legend.title = element_text(size = 14),             
+    legend.text = element_text(size = 12),             
+    strip.text = element_text(size = 14)                 
+  )
+```
+
+The plot shows the coefficient estimates for the two predictive variables, **Intercept** and **pERK_N**, across different groups defined by combinations of Genotype, Treatment and Stimulated. The x-axis represents the predictive variables, and the bars represent their estimated coefficients, colored by whether they are statistically significant.
+
+### Key observations:
+
+1.  **Intercept for (0,0,1)**:
+
+    -   The only bar marked as **not significant** is the Intercept bar for the (0,0,1) group (Control mice, treated with saline, and stimulated). This coefficient has the smallest value among all groups, approaching zero, which indicates a very weak or negligible effect for this combination of Genotype, Treatment and Stimulated.
+
+2.  **Significance and Comparison of pERK_N**:
+
+    -   All the **pERK_N** bars, are marked as significant, indicating that the effect of **pERK_N** is statistically noteworthy across all combinations of the experimental groups.
+
+    -   The **pERK_N** coefficients show varying magnitudes depending on the group. In some groups, like (0,0,0) and (0,0,1), the effect is stronger, suggesting a more pronounced influence of **pERK_N**, while in other groups, like (1,0,0) the effect is weaker but still significant.
+
+3.  **Comparing Intercept and pERK_N**:
+
+    -   In all the groups, the **pERK_N** coefficient is larger than the **Intercept**, suggesting that **pERK_N** has a stronger influence on the outcome compared to the baseline represented by the **Intercept**.
+
+    -   The magnitude of the coefficient for **pERK_N** is higher in **Genotype 0** groups compared to **Genotype 1**, indicating that the effect of **pERK_N** may be modulated by the genotype, with **Genotype 0** (control mice) showing a more substantial effect.
+
+### 
+
+In conclusion, the plot provides insights into the influence of **pERK_N** and **Intercept** across various experimental conditions. The **Intercept** is only significant in specific cases, while **pERK_N** shows consistent significance across groups, with its effect varying in magnitude depending on the combination of genotype and treatment. The **Genotype 0** groups generally show larger effects, particularly in the case of no stimulation.
