@@ -4,8 +4,6 @@ format: html
 editor: visual
 ---
 
-# Pre-analysis
-
 Before going into descriptive statistics, we analyze the general trend of the data to understand what we're dealing with.
 
 ## Loading libraries
