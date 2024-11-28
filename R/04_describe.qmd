@@ -22,9 +22,9 @@ file_path <- file.path(first_path, file_path)
 df_aug <- read_tsv(file = file_path)
 ```
 
-## **Creating The model**
+## **Creating the model**
 
-We first created the 8 categories that the website indicates: genotype (control = 0 or Ts65Dn = 1), treatment (Memantine = 1 or Saline = 0), and Stimulated (yes = 1, no = 0)
+We first group by three categories: Genotype (control = 0 or Ts65Dn = 1), Treatment (Memantine = 1 or Saline = 0), and Stimulated (yes = 1, no = 0)
 
 ```{r}
 df_nested <- df_aug |>
@@ -32,7 +32,7 @@ df_nested <- df_aug |>
   nest()
 ```
 
-Then we created a linear model between the 2 variables BRAF_N and pERK_N
+Then we create a linear model between the two variables BRAF_N and pERK_N.
 
 ```{r}
 df_models <- df_nested |>
@@ -41,7 +41,7 @@ df_models <- df_nested |>
                          data = .x))  )
 ```
 
-Here we get the coefficients
+Here we get the coefficients.
 
 ```{r}
 df_results <- df_models |>
@@ -50,16 +50,14 @@ df_results <- df_models |>
   unnest(model_summary)
 ```
 
-Showing the results
+Showing the results.
 
 ```{r}
 df_results |>
   select(Genotype, Treatment, Stimulated, term, estimate, std.error, p.value)
 ```
 
-Adding q.value and the variable is_signficant.
-
-We chose the threshold of 0.01 because it was the highest (reasonable) value that created a distinction between significant and non-significant values. With a higher threshold (e.g., 5%), there were no differences between significant and non-significant values, as all values were classified as significant.
+Then, we decided to add the q.value and the variable is_significant. We set the threshold to 0.01 because it is the highest (reasonable) value that creates a distinction between significant and non-significant values. With a higher threshold (e.g., 5%), there are no differences between significant and non-significant values, as all values are classified as significant.
 
 ```{r}
 df_estimates <- df_results |>
@@ -84,9 +82,9 @@ df_final <- df_final |>
                         ", Stimulated: ", Stimulated))
 ```
 
-Then we can do the plot, showing the 8 groups, each with the 2 bars coming from the statistics: Intercept (bar on the left of each group subplot), and pERK_N (bar on the right of each group subplot).
+Then we can do the plot, showing the 8 groups, each with the two bars coming from the statistics: Intercept (bar on the left of each group subplot), and pERK_N (bar on the right of each group subplot).
 
-```{r, fig.width=14, fig.height=7}
+```{r, fig.width=14, fig.height=12}
 df_final |>
   ggplot(aes(x = term, 
              y = estimate, 
@@ -94,19 +92,19 @@ df_final |>
   geom_bar(stat = "identity", 
            position = "dodge") +
   facet_wrap(~ Group) +
-  labs(title = "Coefficient estimate for each group",
+  labs(title = "Coefficient estimates for each group",
        x = "Predictive variable: Intercept (Left), pERK_N (Right)",
        y = " ") +
   scale_x_discrete(labels = c("(Intercept)" = "", "pERK_N" = "")) +
   theme_minimal() +
   theme(
-    plot.title = element_text(size = 20, face = "bold"), 
+    plot.title = element_text(size = 25, face = "bold"), 
     axis.title = element_text(size = 16),                
     axis.text = element_text(size = 14),                
     legend.title = element_text(size = 14),             
     legend.text = element_text(size = 12),             
     strip.text = element_text(size = 14)                 
-  )
+  ) 
 ```
 
 The plot shows the coefficient estimates for the two predictive variables, **Intercept** and **pERK_N**, across different groups defined by combinations of Genotype, Treatment and Stimulated. The x-axis represents the predictive variables, and the bars represent their estimated coefficients, colored by whether they are statistically significant.
@@ -127,7 +125,7 @@ The plot shows the coefficient estimates for the two predictive variables, **Int
 
     -   In all the groups, the **pERK_N** coefficient is larger than the **Intercept**, suggesting that **pERK_N** has a stronger influence on the outcome compared to the baseline represented by the **Intercept**.
 
-    -   The magnitude of the coefficient for **pERK_N** is higher in **Genotype 0** groups compared to **Genotype 1**, indicating that the effect of **pERK_N** may be modulated by the genotype, with **Genotype 0** (control mice) showing a more substantial effect.
+    -   The magnitude of the coefficient for **pERK_N** is higher in **Genotype 0 (Control)** groups compared to **Genotype 1 (Trisomic)**, indicating that the effect of **pERK_N** may be modulated by the genotype, with control mice showing a more substantial effect.
 
 ### 
 
