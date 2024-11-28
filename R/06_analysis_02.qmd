@@ -1,8 +1,7 @@
 ## Load libraries
 
 ```{r}
-#install.packages("pheatmap")
-#library(pheatmap)
+#| message: false
 library(ggplot2)
 library(tidyverse)
 ```
@@ -10,64 +9,55 @@ library(tidyverse)
 ## Loading data
 
 ```{r}
+#| message: false
 first_path <- "~/projects/R_project/"
 file_path <- "data/03_dat_aug.tsv" 
 file_path <- file.path(first_path, file_path)
 
 df_aug <- read_tsv(file = file_path)
+df <- df_aug
 ```
 
+## Heatmap of proteins
+
+### Heatmap #1 - All Proteins with all samples
+(might delete that )!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Preparing data for heatmap visualization - changing to the long data, using pivot_longer
+
 ```{r}
-# z-normalization of protein values
-#df_aug[proteins] <- scale(df_aug[proteins])
-
-```
-
-
-```{r}
-
-# Przygotowanie danych w formacie long (dla ggplot2)
 protein_data_long <- df |>
-  select(starts_with("H3"), ends_with("_N")) |>
-  rownames_to_column(var = "Sample") |>  # Dodanie nazw próbek
-  pivot_longer(-Sample, names_to = "Protein", values_to = "Expression")
+  select(ends_with("_N")) |>
+  rownames_to_column(var = "MouseID") |> 
+  pivot_longer(-MouseID, names_to = "Protein", values_to = "Expression")
 
-# Heatmapa
-ggplot(protein_data_long, aes(x = Protein, y = Sample, fill = Expression)) +
+# Heatmap using ggplot
+ggplot(protein_data_long, aes(x = Protein, y = MouseID, fill = Expression)) +
   geom_tile() +
   scale_fill_gradient2(low = "blue", mid = "white", high = "red", midpoint = 0) +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  labs(title = "Heatmap of Protein Expression (All Samples)",
-       x = "Proteins", y = "Samples", fill = "Expression")
+  theme(axis.text.x = element_text(angle = 90, hjust = 1),
+        axis.text.y = element_text(size = 5, angle = 90, hjust = 1)) +
+  labs(title = "Heatmap of Protein Expression (All Mice)",
+       x = "Proteins", y = "MouseID", fill = "Expression")
 
 ```
 
+
+### Heatmap #2 - proteins divided by class 
+
+Starting with the z-normalization following by min-max normalization to obtain [-1, 1]
 
 ```{r}
-# Dodanie klasy do danych i przekształcenie na format long
-protein_data_long <- df |>
-  select(class, starts_with("H3"), ends_with("_N")) |>
-  rownames_to_column(var = "Sample") |>
-  pivot_longer(-c(Sample, class), names_to = "Protein", values_to = "Expression")
+df_z <- df |>
+  mutate(across(ends_with("_N"), ~ scale(.) 
+                |> as.vector()))
 
-# Heatmapa z podziałem na klasy
-ggplot(protein_data_long, aes(x = Protein, y = Sample, fill = Expression)) +
-  geom_tile() +
-  scale_fill_gradient2(low = "blue", mid = "white", high = "red", midpoint = 0) +
-  facet_wrap(~class, scales = "free_y") +  # Podział próbek według klas
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  labs(title = "Heatmap of Protein Expression by Class",
-       x = "Proteins", y = "Samples", fill = "Expression")
+df <- df_z |>
+  mutate(across(ends_with("_N"), ~ (2 * ((. - min(., na.rm = TRUE)) / 
+                                         (max(., na.rm = TRUE) - min(., na.rm = TRUE))) - 1)))
 
 ```
-
-```{r}
-df[proteins] <- scale(df[proteins])
-```
-
-
 
 
 ```{r}
@@ -75,21 +65,22 @@ df[proteins] <- scale(df[proteins])
 unique_classes <- unique(df$class)
 
 for (cls in unique_classes) {
-  # Filter and reshape data for the current class
   protein_data_long_class <- df |>
     filter(class == cls) |>
-    select(starts_with("H3"), ends_with("_N")) |>
-    rownames_to_column(var = "Sample") |>
-    pivot_longer(-Sample, names_to = "Protein", values_to = "Expression")
+    select(ends_with("_N")) |>
+    rownames_to_column(var = "MouseID") |>
+    pivot_longer(-MouseID, names_to = "Protein", values_to = "Expression")
   
   # Create ggplot object
-  heatmap_plot <- ggplot(protein_data_long_class, aes(x = Protein, y = Sample, fill = Expression)) +
+  heatmap_plot <- ggplot(protein_data_long_class, 
+                         aes(x = Protein, y = MouseID, fill = Expression)) +
     geom_tile() +
     scale_fill_gradient2(low = "blue", mid = "white", high = "red", midpoint = 0) +
     theme_minimal() +
-    theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+    theme(axis.text.y = element_text(size = 2, angle = 90),
+          axis.text.x = element_text(size = 5, angle = 45, hjust = 1)) +
     labs(title = paste("Heatmap for Class:", cls),
-         x = "Proteins", y = "Samples", fill = "Expression")
+         x = "Proteins", y = "MouseID", fill = "Expression")
   
   # Explicitly print the plot
   print(heatmap_plot)
@@ -98,28 +89,110 @@ for (cls in unique_classes) {
 
 ```
 
+
+### Heatmap #3 - divided by genotype
+
+#### Data manipulation
+
 ```{r}
+trisomy_data <- df |>
+  filter(Genotype == "Ts65Dn")
 
-# Example data: Fold changes (log2) and p-values for proteins
-protein_results <- data.frame(
-  protein = rownames(df[proteins]),
-  fold_change = log2(rowMeans(df[df$genotype == "t", proteins]) /
-                     rowMeans(df[df$genotype == "c", proteins])),
-  p_value = t_test_results
-)
+control_data <- df |> 
+  filter(Genotype == "Control")
 
-# Add significance labels
-protein_results <- protein_results |>
-  mutate(significant = ifelse(p_value < 0.05 & abs(fold_change) > 1, "Yes", "No"))
+protein_columns <- colnames(df |> select(ends_with("_N")))
 
-# Plot
-ggplot(protein_results, aes(x = fold_change, y = -log10(p_value), color = significant)) +
-  geom_point(alpha = 0.6, size = 2) +
-  scale_color_manual(values = c("gray", "red")) +
-  theme_minimal() +
-  labs(title = "Volcano Plot", x = "Log2 Fold Change", y = "-Log10(p-value)", color = "Significant") +
-  geom_vline(xintercept = c(-1, 1), linetype = "dashed") +
-  geom_hline(yintercept = -log10(0.05), linetype = "dashed")
+trisomy_long <- trisomy_data |>
+  select(MouseID, all_of(protein_columns)) |>
+  pivot_longer(cols = -MouseID, names_to = "Protein", values_to = "Expression")
+
+control_long <- control_data |>
+  select(MouseID, all_of(protein_columns)) |>
+  pivot_longer(cols = -MouseID, names_to = "Protein", values_to = "Expression")
 
 ```
 
+
+#### Plots
+```{r}
+ggplot(trisomy_long, aes(x = Protein, y = MouseID, fill = Expression)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "blue", mid = "white", high = "red", midpoint = 0) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 90, hjust = 1),
+    axis.text.y = element_blank()
+  ) +
+  labs(
+    title = "Heatmap of Protein Expression (Trisomy)",
+    x = "Proteins",
+    y = "Samples - MouseID",
+    fill = "Expression"
+  )
+
+ggplot(control_long, aes(x = Protein, y = MouseID, fill = Expression)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "blue", mid = "white", high = "red", midpoint = 0) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 90, hjust = 1),
+    axis.text.y = element_blank()
+  ) +
+  labs(
+    title = "Heatmap of Protein Expression (Control)",
+    x = "Proteins",
+    y = "MouseID",
+    fill = "Expression"
+  )
+
+
+```
+
+
+## Analysis 
+### Highest variability in proteins
+Trying to distinguish the proteins with the biggest sd 
+
+```{r}
+most_variable_proteins <- df |>
+  select(ends_with("_N")) |>
+  summarise(across(everything(), sd, na.rm = TRUE)) |>
+  pivot_longer(cols = everything(), names_to = "Protein", values_to = "SD") %>%
+  arrange(desc(SD)) |>
+  slice_head(n = 10)
+
+most_variable_proteins
+```
+
+### Biggest differences between the groups 
+Trying to identify the proteins that differ the most between the trisomy and the control group
+```{r}
+group_means <- df |>
+  group_by(Genotype) |>
+  summarise(across(ends_with("_N"), mean, na.rm = TRUE)) |>
+  pivot_longer(cols = -Genotype, names_to = "Protein", values_to = "MeanExpression")
+
+protein_differences <- group_means |>
+  pivot_wider(names_from = Genotype, values_from = MeanExpression) |>
+  mutate(Difference = abs(Ts65Dn - Control)) |>
+  arrange(desc(Difference)) |>
+  slice_head(n = 10) 
+
+protein_differences
+```
+
+
+### T-test
+Using t-test to identify the proteins variety between the trisomy and the control group
+```{r}
+t_test_results <- df |>
+  pivot_longer(cols = ends_with("_N"), names_to = "Protein", values_to = "Expression") |>
+  group_by(Protein) |>
+  summarise(p_value = t.test(Expression ~ Genotype, data = cur_data())$p.value) |>
+  arrange(p_value) |>
+  slice_head(n = 10)  
+
+t_test_results
+
+```
