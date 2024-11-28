@@ -11,15 +11,15 @@ editor: visual
 ```{r}
 #| message: false
 library("tidyverse")
+install.packages("patchwork")
 library("patchwork")
-library("ggridges")
-library("viridis")
 ```
 
 ## Loading data
 
 ```{r}
-first_path <- "~/projects/R_project/"
+first_path <- "/net/pupil1/home/people/s242150/projects/R_project/"
+#first_path <- "~/projects/R_project/"
 file_path <- "data/03_dat_aug.tsv" 
 file_path <- file.path(first_path, file_path)
 df_aug <- read_tsv(file = file_path)
@@ -76,8 +76,7 @@ p2 <- p2 +
   xlim(0.1, 0.9) +
   ylim(0, 11.0)
 
-#p1 
-#p2
+p1/p2
 ```
 
 For both groups the stimulation classes (CS, red and green) show main peaks around intermediate BRAF_N values (approximately 0.4), and display flatter distributions compared to the non-stimulation classes (SC, blue and purple) classes, indicating greater variability in the data. On the other hand, the non-stimulation classes are mainly overlapped and concentrated around lower values, between 0.1 and 0.3, with a relatively sharp density.
@@ -113,8 +112,7 @@ p4 <- p4 +
   xlim(0.1, 1.5) +   
   ylim(0, 10.0)  
 
-#p3
-#p4
+p3/p4
 ```
 
 For both groups the stimulation classes (CS, red and green) show main peaks around intermediate pERK_N values (approximately 0.6), and display flatter distributions compared to the non-stimulation classes (SC, blue and purple) classes, indicating greater variability in the data. On the other hand, the non-stimulation classes are concentrated around lower values, between 0.2 and 0.5, and show higher peaks.
