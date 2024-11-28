@@ -1,8 +1,9 @@
 ## Load libraries
 
 ```{r}
-install.packages("pheatmap")
-library(pheatmap)
+#install.packages("pheatmap")
+#library(pheatmap)
+library(ggplot2)
 library(tidyverse)
 ```
 
@@ -18,7 +19,107 @@ df_aug <- read_tsv(file = file_path)
 
 ```{r}
 # z-normalization of protein values
-df_aug[proteins] <- scale(df_aug[proteins])
+#df_aug[proteins] <- scale(df_aug[proteins])
+
+```
+
+
+```{r}
+
+# Przygotowanie danych w formacie long (dla ggplot2)
+protein_data_long <- df |>
+  select(starts_with("H3"), ends_with("_N")) |>
+  rownames_to_column(var = "Sample") |>  # Dodanie nazw próbek
+  pivot_longer(-Sample, names_to = "Protein", values_to = "Expression")
+
+# Heatmapa
+ggplot(protein_data_long, aes(x = Protein, y = Sample, fill = Expression)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "blue", mid = "white", high = "red", midpoint = 0) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(title = "Heatmap of Protein Expression (All Samples)",
+       x = "Proteins", y = "Samples", fill = "Expression")
+
+```
+
+
+```{r}
+# Dodanie klasy do danych i przekształcenie na format long
+protein_data_long <- df |>
+  select(class, starts_with("H3"), ends_with("_N")) |>
+  rownames_to_column(var = "Sample") |>
+  pivot_longer(-c(Sample, class), names_to = "Protein", values_to = "Expression")
+
+# Heatmapa z podziałem na klasy
+ggplot(protein_data_long, aes(x = Protein, y = Sample, fill = Expression)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "blue", mid = "white", high = "red", midpoint = 0) +
+  facet_wrap(~class, scales = "free_y") +  # Podział próbek według klas
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(title = "Heatmap of Protein Expression by Class",
+       x = "Proteins", y = "Samples", fill = "Expression")
+
+```
+
+```{r}
+df[proteins] <- scale(df[proteins])
+```
+
+
+
+
+```{r}
+# Loop over each class and create heatmap
+unique_classes <- unique(df$class)
+
+for (cls in unique_classes) {
+  # Filter and reshape data for the current class
+  protein_data_long_class <- df |>
+    filter(class == cls) |>
+    select(starts_with("H3"), ends_with("_N")) |>
+    rownames_to_column(var = "Sample") |>
+    pivot_longer(-Sample, names_to = "Protein", values_to = "Expression")
+  
+  # Create ggplot object
+  heatmap_plot <- ggplot(protein_data_long_class, aes(x = Protein, y = Sample, fill = Expression)) +
+    geom_tile() +
+    scale_fill_gradient2(low = "blue", mid = "white", high = "red", midpoint = 0) +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+    labs(title = paste("Heatmap for Class:", cls),
+         x = "Proteins", y = "Samples", fill = "Expression")
+  
+  # Explicitly print the plot
+  print(heatmap_plot)
+}
+
+
+```
+
+```{r}
+
+# Example data: Fold changes (log2) and p-values for proteins
+protein_results <- data.frame(
+  protein = rownames(df[proteins]),
+  fold_change = log2(rowMeans(df[df$genotype == "t", proteins]) /
+                     rowMeans(df[df$genotype == "c", proteins])),
+  p_value = t_test_results
+)
+
+# Add significance labels
+protein_results <- protein_results |>
+  mutate(significant = ifelse(p_value < 0.05 & abs(fold_change) > 1, "Yes", "No"))
+
+# Plot
+ggplot(protein_results, aes(x = fold_change, y = -log10(p_value), color = significant)) +
+  geom_point(alpha = 0.6, size = 2) +
+  scale_color_manual(values = c("gray", "red")) +
+  theme_minimal() +
+  labs(title = "Volcano Plot", x = "Log2 Fold Change", y = "-Log10(p-value)", color = "Significant") +
+  geom_vline(xintercept = c(-1, 1), linetype = "dashed") +
+  geom_hline(yintercept = -log10(0.05), linetype = "dashed")
 
 ```
 
