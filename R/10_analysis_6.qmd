@@ -1,0 +1,184 @@
+---
+title: "10_analysis_6"
+format: html
+editor: visual
+---
+
+In this analysis we will implement PCA, since our dataset is quite large, so it will be useful to identify patterns and make interesting observations.
+
+## Loading libraries
+
+```{r}
+#| message: false 
+library("tidyverse")
+library("broom")
+library("patchwork")
+```
+
+## Loading data
+
+```{r}
+first_path <- "/net/pupil1/home/people/s242150/projects/R_project/"
+#first_path <- "~/projects/R_project/" 
+file_path <- "data/03_dat_aug.tsv"  
+file_path <- file.path(first_path, file_path) 
+df_aug <- read_tsv(file = file_path)
+```
+
+## Analysis
+
+First, we ignore all the columns that don't contain protein expression levels, and we convert the data into a matrix.
+
+```{r}
+prot_only <- df_aug |>
+  select(ends_with("_N"))
+
+prot_only_mat <- prot.only <- as.matrix(prot_only)
+```
+
+Because the range of our data varies between different proteins, we standardize the data by transforming the values into z-scores. This is done by subtracting the mean of each variable from its values and then dividing by the range.
+
+```{r}
+prot_only_norm <- apply(prot_only_mat, 
+                        2, 
+                        function(x){
+                          (x - mean(x)) / diff(range(x))
+                          })
+```
+
+Finally, we run the PCA, and we tidy it up to then visualize a scree plot, i.e., a graph that displays the eigenvalues of each principal component and helps to determine which ones are more significative.
+
+```{r}
+df_pca <- prot_only_norm |>
+  prcomp(center = TRUE,
+         scale = TRUE)
+```
+
+```{r}
+tidy_pca <- df_pca |>
+  tidy("pcs") |> 
+  mutate(percent = percent * 100) 
+
+scree_plot <- tidy_pca |>
+  ggplot(aes(x = PC,
+             y = percent)) +
+  geom_hline(yintercept = 0) +
+  geom_col(fill = "blue") +
+  theme_light(base_family = "Avenir") +
+  labs(title = "Scree Plot of PCA") +
+  ylab("Percent (%)")
+
+scree_plot
+```
+
+We zoom on the first 20 PC for a more focused analysis.
+
+```{r}
+scree_plot + xlim(0, 20)
+```
+
+The first two principal components capture, respectively, about 25% and 17.5% of the variation in the data, so we will use them for further analysis.
+
+We plot the data in PC coordinates combining them with the original dataset. First, we visualize the different classes, then we separate the data based on different categories (Genotype, Treatment, Stimulated), in order to eventually recognize a significative pattern.
+
+```{r}
+df_pca |>
+  augment(df_aug) |>
+  ggplot(aes(.fittedPC1, 
+             .fittedPC2, 
+             color = class,
+             shape = class)) + 
+  geom_point(size = 1.5) + 
+  scale_shape_manual(values = 1:8) +
+  xlab("PC1") +
+  ylab("PC2") +
+  labs(title = "PCA based on classes") +
+  theme_light(base_family = "Avenir")
+```
+
+```{r}
+df_pca |>
+  augment(df_aug) |>
+  ggplot(aes(.fittedPC1, 
+             .fittedPC2, 
+             color = as.factor(Genotype))) + 
+  geom_point(size = 1.5) + 
+  scale_color_manual(values = c("0" = "blue",
+                                "1" = "black"),  
+                     labels = c("Trisomic", "Control")) +  
+  labs(color = "Genotype") +
+  xlab("PC1") +
+  ylab("PC2") +
+  labs(title = "PCA based on genotype") +
+  theme_light(base_family = "Avenir")
+```
+
+```{r}
+df_pca |>
+  augment(df_aug) |>
+  ggplot(aes(.fittedPC1, 
+             .fittedPC2, 
+             color = as.factor(Treatment))) + 
+  geom_point(size = 1.5) + 
+  scale_color_manual(values = c("0" = "blue",
+                                "1" = "black"),  
+                     labels = c("Saline", "Memantine")) +  
+  labs(color = "Treatment") +
+  xlab("PC1") +
+  ylab("PC2") +
+  labs(title = "PCA based on treatment") +
+  theme_light(base_family = "Avenir")
+```
+
+```{r}
+df_pca |>
+  augment(df_aug) |>
+  ggplot(aes(.fittedPC1, 
+             .fittedPC2, 
+             color = as.factor(Stimulated))) + 
+  geom_point(size = 1.5) + 
+  scale_color_manual(values = c("0" = "blue",
+                                "1" = "black"),  
+                     labels = c("No", "Yes")) +  
+  labs(color = "Stimulated") +
+  xlab("PC1") +
+  ylab("PC2") +
+  labs(title = "PCA based on stimulation") +
+  theme_light(base_family = "Avenir")
+```
+
+The only category where we can distinguish two different conditions is the presence/absence of stimulation. In particular, the second principal component nicely separates the stimulated samples from the non-stimulated ones, so now we deepen the study on this category based on PC2.
+
+For example, we display the loadings of variables to understand how much each protein expression level contributes to the formation of PC2. We do this by extracting the rotation matrices for both stimulated and non-stimulated.
+
+```{r}
+pca_non_stim <- df_aug |>
+  filter(Stimulated == 0) |>
+  select(ends_with("_N")) |>
+  prcomp(center = TRUE,
+         scale = TRUE)
+
+rot_mat_non_stim <- pca_non_stim |>
+  tidy(matrix = "rotation")
+
+rot_mat_non_stim |>
+  filter(PC == 2) |>
+  arrange(desc(value))
+```
+
+```{r}
+pca_stim <- df_aug |>
+  filter(Stimulated == 1) |>
+  select(ends_with("_N")) |>
+  prcomp(center = TRUE,
+         scale = TRUE)
+
+rot_mat_stim <- pca_stim |>
+  tidy(matrix = "rotation")
+
+rot_mat_stim |>
+  filter(PC == 2) |>
+  arrange(desc(value))
+```
+
+In this way we can easily see that P70S6 mainly contributes to the formation of PC2 for the non-stimulated samples, with a loading equal to 0.208, while PSD95 mainly contributes for the stimulated samples, with a loading equal to 0.172.

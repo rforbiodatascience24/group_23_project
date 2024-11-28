@@ -16,3 +16,5 @@ Scroll until you find "Data_Cortex_Nuclear.csv" preview
 Click on the download symbol 
 
 Save the downloaded file so that it follows this relative path: data/_raw/Data_Cortex_Nuclear.csv
+
+Scrolling through the code, every time you see the definition of the variable "first_path", write down your personal path in order to have access to the file path.
