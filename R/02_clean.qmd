@@ -48,6 +48,7 @@ df_mean <- df |>
   ungroup()
 
 missing_summary <- colSums(is.na(df_mean))
+
 print(missing_summary)
 ```
 
@@ -67,14 +68,14 @@ pivot_longer(cols = c(H3MeK4_N, EGR1_N, H3AcK18_N, BCL2_N, pCFOS_N, BAD_N),
 names_to = "Protein", values_to = "Expression")
 
 df_mean_long <- df_mean |>
-pivot_longer(cols = c(H3MeK4_N, EGR1_N, H3AcK18_N, BCL2_N, pCFOS_N, BAD_N),
+  pivot_longer(cols = c(H3MeK4_N, EGR1_N, H3AcK18_N, BCL2_N, pCFOS_N, BAD_N),
 names_to = "Protein", values_to = "Expression")
 
 
 # Combine all datasets for comparison
 df_compare <- bind_rows(
-mutate(df_long, Method = "Original"),
-mutate(df_mean_long, Method = "Mean Replacement")
+  mutate(df_long, Method = "Original"),
+  mutate(df_mean_long, Method = "Mean Replacement")
 )
 
 # Plot density
@@ -90,6 +91,8 @@ y = "Density")
 ```{r}
 file_path <- "data/02_dat_clean.tsv"
 file_path <- file.path(first_path, file_path)
+
+df <- df_mean
 
 df |>
   write_tsv(file = file_path)
