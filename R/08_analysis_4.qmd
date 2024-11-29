@@ -4,6 +4,8 @@ format: html
 editor: visual
 ---
 
+This script analyzes the impact of Genotype, Treatment, and Stimulation on MAPK Activity and Chromatin Activation Index (the 2 variables we created in 03_augment.qmd).
+
 ## Loading libraries
 
 ```{r}

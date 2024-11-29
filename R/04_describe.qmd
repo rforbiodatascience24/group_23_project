@@ -4,6 +4,8 @@ format: html
 editor: visual
 ---
 
+In this file, we create a linear model between 2 variables, and we try to analyze if there are differences in the modelling, between the 8 groups (Genotype = 0 or 1, Treatment = 0 or 1, Stimulated = 0 or 1).
+
 ## Loading libraries
 
 ```{r}

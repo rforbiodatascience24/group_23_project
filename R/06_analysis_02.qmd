@@ -1,3 +1,5 @@
+This file provides a detailed analysis of the Mice Protein Expression dataset. It includes generating heatmaps to visualize protein expression across all samples, different classes, and genotypes. The analysis identifies proteins with the highest variability and those showing the largest differences between groups. Statistical methods like t-tests are applied to highlight significant protein variations, providing insights into the dataset's underlying patterns and group-specific differences.
+
 ## Load libraries
 
 ```{r}
@@ -21,6 +23,7 @@ df <- df_aug
 ## Heatmap of proteins
 
 ### Heatmap #1 - All Proteins with all samples
+
 (might delete that )!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 Preparing data for heatmap visualization - changing to the long data, using pivot_longer
@@ -43,10 +46,9 @@ ggplot(protein_data_long, aes(x = Protein, y = MouseID, fill = Expression)) +
 
 ```
 
+### Heatmap #2 - proteins divided by class
 
-### Heatmap #2 - proteins divided by class 
-
-Starting with the z-normalization following by min-max normalization to obtain [-1, 1]
+Starting with the z-normalization following by min-max normalization to obtain \[-1, 1\]
 
 ```{r}
 df_z <- df |>
@@ -58,7 +60,6 @@ df <- df_z |>
                                          (max(., na.rm = TRUE) - min(., na.rm = TRUE))) - 1)))
 
 ```
-
 
 ```{r}
 # Loop over each class and create heatmap
@@ -89,7 +90,6 @@ for (cls in unique_classes) {
 
 ```
 
-
 ### Heatmap #3 - divided by genotype
 
 #### Data manipulation
@@ -113,8 +113,8 @@ control_long <- control_data |>
 
 ```
 
-
 #### Plots
+
 ```{r}
 ggplot(trisomy_long, aes(x = Protein, y = MouseID, fill = Expression)) +
   geom_tile() +
@@ -149,10 +149,11 @@ ggplot(control_long, aes(x = Protein, y = MouseID, fill = Expression)) +
 
 ```
 
+## Analysis
 
-## Analysis 
 ### Highest variability in proteins
-Trying to distinguish the proteins with the biggest sd 
+
+Trying to distinguish the proteins with the biggest sd
 
 ```{r}
 most_variable_proteins <- df |>
@@ -165,8 +166,10 @@ most_variable_proteins <- df |>
 most_variable_proteins
 ```
 
-### Biggest differences between the groups 
+### Biggest differences between the groups
+
 Trying to identify the proteins that differ the most between the trisomy and the control group
+
 ```{r}
 group_means <- df |>
   group_by(Genotype) |>
@@ -182,9 +185,10 @@ protein_differences <- group_means |>
 protein_differences
 ```
 
-
 ### T-test
+
 Using t-test to identify the proteins variety between the trisomy and the control group
+
 ```{r}
 t_test_results <- df |>
   pivot_longer(cols = ends_with("_N"), names_to = "Protein", values_to = "Expression") |>
