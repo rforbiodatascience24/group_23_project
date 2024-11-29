@@ -60,6 +60,8 @@ output: ioslides_presentation
 
 Natalia:
 
+-   Handling NaN values
+
 Gioele:
 
 **Augmenting:**
@@ -89,6 +91,11 @@ Gioele:
 ------------------------------------------------------------------------
 
 ## Heatmaps
+
+1.  Sample vs. Protein correlation
+2.  Protein vs. Protein correlation
+
+![Protein Heatmap for Trisomy](images/Heatmap_pvsp_genotype.png){fig-align="center"}
 
 ------------------------------------------------------------------------
 

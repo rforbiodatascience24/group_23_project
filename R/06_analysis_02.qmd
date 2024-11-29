@@ -201,6 +201,7 @@ ggplot(data = control_long,
 ### Heatmap #4 among proteins
 
 #### All proteins
+
 ```{r}
 correlation_matrix <- df |>
   select(ends_with("_N")) |> 
@@ -234,7 +235,8 @@ ggplot(correlation_long, aes(x = Protein1,
 
 ```
 
-#### Proteins per class 
+#### Proteins per class
+
 ```{r}
 corr_data_long <- map(class_data, ~ .x |>
   select(ends_with("_N")) |>
@@ -274,6 +276,7 @@ walk(corr_heatmaps, print)
 ```
 
 #### Proteins per genotype
+
 ```{r}
 gen_data <- df |>
   group_split(Genotype)
@@ -318,24 +321,23 @@ corr_heatmaps <- map2(corr_gen_data_long,
 })
 walk(corr_heatmaps, print)
 ```
+
 Having obtained the above results, we can visually select areas on the heatmap which show high correlations for example between pNR1_N and pNR2A
 
 ## Analysis
 
 ### Correlation in proteins, by genotype
+
 ```{r}
-combined_corr_data <- bind_rows(corr_gen_data_long, 
+combined_corr_data <- bind_rows(corr_gen_data_long,
                                 .id = "Genotype")
 gen_corr_list <- combined_corr_data |>
   filter(Protein1 != Protein2) |>
-  arrange(desc(Correlation)) |>
-  slice_head(n = 10)
+  distinct(Protein1, Protein2, .keep_all = TRUE) |>
+  arrange(desc(Correlation)) 
 
 gen_corr_list
-
-
 ```
-
 
 ### Highest variability in proteins
 
@@ -428,4 +430,3 @@ ggplot(correlation_long, aes(x = Protein1,
        fill = "Correlation")
 
 ```
-
