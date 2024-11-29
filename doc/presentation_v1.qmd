@@ -51,19 +51,14 @@ Gioele Tiraboschi
 #### Workflow Overview:
 
 1.  **Data Preparation**:
-    1.  Import and clean dataset (handle missing values, standardization).
 
-    2.  Data Augmentation.
+    -   Import and clean dataset (handle missing values, standardization).
+
+    -   Data Augmentation.
 
 2.  **Modeling**:
 
-        -   Linear regression to test protein relationships
-3.  **Exploratory Data Analysis (EDA)**:
-    -   Visualize protein distributions and correlations.
-    -   Identify trends using PCA.
-    -   .
-4.  **Validation**:
-    -   Cross-validation for model robustness.
+    -   Linear regression to test protein relationships
 
 We transformed the values contained in the columns "Genotype", "Treatment" and "Behavior" into binary variables, so that:
 
