@@ -16,15 +16,54 @@ Gioele Tiraboschi
 
 ------------------------------------------------------------------------
 
-## Slide 2: Loading and cleaning
+## Introduction
 
-01_load:
+-   **Topic**: Analysis of Mice Protein Expression\
+    Understanding protein patterns and relationships in the dataset.
 
-02_clean:
+-   **Objective**:
+
+    -   Explore data to identify patterns and correlations among proteins.
+    -   Apply advanced data analysis techniques for deeper insights.
+
+-   **Approach**:
+
+    -   Data preprocessing and visualization.
+    -   Statistical modeling.
+    -   Correlation analysis to uncover hidden relationships.
 
 ------------------------------------------------------------------------
 
-## Slide 3: Augmenting
+## Materials and methods
+
+### Materials
+
+-   **Data Source**:
+    -   Mice Protein Expression Dataset ([Kaggle](https://www.kaggle.com/datasets/ruslankl/mice-protein-expression)).
+    -   Contains protein levels from the cortex and hippocampus of mice across different experimental conditions.\
+    -   **Features**:
+        -   Protein expression levels for 77 proteins.
+        -   72 mice, including both control and trisomy cases.
+        -   Additional grouping such as genotype and behavior.
+
+### Methods
+
+#### Workflow Overview:
+
+1.  **Data Preparation**:
+    1.  Import and clean dataset (handle missing values, standardization).
+
+    2.  Data Augmentation.
+
+2.  **Modeling**:
+
+        -   Linear regression to test protein relationships
+3.  **Exploratory Data Analysis (EDA)**:
+    -   Visualize protein distributions and correlations.
+    -   Identify trends using PCA.
+    -   .
+4.  **Validation**:
+    -   Cross-validation for model robustness.
 
 We transformed the values contained in the columns "Genotype", "Treatment" and "Behavior" into binary variables, so that:
 
@@ -84,23 +123,19 @@ df_models <- df_nested |>
 
 ------------------------------------------------------------------------
 
-## **SLIDE 6: Analysis 2**
+## **Results #1**
 
 ------------------------------------------------------------------------
 
-## SLIDE 7: Analysis 3
+## Results #2
 
 ------------------------------------------------------------------------
 
-## Slide 8: Analysis 4
-
-Contenuto dell'ottava slide.
+## Results #3
 
 ------------------------------------------------------------------------
 
-## Slide 9: Analysis 5 and 6
-
-Contenuto della nona slide.
+## Discussion
 
 ------------------------------------------------------------------------
 
