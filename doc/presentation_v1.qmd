@@ -80,38 +80,32 @@ df_models <- df_nested |>
 
 ------------------------------------------------------------------------
 
-## SLIDE 5
+## SLIDE 5: Analysis 1
 
 ------------------------------------------------------------------------
 
-SLIDE 6
+## **SLIDE 6: Analysis 2**
 
 ------------------------------------------------------------------------
 
-SLIDE 7
+## SLIDE 7: Analysis 3
 
 ------------------------------------------------------------------------
 
-## Slide 8: Titolo
+## Slide 8: Analysis 4
 
 Contenuto dell'ottava slide.
 
 ------------------------------------------------------------------------
 
-## Slide 9: Titolo
+## Slide 9: Analysis 5 and 6
 
 Contenuto della nona slide.
 
 ------------------------------------------------------------------------
 
-## Slide 10: Titolo
-
-Contenuto della decima slide.
-
-------------------------------------------------------------------------
-
-## **Thanks for the attention**
+## **Thanks for your attention!**
 
 ::: {style="text-align: center; font-size: 2em; font-weight: bold;"}
-Thanks for the attention
+Thanks for your attention!
 :::
