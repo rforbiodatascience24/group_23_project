@@ -4,8 +4,7 @@ This file provides a detailed analysis of the Mice Protein Expression dataset. I
 
 ```{r}
 #| message: false
-library(ggplot2)
-library(tidyverse)
+library("tidyverse")
 ```
 
 ## Loading data
@@ -24,27 +23,40 @@ df <- df_aug
 
 ### Heatmap #1 - All Proteins with all samples
 
-(might delete that )!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 Preparing data for heatmap visualization - changing to the long data, using pivot_longer
 
 ```{r}
 protein_data_long <- df |>
   select(ends_with("_N")) |>
   rownames_to_column(var = "MouseID") |> 
-  pivot_longer(-MouseID, names_to = "Protein", values_to = "Expression")
+  pivot_longer(-MouseID, 
+               names_to = "Protein", 
+               values_to = "Expression")
 
 # Heatmap using ggplot
-ggplot(protein_data_long, aes(x = Protein, y = MouseID, fill = Expression)) +
+ggplot(protein_data_long, 
+       aes(x = Protein, 
+           y = MouseID, 
+           fill = Expression)) +
   geom_tile() +
-  scale_fill_gradient2(low = "blue", mid = "white", high = "red", midpoint = 0) +
+  scale_fill_gradient2(low = "blue", 
+                       mid = "white", 
+                       high = "red", 
+                       midpoint = 0) +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1),
-        axis.text.y = element_text(size = 5, angle = 90, hjust = 1)) +
+  theme(axis.text.x = element_text(angle = 90, 
+                                   hjust = 1),
+        axis.text.y = element_text(size = 5, 
+                                   angle = 90, 
+                                   hjust = 1)) +
   labs(title = "Heatmap of Protein Expression (All Mice)",
-       x = "Proteins", y = "MouseID", fill = "Expression")
+       x = "Proteins", 
+       y = "MouseID", 
+       fill = "Expression")
 
 ```
+
+The plot above doesn't look very informative, so we proceed with another solution.
 
 ### Heatmap #2 - proteins divided by class
 
@@ -96,10 +108,10 @@ for (cls in unique_classes) {
 
 ```{r}
 trisomy_data <- df |>
-  filter(Genotype == "Ts65Dn")
+  filter(Genotype == 1)
 
 control_data <- df |> 
-  filter(Genotype == "Control")
+  filter(Genotype == 0)
 
 protein_columns <- colnames(df |> select(ends_with("_N")))
 
@@ -116,9 +128,11 @@ control_long <- control_data |>
 #### Plots
 
 ```{r}
+
 ggplot(trisomy_long, aes(x = Protein, y = MouseID, fill = Expression)) +
   geom_tile() +
-  scale_fill_gradient2(low = "blue", mid = "white", high = "red", midpoint = 0) +
+  scale_fill_gradient2(low = "blue", 
+                       mid = "white", high = "red", midpoint = 0) +
   theme_minimal() +
   theme(
     axis.text.x = element_text(angle = 90, hjust = 1),
