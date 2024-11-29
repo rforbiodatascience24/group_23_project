@@ -6,12 +6,17 @@ editor: visual
 
 Before going into descriptive statistics, we analyze the general trend of the data to understand what we're dealing with.
 
+## Installing packages
+
+```{r}
+install.packages("patchwork")
+```
+
 ## Loading libraries
 
 ```{r}
 #| message: false
 library("tidyverse")
-install.packages("patchwork")
 library("patchwork")
 ```
 
@@ -81,8 +86,7 @@ p2 <- ggplot(data = df_aug,
 p1 / p2 +
   plot_annotation(title = "Distribution of Protein Expression Level by Class") &
   theme(plot.title = element_text(size = 15, 
-                                  family = "Avenir")) + 
-  plot_layout(heights = c(1, 1))
+                                  family = "Avenir"))
 ```
 
 We may notice that just a few of the boxplots are similar between the two proteins.

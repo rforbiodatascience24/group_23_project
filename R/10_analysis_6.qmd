@@ -6,6 +6,12 @@ editor: visual
 
 In this analysis we will implement PCA, since our dataset is quite large, so it will be useful to identify patterns and make interesting observations.
 
+## Installing packages
+
+```{r}
+install.packages("patchwork")
+```
+
 ## Loading libraries
 
 ```{r}
@@ -18,8 +24,8 @@ library("patchwork")
 ## Loading data
 
 ```{r}
-first_path <- "/net/pupil1/home/people/s242150/projects/R_project/"
-#first_path <- "~/projects/R_project/" 
+#first_path <- "/net/pupil1/home/people/s242150/projects/R_project/"
+first_path <- "~/projects/R_project/" 
 file_path <- "data/03_dat_aug.tsv"  
 file_path <- file.path(first_path, file_path) 
 df_aug <- read_tsv(file = file_path)
@@ -63,7 +69,8 @@ scree_plot <- tidy_pca |>
   ggplot(aes(x = PC,
              y = percent)) +
   geom_hline(yintercept = 0) +
-  geom_col(fill = "blue") +
+  geom_col(fill = "blue",
+           alpha = 0.7) +
   theme_light(base_family = "Avenir") +
   labs(title = "Scree Plot of PCA") +
   ylab("Percent (%)")
@@ -79,7 +86,7 @@ scree_plot + xlim(0, 20)
 
 The first two principal components capture, respectively, about 25% and 17.5% of the variation in the data, so we will use them for further analysis.
 
-We plot the data in PC coordinates combining them with the original dataset. First, we visualize the different classes, then we separate the data based on different categories (Genotype, Treatment, Stimulated), in order to eventually recognize a significative pattern.
+We plot the data in PC coordinates combining them with the original dataset. First, we visualize all the classes together, then we separate the data based on different categories (Genotype, Treatment, Stimulated), in order to eventually recognize a significative pattern.
 
 ```{r}
 df_pca |>
@@ -95,6 +102,8 @@ df_pca |>
   labs(title = "PCA based on classes") +
   theme_light(base_family = "Avenir")
 ```
+
+As we can see, visualizing all the classes together is not very clear. That's the reason why we distinguish the categories below.
 
 ```{r}
 df_pca |>
