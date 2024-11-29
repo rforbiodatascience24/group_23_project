@@ -43,6 +43,18 @@ control <- df_aug |>
 ```
 
 ```{r}
+#| eval: false
+# Unsuccessful attempt to use a function to plot the densitograms:
+source(file = "densitogram.R")
+```
+
+```{r}
+#| eval: false
+p1 <- densitogram(trisomic, "BRAF_N", deparse(substitute(trisomic)))
+p1
+```
+
+```{r}
 p1 <- ggplot(data = trisomic,
              mapping = aes(x = BRAF_N,
                            fill = class)) +
