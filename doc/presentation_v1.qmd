@@ -8,23 +8,23 @@ output: ioslides_presentation
 
 ## Introduction
 
-- **Topic**: Analysis of Mice Protein Expression\\
+-   **Topic**: Analysis of Mice Protein Expression
 
- 	Understanding protein patterns and relationships in the dataset.
+    Understanding protein patterns and relationships in the dataset.
 
-  - **Objective**:
+    -   **Objective**:
 
- 	- Explore data to identify patterns and correlations among proteins.
+        -   Explore data to identify patterns and correlations among proteins.
 
- 	-   Apply advanced data analysis techniques for deeper insights.
+        -     Apply advanced data analysis techniques for deeper insights.
 
- -   \*\*Approach\*\*:
+-     **Approach**:
 
- 	-   Data preprocessing and visualization.
+    -     Data preprocessing and visualization.
 
- 	-   Statistical modeling.
+    -     Statistical modeling.
 
- 	-   Correlation analysis to uncover hidden relationships.
+    -     Correlation analysis to uncover hidden relationships.
 
 ------------------------------------------------------------------------
 
@@ -53,6 +53,8 @@ output: ioslides_presentation
 2.  **Modeling**:
 
     -   Linear regression to test protein relationships
+
+(from here, it was in the first presentation, I don't know if it might be useful in some slide)
 
 We transformed the values contained in the columns "Genotype", "Treatment" and "Behavior" into binary variables, so that:
 
@@ -92,6 +94,21 @@ We divide AcetylH3K9_N by DYRK1A_N and this new index should reflect how epigene
 
 ------------------------------------------------------------------------
 
+## Cleaning and Augmenting
+
+Natalia:
+
+
+
+
+
+Gioele:
+
+
+
+
+------------------------------------------------------------------------
+
 ## Statistical modeling
 
 We grouped the 8 categories: genotype (control = 0 or Ts65Dn = 1), treatment (Memantine = 1 or Saline = 0), and Stimulated (yes = 1, no = 0).
@@ -108,23 +125,27 @@ Then we created a linear model between the 2 variables BRAF_N and pERK_N:
 
 ------------------------------------------------------------------------
 
-## Analysis 1
+## Data Understanding
 
 ------------------------------------------------------------------------
 
-## **Results #1**
+## Heatmaps
 
 ------------------------------------------------------------------------
 
-## Results #2
+## Specific Protein Analysis
 
 ------------------------------------------------------------------------
 
-## Results #3
+## MAPK_Activity and Chromatin_Activation_Index Analysis
 
 ------------------------------------------------------------------------
 
-## Discussion
+## PCA
+
+------------------------------------------------------------------------
+
+## Discussion and Conclusions
 
 ------------------------------------------------------------------------
 
