@@ -4,6 +4,8 @@ format: html
 editor: visual
 ---
 
+In this file, we're loading the raw data, and we write it as .tsv in the /data folder.
+
 ## Loading libraries
 
 ```{r}
@@ -14,12 +16,6 @@ library("tidyverse")
 ## Loading data
 
 ```{r}
-#For Gioele's PC, I might need the absolute path, IDK
-#first_path <- "/net/pupil1/home/people/s243057/projects/projects/group_23_project"
-#file_path <- "data/_raw/Data_Cortex_Nuclear.csv" 
-#file_path <- file.path(first_path, file_path)
-# !! REMEMBER TO EXPLAIN THE ABSOLUTE PATH THING ON THE README DOC
-
 first_path <- "~/projects/R_project/"
 file_path <- "data/_raw/Data_Cortex_Nuclear.csv" 
 file_path <- file.path(first_path, file_path)
@@ -38,4 +34,4 @@ df |>
   write_tsv(file = file_path)
 ```
 
-The eight classes of mice are described based on features such as genotype, behavior and treatment. According to genotype, mice can be control or trisomic. According to behavior, some mice have been stimulated to learn (context-shock) and others have not (shock-context) and in order to assess the effect of the drug memantine in recovering the ability to learn in trisomic mice, some mice have been injected with the drug and others have not.
+The eight classes of mice are described based on features such as genotype, behavior, and treatment. According to genotype, mice can be control or trisomic. According to behavior, some mice have been stimulated to learn (context-shock) and others have not (shock-context) and in order to assess the effect of the drug memantine in recovering the ability to learn in trisomic mice, some mice have been injected with the drug and others have not.

@@ -4,6 +4,8 @@ format: html
 editor: visual
 ---
 
+In this file, we take the raw data we have in the *data* folder, and we clean it from NAs.
+
 ## Loading libraries
 
 ```{r}
@@ -22,6 +24,8 @@ library(broom)
 #file_path <- file.path(first_path, "data/01_dat_load.tsv")
 file_path <- "/net/pupil1/home/people/s243057/projects/group_23_project/data/01_dat_load.tsv"
 first_path <- "~/projects/R_project/"
+first_path <- "/net/pupil1/home/people/s242150/projects/R_project/"
+#first_path <- "~/projects/R_project/"
 file_path <- file.path(first_path, "data/01_dat_load.tsv")
 df <- read_tsv(file = file_path)
 ```
@@ -29,9 +33,9 @@ df <- read_tsv(file = file_path)
 ## Cleaning data
 
 ```{r}
-# I'm not sure if this is necessary to deal with the NAs
-#df_clean <- df |>
-  #mutate(across(everything(), ~ ifelse(is.na(.), "N/A", .)))
+proteins <- names(df[2:78])
+classes <- as.vector(unique(as.character(df$class)))
+
 ```
 
 Checking how many missing values appear in each column.
@@ -41,7 +45,8 @@ missing_summary <- colSums(is.na(df))
 print(missing_summary)
 ```
 
-Replacing the missing data with mean values 
+Replacing the missing data (NaN) with mean values
+
 ```{r}
 df <- as.data.frame(df)
 df_mean <- df |>
@@ -54,6 +59,7 @@ print(missing_summary)
 ```
 
 Plotting both replacements
+
 ```{r}
 # Reshape data for visualization
 df_long <- df |>
@@ -82,7 +88,6 @@ ggplot(df_compare, aes(x = Expression, fill = Method)) +
 
 ```
 
-
 Creating the cleaned tsv file.
 
 ```{r}
@@ -95,8 +100,8 @@ df_clean |>
   write_tsv(file = file_path)
 ```
 
-
 Checking statistical importance - would not include
+
 ```{r}
 # Calculate correlation with original data
 original <- df |>
@@ -111,19 +116,50 @@ print(cor_original_mean)
 
 ```
 
-Removing the columns with a significant number of missing values compared with the size of the dataset (chosen threshold: \>100 NAs). - would not include
+# Reshape data for visualization
 
 ```{r}
-df_clean <- df |> 
-  select(where(~ sum(is.na(.)) < 100))
+#df_long <- df |>
+#pivot_longer(cols = c(H3MeK4, EGR1, H3AcK18, BCL2, pCFOS, BAD),
+#names_to = "Protein", values_to = "Expression")
+
+#df_mean_long <- df_mean |>
+#pivot_longer(cols = c(H3MeK4, EGR1, H3AcK18, BCL2, pCFOS, BAD),
+#names_to = "Protein", values_to = "Expression")
+
+df_long <- df |>
+pivot_longer(cols = c(H3MeK4_N, EGR1_N, H3AcK18_N, BCL2_N, pCFOS_N, BAD_N),
+names_to = "Protein", values_to = "Expression")
+
+df_mean_long <- df_mean |>
+  pivot_longer(cols = c(H3MeK4_N, EGR1_N, H3AcK18_N, BCL2_N, pCFOS_N, BAD_N),
+names_to = "Protein", values_to = "Expression")
+
+
+# Combine all datasets for comparison
+df_compare <- bind_rows(
+  mutate(df_long, Method = "Original"),
+  mutate(df_mean_long, Method = "Mean Replacement")
+)
+
+# Plot density
+ggplot(df_compare, aes(x = Expression, fill = Method)) +
+geom_density(alpha = 0.5) +
+facet_wrap(~Protein, scales = "free") +
+theme_minimal() +
+labs(title = "Distribution of Protein Expression After Replacements",
+x = "Expression Level",
+y = "Density")
 ```
 
-Creating the cleaned tsv file.
+Writing the cleaned .tsv file in the *data* folder:
 
 ```{r}
 file_path <- "data/02_dat_clean.tsv"
 file_path <- file.path(first_path, file_path)
 
-df_clean |>
+df <- df_mean
+
+df |>
   write_tsv(file = file_path)
 ```

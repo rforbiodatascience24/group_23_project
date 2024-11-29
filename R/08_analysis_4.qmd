@@ -1,0 +1,148 @@
+---
+title: "08_analysis_4"
+format: html
+editor: visual
+---
+
+<<<<<<< HEAD
+This script analyzes the impact of Genotype, Treatment, and Stimulation on MAPK Activity and Chromatin Activation Index (the 2 variables we created in 03_augment.qmd).
+=======
+In this file we'll do some little visual analysis of the 2 variables created in the 03_augment.qmd file: MAPK_Activity and Chromatin_Activation_Index.
+>>>>>>> fd7ea71e14a32e0ebcf2ae864d64257db09d85f6
+
+## Loading libraries
+
+```{r}
+library("tidyverse")
+```
+
+## Loading data
+
+```{r}
+first_path <- "~/projects/R_project/"
+file_path <- "data/03_dat_aug.tsv" 
+file_path <- file.path(first_path, file_path)
+df_aug <- read_tsv(file = file_path)
+```
+
+### MAPK_Activity
+
+```{r}
+# factorizing the 3 categories: Genotype, Treatment, Stimulated
+df_aug <- df_aug |> 
+  mutate(Genotype = as.factor(Genotype),
+         Treatment = as.factor(Treatment),
+         Stimulated = as.factor(Stimulated))
+```
+
+```{r}
+ df_aug |> 
+   ggplot(aes(x = MAPK_Activity + 0.001, # to ensure we won't have log(0) 
+                      y = Genotype, fill = Genotype)) + 
+   geom_boxplot() + 
+   scale_x_log10() + 
+   labs(title = "MAPK Activity by Genotype (Log10 Scale)", 
+        subtitle = "Labelling: 0 = Control, 1 = Trisomic", 
+        x = "", 
+        y = "Genotype") + 
+   theme(legend.position = "none")
+```
+
+```{r}
+df_aug |> 
+  ggplot(aes(x = MAPK_Activity + 0.001,  
+                     y = Treatment, 
+                     fill = Treatment)) + 
+  geom_boxplot() + 
+  scale_x_log10() + 
+  labs(title = "MAPK Activity by Treatment (Log10 Scale)", 
+       subtitle = "Labelling: 0 = Saline, 1 = Memantine", 
+       x = "", 
+       y = "Treatment") + 
+  theme(legend.position = "none")
+```
+
+```{r}
+df_aug |> 
+  ggplot(aes(x = MAPK_Activity + 0.001, 
+                     y = Stimulated, 
+                     fill = Stimulated)) + 
+  geom_boxplot() + 
+  scale_x_log10() + 
+  labs(title = "MAPK Activity by Stimulation (Log10 Scale)", 
+       subtitle = "Labelling: 0 = No, 1 = Yes", 
+       x = "", 
+       y = "Stimulated") + 
+  theme(legend.position = "none")
+```
+
+-   **MAPK Activity vs. Stimulated**:\
+    There is a **clear distinction** between the two groups. When the mice are stimulated to learn (value = 1), the MAPK activity is significantly higher, suggesting that stimulation strongly activates this pathway. The logarithmic scale highlights that this effect spans multiple orders of magnitude. This indicates a robust biological response to stimulation, aligning with the pathway's known role in transmitting activation signals.
+-   **MAPK Activity vs. Treatment**:\
+    The distribution of MAPK activity is fairly similar between the two Treatment groups. The median values are comparable, and there isn't a significant difference in spread or outliers. This suggests that the treatment might not have a direct or strong impact on MAPK activity, at least under these conditions.
+-   **MAPK Activity vs. Genotype**:\
+    The MAPK activity between control and trisomic mice does not show a major distinction. Both genotypes have similar median activity levels and variability, though the Genotype 0 (control mice) seems to have slightly more outliers. This suggests that genetic variation alone might not play a significant role in this specific pathway, at least without additional factors such as stimulation or treatment.
+
+In conclusion, among the factors analyzed, Stimulated appears to have the most significant effect on MAPK activity, highlighting its relevance in the pathway's regulation. Neither Genotype nor Treatment seem to strongly modulate MAPK activity on their own. Further statistical testing could confirm these observations.
+
+### Chromatin_Activation_Index
+
+```{r}
+df_aug |> 
+  ggplot(aes(x = Chromatin_Activation_Index, 
+             y = Genotype, 
+             fill = Genotype)) + 
+  geom_boxplot() + 
+  scale_x_log10() + 
+  labs(title = "Chromatin Activation Index by Genotype (Log10 Scale)", 
+       subtitle = "Labelling: 0 = Control, 1 = Trisomic", 
+       x = "", 
+       y = "Genotype") + 
+  theme(legend.position = "none")
+```
+
+```{r}
+df_aug |> 
+  ggplot(aes(x = Chromatin_Activation_Index, 
+             y = Treatment, 
+             fill = Treatment)) + 
+  geom_boxplot() + 
+  scale_x_log10() + 
+  labs(title = "Chromatin Activation Index by Treatment (Log10 Scale)", 
+       subtitle = "Labelling: 0 = Saline, 1 = Memantine", 
+       x = "", 
+       y = "Treatment") + 
+  theme(legend.position = "none")
+```
+
+```{r}
+df_aug |> 
+  ggplot(aes(x = Chromatin_Activation_Index, 
+             y = Stimulated, 
+             fill = Stimulated)) + 
+  geom_boxplot() + 
+  scale_x_log10() + 
+  labs(title = "Chromatin Activation Index by Stimulation (Log10 Scale)", 
+       subtitle = "Labelling: 0 = No, 1 = Yes", 
+       x = "", 
+       y = "Stimulated") + 
+  theme(legend.position = "none")
+```
+
+-   **Chromatin Activation Index vs. Genotype**:\
+    The distribution of Chromatin Activation Index (CAI) across control and trisomic samples is fairly consistent, with similar median values and interquartile ranges. This suggests that genotype differences do not significantly affect chromatin activation. While both groups show some outliers, they appear to be evenly distributed without a clear trend. These findings indicate that genetic variation, by itself, might not have a direct influence on chromatin activation under these experimental conditions.
+
+```{=html}
+<!-- -->
+```
+-   **Chromatin Activation Index vs. Treatment:\
+    **The CAI distribution for the two Treatment groups (saline and memantine) also appears similar. Median values and variability (IQR) are comparable between the groups, indicating that the treatment applied does not strongly modulate chromatin activation. Outliers are present in both groups but do not suggest any systematic bias. This finding implies that treatment might not be a primary driver of chromatin activation changes in this dataset.
+
+-   **Chromatin Activation Index vs. Stimulated:\
+    **A more noticeable difference is observed when comparing CAI between stimulated (1) and non-stimulated (0) groups. Stimulated cells show a reduced CAI, with a lower median value and slightly compressed IQR. This suggests that stimulation may suppress chromatin activation, potentially through mechanisms such as altered histone modification (e.g., acetylation) or reduced accessibility of transcriptional machinery. This aligns with the hypothesis that stimulation could decrease transcriptional activity by modifying chromatin structure.
+
+In both analyses, **Stimulated** emerges as a dominant factor influencing the measured outcomes, overshadowing the effects of **Genotype** and **Treatment**, which show minimal impact. These results highlight the biological relevance of stimulation in dynamically regulating pathways and processes, such as MAPK signaling and chromatin organization.
+
+-   For **MAPK Activity**, stimulation leads to a pronounced increase in activity, spanning multiple orders of magnitude, as highlighted by the logarithmic scale. This robust activation aligns with the MAPK pathway's known role as a key signaling cascade, particularly in response to external stimuli like growth factors or stress.
+
+-   For **Chromatin Activation Index**, stimulation exhibits a suppressive effect, as evident from the reduced median and interquartile range in the stimulated group. This could indicate that stimulation alters chromatin structure, potentially reducing transcriptional accessibility. This aligns with mechanisms where external signals influence chromatin remodeling to regulate gene expression.

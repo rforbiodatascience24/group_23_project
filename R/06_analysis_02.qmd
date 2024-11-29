@@ -1,0 +1,202 @@
+This file provides a detailed analysis of the Mice Protein Expression dataset. It includes generating heatmaps to visualize protein expression across all samples, different classes, and genotypes. The analysis identifies proteins with the highest variability and those showing the largest differences between groups. Statistical methods like t-tests are applied to highlight significant protein variations, providing insights into the dataset's underlying patterns and group-specific differences.
+
+## Load libraries
+
+```{r}
+#| message: false
+library(ggplot2)
+library(tidyverse)
+```
+
+## Loading data
+
+```{r}
+#| message: false
+first_path <- "~/projects/R_project/"
+file_path <- "data/03_dat_aug.tsv" 
+file_path <- file.path(first_path, file_path)
+
+df_aug <- read_tsv(file = file_path)
+df <- df_aug
+```
+
+## Heatmap of proteins
+
+### Heatmap #1 - All Proteins with all samples
+
+(might delete that )!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Preparing data for heatmap visualization - changing to the long data, using pivot_longer
+
+```{r}
+protein_data_long <- df |>
+  select(ends_with("_N")) |>
+  rownames_to_column(var = "MouseID") |> 
+  pivot_longer(-MouseID, names_to = "Protein", values_to = "Expression")
+
+# Heatmap using ggplot
+ggplot(protein_data_long, aes(x = Protein, y = MouseID, fill = Expression)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "blue", mid = "white", high = "red", midpoint = 0) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1),
+        axis.text.y = element_text(size = 5, angle = 90, hjust = 1)) +
+  labs(title = "Heatmap of Protein Expression (All Mice)",
+       x = "Proteins", y = "MouseID", fill = "Expression")
+
+```
+
+### Heatmap #2 - proteins divided by class
+
+Starting with the z-normalization following by min-max normalization to obtain \[-1, 1\]
+
+```{r}
+df_z <- df |>
+  mutate(across(ends_with("_N"), ~ scale(.) 
+                |> as.vector()))
+
+df <- df_z |>
+  mutate(across(ends_with("_N"), ~ (2 * ((. - min(., na.rm = TRUE)) / 
+                                         (max(., na.rm = TRUE) - min(., na.rm = TRUE))) - 1)))
+
+```
+
+```{r}
+# Loop over each class and create heatmap
+unique_classes <- unique(df$class)
+
+for (cls in unique_classes) {
+  protein_data_long_class <- df |>
+    filter(class == cls) |>
+    select(ends_with("_N")) |>
+    rownames_to_column(var = "MouseID") |>
+    pivot_longer(-MouseID, names_to = "Protein", values_to = "Expression")
+  
+  # Create ggplot object
+  heatmap_plot <- ggplot(protein_data_long_class, 
+                         aes(x = Protein, y = MouseID, fill = Expression)) +
+    geom_tile() +
+    scale_fill_gradient2(low = "blue", mid = "white", high = "red", midpoint = 0) +
+    theme_minimal() +
+    theme(axis.text.y = element_text(size = 2, angle = 90),
+          axis.text.x = element_text(size = 5, angle = 45, hjust = 1)) +
+    labs(title = paste("Heatmap for Class:", cls),
+         x = "Proteins", y = "MouseID", fill = "Expression")
+  
+  # Explicitly print the plot
+  print(heatmap_plot)
+}
+
+
+```
+
+### Heatmap #3 - divided by genotype
+
+#### Data manipulation
+
+```{r}
+trisomy_data <- df |>
+  filter(Genotype == "Ts65Dn")
+
+control_data <- df |> 
+  filter(Genotype == "Control")
+
+protein_columns <- colnames(df |> select(ends_with("_N")))
+
+trisomy_long <- trisomy_data |>
+  select(MouseID, all_of(protein_columns)) |>
+  pivot_longer(cols = -MouseID, names_to = "Protein", values_to = "Expression")
+
+control_long <- control_data |>
+  select(MouseID, all_of(protein_columns)) |>
+  pivot_longer(cols = -MouseID, names_to = "Protein", values_to = "Expression")
+
+```
+
+#### Plots
+
+```{r}
+ggplot(trisomy_long, aes(x = Protein, y = MouseID, fill = Expression)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "blue", mid = "white", high = "red", midpoint = 0) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 90, hjust = 1),
+    axis.text.y = element_blank()
+  ) +
+  labs(
+    title = "Heatmap of Protein Expression (Trisomy)",
+    x = "Proteins",
+    y = "Samples - MouseID",
+    fill = "Expression"
+  )
+
+ggplot(control_long, aes(x = Protein, y = MouseID, fill = Expression)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "blue", mid = "white", high = "red", midpoint = 0) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 90, hjust = 1),
+    axis.text.y = element_blank()
+  ) +
+  labs(
+    title = "Heatmap of Protein Expression (Control)",
+    x = "Proteins",
+    y = "MouseID",
+    fill = "Expression"
+  )
+
+
+```
+
+## Analysis
+
+### Highest variability in proteins
+
+Trying to distinguish the proteins with the biggest sd
+
+```{r}
+most_variable_proteins <- df |>
+  select(ends_with("_N")) |>
+  summarise(across(everything(), sd, na.rm = TRUE)) |>
+  pivot_longer(cols = everything(), names_to = "Protein", values_to = "SD") %>%
+  arrange(desc(SD)) |>
+  slice_head(n = 10)
+
+most_variable_proteins
+```
+
+### Biggest differences between the groups
+
+Trying to identify the proteins that differ the most between the trisomy and the control group
+
+```{r}
+group_means <- df |>
+  group_by(Genotype) |>
+  summarise(across(ends_with("_N"), mean, na.rm = TRUE)) |>
+  pivot_longer(cols = -Genotype, names_to = "Protein", values_to = "MeanExpression")
+
+protein_differences <- group_means |>
+  pivot_wider(names_from = Genotype, values_from = MeanExpression) |>
+  mutate(Difference = abs(Ts65Dn - Control)) |>
+  arrange(desc(Difference)) |>
+  slice_head(n = 10) 
+
+protein_differences
+```
+
+### T-test
+
+Using t-test to identify the proteins variety between the trisomy and the control group
+
+```{r}
+t_test_results <- df |>
+  pivot_longer(cols = ends_with("_N"), names_to = "Protein", values_to = "Expression") |>
+  group_by(Protein) |>
+  summarise(p_value = t.test(Expression ~ Genotype, data = cur_data())$p.value) |>
+  arrange(p_value) |>
+  slice_head(n = 10)  
+
+t_test_results
+
+```

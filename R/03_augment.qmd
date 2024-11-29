@@ -4,6 +4,8 @@ format: html
 editor: visual
 ---
 
+In this file, we augment the data, simplifying the naming of the Genotype, Treatment, Behaviour variables, and adding 2 new variables to the dataset.
+
 ## Loading libraries
 
 ```{r}
@@ -14,6 +16,7 @@ library("tidyverse")
 Loading data
 
 ```{r}
+<<<<<<< HEAD
 file_path <- "/net/pupil1/home/people/s243057/projects/group_23_project/data/02_dat_clean.csv"
 df <- read.csv(file_path)
 ```
@@ -26,6 +29,10 @@ ggplot(df,
            color = diagnosis)) +
   geom_point()
 first_path <- "~/projects/R_project/"
+=======
+first_path <- "/net/pupil1/home/people/s242150/projects/R_project/"
+#first_path <- "~/projects/R_project/"
+>>>>>>> 102d035163dc39d7dedca4709284be9d0ef84627
 file_path <- "data/02_dat_clean.tsv" 
 file_path <- file.path(first_path, file_path)
 
@@ -34,17 +41,28 @@ df_clean <- read_tsv(file = file_path)
 
 ## Augmenting data
 
-We transform the values contained in the column "Behavior" into binary variables, so that stimulated mice are assigned 1 and non-stimulated 0 in the new column "Stimulated".
+We transform the values contained in the columns "Genotype", "Treatment" and "Behavior" into binary variables, so that:
+
+-   trisomic mice are assigned 1 and control mice 0;
+
+-   mice treated with memantine are assigned 1 and with saline 0;
+
+-   stimulated mice are assigned 1 and non-stimulated 0 in the new column "Stimulated".
 
 We also move to the first positions the columns that describe the conditions of the mice.
 
 ```{r}
 df_aug <- df_clean |>
-  mutate(Stimulated = case_when(Behavior == "C/S" ~ 1,
+  mutate(Genotype = case_when(Genotype == "Ts65Dn" ~ 1,
+                              Genotype == "Control" ~ 0),
+         Treatment = case_when(Treatment == "Memantine" ~ 1,
+                               Treatment == "Saline" ~ 0),
+         Stimulated = case_when(Behavior == "C/S" ~ 1,
                                 Behavior == "S/C" ~ 0)) |>
   select(MouseID, Genotype, Treatment, Stimulated, class, DYRK1A_N:CaNA_N)
 ```
 
+<<<<<<< HEAD
 Adding columns
 
 ```{r}
@@ -67,15 +85,18 @@ file_path <- file.path(first_path, file_path)
 df_aug2 |>
   write_tsv(file = file_path)
 ```
+=======
+### **Creating 2 New Variables:**
+>>>>>>> 102d035163dc39d7dedca4709284be9d0ef84627
 
-**Creating 2 New Variables**
+**VARIABLE 1: MAPK_Activity**
 
 ```{r}
 df_aug1 <- df_aug |>
   mutate(MAPK_Activity = BRAF_N * pERK_N)
 ```
 
-**BRAF_N**: BRAF is a protein kinase that plays a key role in the MAPK/ERK signaling pathway, which regulates cell growth, differentiation, and survival. Mutations in BRAF are commonly associated with cancers, especially melanoma.
+**BRAF_N**: BRAF (v-raf murine sarcoma viral oncogene homolog B) is a protein kinase that plays a key role in the MAPK/ERK (Mitogen-Activated Protein Kinase / Extracellular Signal-Regulated Kinase) signaling pathway, which regulates cell growth, differentiation, and survival. Mutations in BRAF are commonly associated with cancers.
 
 **pERK_N**: Phosphorylated ERK (pERK) is a downstream target of the MAPK pathway and is activated by BRAF. It is involved in transmitting growth signals within cells and is essential for proliferation.
 
@@ -83,14 +104,16 @@ df_aug1 <- df_aug |>
 
 This product could represent the pathway's activity, as pERK depends on upstream signals like BRAF for its activation.
 
+**VARIABLE 2: Chromatin_Activation_Index**
+
 ```{r}
 df_aug2 <- df_aug1 |>
   mutate(Chromatin_Activation_Index = AcetylH3K9_N / DYRK1A_N)
 ```
 
-**AcetylH3K9_N**: Refers to the acetylation of lysine 9 on histone H3, a key epigenetic modification. It is associated with active chromatin and transcriptional activation, regulating gene expression during cell cycle progression and development.
+**AcetylH3K9_N** (acetylation of histone H3 at lysine 9): Refers to the acetylation of lysine 9 on histone H3, a key epigenetic modification. It is associated with active chromatin and transcriptional activation, regulating gene expression during cell cycle progression and development.
 
-**DYRK1A_N**: Represents the Dual-specificity tyrosine-regulated kinase 1A, a kinase involved in various biological processes, including neural development, synaptic function, and cell proliferation. DYRK1A is also implicated in diseases such as Down syndrome and Alzheimer’s disease
+**DYRK1A_N** (Dual-specificity Tyrosine-phosphorylation Regulated Kinase 1A): Represents the Dual-specificity tyrosine-regulated kinase 1A, a kinase involved in various biological processes, including neural development, synaptic function, and cell proliferation. DYRK1A is also implicated in diseases such as Down syndrome and Alzheimer’s disease
 
 **Chromatin_Activation_Index** = AcetylH3K9_N / DYRK1A_N
 
@@ -101,6 +124,7 @@ This ratio could highlight the balance between kinase-driven cellular signaling 
 ```{r}
 file_path <- "data/03_dat_aug.tsv"
 file_path <- file.path(first_path, file_path)
+
 
 df_aug2 |>
   write_tsv(file = file_path)

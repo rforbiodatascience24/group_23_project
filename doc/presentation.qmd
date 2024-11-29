@@ -1,0 +1,128 @@
+---
+title: "Analysis of Mice Protein Expression"
+format: revealjs
+editor: visual
+---
+
+## **Group 23**
+
+### **Analysis of Mice Protein Expression**
+
+Gaia Marraffa
+
+Natalia Najuch
+
+Gioele Tiraboschi
+
+------------------------------------------------------------------------
+
+## Slide 2: Loading and cleaning
+
+01_load:
+
+02_clean:
+
+------------------------------------------------------------------------
+
+<<<<<<< HEAD
+## Slide 3: Title
+=======
+## Slide 3: Augmenting
+
+We transformed the values contained in the columns "Genotype", "Treatment" and "Behavior" into binary variables, so that:
+
+-   trisomic mice are assigned 1 and control mice 0;
+
+-   mice treated with memantine are assigned 1 and with saline 0;
+
+-   stimulated mice are assigned 1 and non-stimulated 0 in the new column "Stimulated".
+
+We created 2 new variables:
+
+-   **MAPK_Activity**
+
+    ```{r}
+    df_aug1 <- df_aug |>
+      mutate(MAPK_Activity = BRAF_N * pERK_N)
+    ```
+>>>>>>> f103c2db039c8aefd4779aed42a935d2124fbf82
+
+-   BRAF_N: A kinase that starts the MAPK signaling pathway, often altered in cancers like melanoma.
+
+-   pERK_N: which transmits growth signals in the cell.
+
+We multiply BRAF_N and pERK_N, and the new variable measures the MAPK signaling pathway's activity, which is often dysregulated in cancer.
+
+**Chromatin_Activation_Index**
+
+```{r}
+df_aug2 <- df_aug1 |>
+  mutate(Chromatin_Activation_Index = AcetylH3K9_N / DYRK1A_N)
+```
+
+-   AcetylH3K9_N: A modification that marks active genes by loosening chromatin, allowing gene expression.
+
+-   DYRK1A_N: A kinase that influences gene expression and cell function.
+
+We divide AcetylH3K9_N by DYRK1A_N and this new index should reflect how epigenetic changes and kinase signaling work together to regulate gene expression in response to external signals.
+
+------------------------------------------------------------------------
+
+## Slide 4: Statistical modeling
+
+We grouped the 8 categories: genotype (control = 0 or Ts65Dn = 1), treatment (Memantine = 1 or Saline = 0), and Stimulated (yes = 1, no = 0).
+
+Then we created a linear model between the 2 variables BRAF_N and pERK_N:
+
+```{r}
+df_models <- df_nested |>
+  mutate(model = map(data, 
+                     ~lm(BRAF_N ~ pERK_N, 
+                         data = .x))  )
+```
+
+------------------------------------------------------------------------
+
+## Slide 5: Analysis_1
+
+Adding a local image:
+
+![MY_IMAGE](images/example.png)
+
+------------------------------------------------------------------------
+
+## Slide 6: Titolo
+
+Contenuto della sesta slide.
+
+------------------------------------------------------------------------
+
+## Slide 7: Titolo
+
+Contenuto della settima slide.
+
+------------------------------------------------------------------------
+
+## Slide 8: Titolo
+
+Contenuto dell'ottava slide.
+
+------------------------------------------------------------------------
+
+## Slide 9: Titolo
+
+Contenuto della nona slide.
+
+------------------------------------------------------------------------
+
+## Slide 10: Titolo
+
+Contenuto della decima slide.
+
+------------------------------------------------------------------------
+
+## **Thanks for the attention**
+
+::: {style="text-align: center; font-size: 2em; font-weight: bold;"}
+Thanks for the attention
+:::
