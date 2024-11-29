@@ -4,11 +4,7 @@ format: html
 editor: visual
 ---
 
-<<<<<<< HEAD
-This script analyzes the impact of Genotype, Treatment, and Stimulation on MAPK Activity and Chromatin Activation Index (the 2 variables we created in 03_augment.qmd).
-=======
 In this file we'll do some little visual analysis of the 2 variables created in the 03_augment.qmd file: MAPK_Activity and Chromatin_Activation_Index.
->>>>>>> fd7ea71e14a32e0ebcf2ae864d64257db09d85f6
 
 ## Loading libraries
 
@@ -132,9 +128,8 @@ df_aug |>
 -   **Chromatin Activation Index vs. Genotype**:\
     The distribution of Chromatin Activation Index (CAI) across control and trisomic samples is fairly consistent, with similar median values and interquartile ranges. This suggests that genotype differences do not significantly affect chromatin activation. While both groups show some outliers, they appear to be evenly distributed without a clear trend. These findings indicate that genetic variation, by itself, might not have a direct influence on chromatin activation under these experimental conditions.
 
-```{=html}
 <!-- -->
-```
+
 -   **Chromatin Activation Index vs. Treatment:\
     **The CAI distribution for the two Treatment groups (saline and memantine) also appears similar. Median values and variability (IQR) are comparable between the groups, indicating that the treatment applied does not strongly modulate chromatin activation. Outliers are present in both groups but do not suggest any systematic bias. This finding implies that treatment might not be a primary driver of chromatin activation changes in this dataset.
 
