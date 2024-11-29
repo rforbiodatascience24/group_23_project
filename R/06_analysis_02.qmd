@@ -68,8 +68,11 @@ df_z <- df |>
                 |> as.vector()))
 
 df <- df_z |>
-  mutate(across(ends_with("_N"), ~ (2 * ((. - min(., na.rm = TRUE)) / 
-                                         (max(., na.rm = TRUE) - min(., na.rm = TRUE))) - 1)))
+  mutate(across(ends_with("_N"), ~ (2 * ((. - min(., 
+                                                  na.rm = TRUE)) / 
+                                         (max(., 
+                                              na.rm = TRUE) - min(.,
+                                                                  na.rm = TRUE))) - 1)))
 
 ```
 
@@ -87,17 +90,10 @@ for (cls in unique_classes) {
                  values_to = "Expression")
   
   # Create ggplot object
-<<<<<<< HEAD
-  heatmap_plot <- ggplot(protein_data_long_class, 
-                         aes(x = Protein, 
-                             y = MouseID, 
-                             fill = Expression)) +
-=======
   heatmap_plot <- ggplot(data = protein_data_long_class, 
                          mapping = aes(x = Protein, 
                                        y = MouseID, 
                                        fill = Expression)) +
->>>>>>> eee48d507b4a2e5a32602239538b831618080f3e
     geom_tile() +
     scale_fill_gradient2(low = "blue", 
                          mid = "white", 
@@ -135,47 +131,28 @@ protein_columns <- colnames(df |>
                               select(ends_with("_N")))
 
 trisomy_long <- trisomy_data |>
-<<<<<<< HEAD
-  select(MouseID, all_of(protein_columns)) |>
-=======
   select(MouseID, 
          all_of(protein_columns)) |>
->>>>>>> eee48d507b4a2e5a32602239538b831618080f3e
   pivot_longer(cols = -MouseID, 
                names_to = "Protein", 
                values_to = "Expression")
 
 control_long <- control_data |>
-<<<<<<< HEAD
-  select(MouseID, all_of(protein_columns)) |>
-  pivot_longer(cols = -MouseID, 
-               names_to = "Protein", 
-               values_to = "Expression")
-=======
   select(MouseID, 
          all_of(protein_columns)) |>
   pivot_longer(cols = -MouseID, 
                names_to = "Protein", 
                values_to = "Expression")
 
->>>>>>> eee48d507b4a2e5a32602239538b831618080f3e
 ```
 
 #### Plots
 
 ```{r}
-<<<<<<< HEAD
-
-ggplot(trisomy_long, 
-       aes(x = Protein, 
-           y = MouseID, 
-           fill = Expression)) +
-=======
 ggplot(data = trisomy_long, 
        mapping = aes(x = Protein, 
                      y = MouseID, 
                      fill = Expression)) +
->>>>>>> eee48d507b4a2e5a32602239538b831618080f3e
   geom_tile() +
   scale_fill_gradient2(low = "blue", 
                        mid = "white", 
