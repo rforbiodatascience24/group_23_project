@@ -11,10 +11,6 @@ In this file, we take the raw data we have in the *data* folder, and we clean it
 ```{r}
 #| message: false
 library("tidyverse")
-library(dendextend)
-library(reshape2)
-library(tibble)
-library(broom)
 ```
 
 ## Loading data
@@ -41,16 +37,20 @@ missing_summary <- colSums(is.na(df))
 print(missing_summary)
 ```
 
-Replacing the missing data (NaN) with mean values
+Replacing the missing data (NaN) with mean values within each class
 
 ```{r}
 df <- as.data.frame(df)
+
 df_mean <- df |>
   group_by(class) |>
-  mutate(across(everything(), ~ ifelse(is.na(.), mean(., na.rm = TRUE), .))) |>
+  mutate(across(everything(),
+                ~ ifelse(is.na(.),
+                         mean(., na.rm = TRUE), .))) |>
   ungroup()
 
 missing_summary <- colSums(is.na(df_mean))
+
 print(missing_summary)
 ```
 
@@ -59,28 +59,45 @@ print(missing_summary)
 
 ```{r}
 df_long <- df |>
-pivot_longer(cols = c(H3MeK4_N, EGR1_N, H3AcK18_N, BCL2_N, pCFOS_N, BAD_N),
-names_to = "Protein", values_to = "Expression")
+pivot_longer(cols = c(H3MeK4_N, 
+                      EGR1_N, 
+                      H3AcK18_N, 
+                      BCL2_N, 
+                      pCFOS_N, 
+                      BAD_N),
+             names_to = "Protein", 
+             values_to = "Expression")
 
 df_mean_long <- df_mean |>
-  pivot_longer(cols = c(H3MeK4_N, EGR1_N, H3AcK18_N, BCL2_N, pCFOS_N, BAD_N),
-names_to = "Protein", values_to = "Expression")
+  pivot_longer(cols = c(H3MeK4_N, 
+                        EGR1_N, 
+                        H3AcK18_N, 
+                        BCL2_N, 
+                        pCFOS_N, 
+                        BAD_N),
+               names_to = "Protein", 
+               values_to = "Expression")
 
 
 # Combine all datasets for comparison
 df_compare <- bind_rows(
-  mutate(df_long, Method = "Original"),
-  mutate(df_mean_long, Method = "Mean Replacement")
+  mutate(df_long, 
+         Method = "Original"),
+  mutate(df_mean_long, 
+         Method = "Mean Replacement")
 )
 
 # Plot density
-ggplot(df_compare, aes(x = Expression, fill = Method)) +
-geom_density(alpha = 0.5) +
-facet_wrap(~Protein, scales = "free") +
-theme_minimal() +
-labs(title = "Distribution of Protein Expression After Replacements",
-x = "Expression Level",
-y = "Density")
+ggplot(data = df_compare, 
+       mapping = aes(x = Expression, 
+                     fill = Method)) +
+  geom_density(alpha = 0.5) +
+  facet_wrap(~Protein, 
+           scales = "free") +
+  theme_minimal() +
+  labs(title = "Distribution of Protein Expression After Replacements",
+       x = "Expression Level",
+       y = "Density")
 ```
 
 Writing the cleaned .tsv file in the *data* folder:
