@@ -162,8 +162,9 @@ ggplot(data = trisomy_long,
                        midpoint = 0) +
   theme_minimal() +
   theme(
-    axis.text.x = element_text(angle = 90, 
-                               hjust = 1),
+    axis.text.x = element_text(angle = 45, 
+                               hjust = 1,
+                               size = 5),
     axis.text.y = element_blank()
   ) +
   labs(
@@ -184,8 +185,9 @@ ggplot(data = control_long,
                        midpoint = 0) +
   theme_minimal() +
   theme(
-    axis.text.x = element_text(angle = 90, 
-                               hjust = 1),
+    axis.text.x = element_text(angle = 45, 
+                               hjust = 1,
+                               size = 5),
     axis.text.y = element_blank()
   ) +
   labs(
