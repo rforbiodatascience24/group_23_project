@@ -98,7 +98,27 @@ Gioele:
 
 ## MAPK_Activity and Chromatin_Activation_Index Analysis
 
--   Analyzed how the 2 variables depend on Genotype, Treatment, and Stimulated, using boxplots.
+-   Analyzing how the 2 variables depend on Genotype, Treatment, and Stimulated, using boxplots.
+
+::: columns
+::: {.column width="50%"}
+![](~/projects/R_project/doc/images/MAPK.png){fig-align="center"}{width="90%"}
+:::
+
+::: {.column width="50%"}
+![](~/projects/R_project/doc/images/CAI.png){fig-align="center"}{width="90%"}
+:::
+:::
+
+------------------------------------------------------------------------
+
+## MAPK_Activity and Chromatin_Activation_Index Analysis
+
+-   Analyzing how the 2 variables depend on Genotype, Treatment, and Stimulated, using boxplots.
+
+![](~/projects/R_project/doc/images/MAPK.png)
+
+![](~/projects/R_project/doc/images/CAI.png)
 
 ------------------------------------------------------------------------
 
