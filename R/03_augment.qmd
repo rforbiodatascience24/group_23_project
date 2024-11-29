@@ -4,6 +4,8 @@ format: html
 editor: visual
 ---
 
+In this file, we augment the data, simplifying the naming of the Genotype, Treatment, Behaviour variables, and adding 2 new variables to the dataset.
+
 ## Loading libraries
 
 ```{r}
@@ -45,7 +47,7 @@ df_aug <- df_clean |>
   select(MouseID, Genotype, Treatment, Stimulated, class, DYRK1A_N:CaNA_N)
 ```
 
-**Creating 2 New Variables**
+### **Creating 2 New Variables:**
 
 **VARIABLE 1: MAPK_Activity**
 

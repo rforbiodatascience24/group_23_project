@@ -4,6 +4,8 @@ format: html
 editor: visual
 ---
 
+In this file, we take the raw data we have in the *data* folder, and we clean it from NAs.
+
 ## Loading libraries
 
 ```{r}
@@ -86,6 +88,8 @@ labs(title = "Distribution of Protein Expression After Replacements",
 x = "Expression Level",
 y = "Density")
 ```
+
+Writing the cleaned .tsv file in the *data* folder:
 
 ```{r}
 file_path <- "data/02_dat_clean.tsv"
