@@ -87,10 +87,17 @@ for (cls in unique_classes) {
                  values_to = "Expression")
   
   # Create ggplot object
+<<<<<<< HEAD
   heatmap_plot <- ggplot(protein_data_long_class, 
                          aes(x = Protein, 
                              y = MouseID, 
                              fill = Expression)) +
+=======
+  heatmap_plot <- ggplot(data = protein_data_long_class, 
+                         mapping = aes(x = Protein, 
+                                       y = MouseID, 
+                                       fill = Expression)) +
+>>>>>>> eee48d507b4a2e5a32602239538b831618080f3e
     geom_tile() +
     scale_fill_gradient2(low = "blue", 
                          mid = "white", 
@@ -128,32 +135,56 @@ protein_columns <- colnames(df |>
                               select(ends_with("_N")))
 
 trisomy_long <- trisomy_data |>
+<<<<<<< HEAD
   select(MouseID, all_of(protein_columns)) |>
+=======
+  select(MouseID, 
+         all_of(protein_columns)) |>
+>>>>>>> eee48d507b4a2e5a32602239538b831618080f3e
   pivot_longer(cols = -MouseID, 
                names_to = "Protein", 
                values_to = "Expression")
 
 control_long <- control_data |>
+<<<<<<< HEAD
   select(MouseID, all_of(protein_columns)) |>
   pivot_longer(cols = -MouseID, 
                names_to = "Protein", 
                values_to = "Expression")
+=======
+  select(MouseID, 
+         all_of(protein_columns)) |>
+  pivot_longer(cols = -MouseID, 
+               names_to = "Protein", 
+               values_to = "Expression")
+
+>>>>>>> eee48d507b4a2e5a32602239538b831618080f3e
 ```
 
 #### Plots
 
 ```{r}
+<<<<<<< HEAD
 
 ggplot(trisomy_long, 
        aes(x = Protein, 
            y = MouseID, 
            fill = Expression)) +
+=======
+ggplot(data = trisomy_long, 
+       mapping = aes(x = Protein, 
+                     y = MouseID, 
+                     fill = Expression)) +
+>>>>>>> eee48d507b4a2e5a32602239538b831618080f3e
   geom_tile() +
   scale_fill_gradient2(low = "blue", 
-                       mid = "white", high = "red", midpoint = 0) +
+                       mid = "white", 
+                       high = "red", 
+                       midpoint = 0) +
   theme_minimal() +
   theme(
-    axis.text.x = element_text(angle = 90, hjust = 1),
+    axis.text.x = element_text(angle = 90, 
+                               hjust = 1),
     axis.text.y = element_blank()
   ) +
   labs(
@@ -163,12 +194,19 @@ ggplot(trisomy_long,
     fill = "Expression"
   )
 
-ggplot(control_long, aes(x = Protein, y = MouseID, fill = Expression)) +
+ggplot(data = control_long, 
+       mapping = aes(x = Protein, 
+                         y = MouseID, 
+                         fill = Expression)) +
   geom_tile() +
-  scale_fill_gradient2(low = "blue", mid = "white", high = "red", midpoint = 0) +
+  scale_fill_gradient2(low = "blue", 
+                       mid = "white", 
+                       high = "red", 
+                       midpoint = 0) +
   theme_minimal() +
   theme(
-    axis.text.x = element_text(angle = 90, hjust = 1),
+    axis.text.x = element_text(angle = 90, 
+                               hjust = 1),
     axis.text.y = element_blank()
   ) +
   labs(
@@ -190,8 +228,12 @@ Trying to distinguish the proteins with the biggest sd
 ```{r}
 most_variable_proteins <- df |>
   select(ends_with("_N")) |>
-  summarise(across(everything(), sd, na.rm = TRUE)) |>
-  pivot_longer(cols = everything(), names_to = "Protein", values_to = "SD") %>%
+  summarise(across(everything(), 
+                   sd, 
+                   na.rm = TRUE)) |>
+  pivot_longer(cols = everything(), 
+               names_to = "Protein", 
+               values_to = "SD") |>
   arrange(desc(SD)) |>
   slice_head(n = 10)
 
@@ -205,14 +247,20 @@ Trying to identify the proteins that differ the most between the trisomy and the
 ```{r}
 group_means <- df |>
   group_by(Genotype) |>
-  summarise(across(ends_with("_N"), mean, na.rm = TRUE)) |>
-  pivot_longer(cols = -Genotype, names_to = "Protein", values_to = "MeanExpression")
+  summarise(across(ends_with("_N"), 
+                   mean, 
+                   na.rm = TRUE)) |>
+  pivot_longer(cols = -Genotype, 
+               names_to = "Protein", 
+               values_to = "MeanExpression")
 
 protein_differences <- group_means |>
-  pivot_wider(names_from = Genotype, values_from = MeanExpression) |>
-  mutate(Difference = abs(Ts65Dn - Control)) |>
+  pivot_wider(names_from = Genotype, 
+              values_from = MeanExpression, 
+              names_prefix = "Genotype_") |>
+  mutate(Difference = abs(Genotype_1 - Genotype_0)) |>
   arrange(desc(Difference)) |>
-  slice_head(n = 10) 
+  slice_head(n = 10)
 
 protein_differences
 ```
@@ -223,9 +271,12 @@ Using t-test to identify the proteins variety between the trisomy and the contro
 
 ```{r}
 t_test_results <- df |>
-  pivot_longer(cols = ends_with("_N"), names_to = "Protein", values_to = "Expression") |>
+  pivot_longer(cols = ends_with("_N"), 
+               names_to = "Protein", 
+               values_to = "Expression") |>
   group_by(Protein) |>
-  summarise(p_value = t.test(Expression ~ Genotype, data = cur_data())$p.value) |>
+  summarise(p_value = t.test(Expression ~ Genotype, 
+                             data = cur_data())$p.value) |>
   arrange(p_value) |>
   slice_head(n = 10)  
 
