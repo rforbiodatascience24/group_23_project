@@ -68,8 +68,11 @@ df_z <- df |>
                 |> as.vector()))
 
 df <- df_z |>
-  mutate(across(ends_with("_N"), ~ (2 * ((. - min(., na.rm = TRUE)) / 
-                                         (max(., na.rm = TRUE) - min(., na.rm = TRUE))) - 1)))
+  mutate(across(ends_with("_N"), ~ (2 * ((. - min(., 
+                                                  na.rm = TRUE)) / 
+                                         (max(., 
+                                              na.rm = TRUE) - min(.,
+                                                                  na.rm = TRUE))) - 1)))
 
 ```
 
