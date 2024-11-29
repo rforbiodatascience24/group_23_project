@@ -1,5 +1,6 @@
 ---
 title: "Analysis of Mice Protein Expression"
+author: "Gaia Marraffa, Natalia Najuch, Gioele Tiraboschi"
 format: revealjs
 editor: visual
 ---
