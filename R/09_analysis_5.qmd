@@ -6,19 +6,12 @@ editor: visual
 
 In this analysis we will implement PCA, since our dataset is quite large, so it will be useful to identify patterns and make interesting observations.
 
-## Installing packages
-
-```{r}
-install.packages("patchwork")
-```
-
 ## Loading libraries
 
 ```{r}
 #| message: false 
 library("tidyverse")
 library("broom")
-library("patchwork")
 ```
 
 ## Loading data
