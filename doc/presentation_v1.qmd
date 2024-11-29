@@ -8,23 +8,23 @@ output: ioslides_presentation
 
 ## Introduction
 
-- **Topic**: Analysis of Mice Protein Expression\\
+-   **Topic**: Analysis of Mice Protein Expression\\
 
- 	Understanding protein patterns and relationships in the dataset.
+    Understanding protein patterns and relationships in the dataset.
 
-  - **Objective**:
+    -   **Objective**:
 
- 	- Explore data to identify patterns and correlations among proteins.
+        -   Explore data to identify patterns and correlations among proteins.
 
- 	-   Apply advanced data analysis techniques for deeper insights.
+        -     Apply advanced data analysis techniques for deeper insights.
 
- -   \*\*Approach\*\*:
+-     **Approach**:
 
- 	-   Data preprocessing and visualization.
+    -     Data preprocessing and visualization.
 
- 	-   Statistical modeling.
+    -     Statistical modeling.
 
- 	-   Correlation analysis to uncover hidden relationships.
+    -     Correlation analysis to uncover hidden relationships.
 
 ------------------------------------------------------------------------
 
@@ -53,6 +53,8 @@ output: ioslides_presentation
 2.  **Modeling**:
 
     -   Linear regression to test protein relationships
+
+(from here, it was in the first presentation, I don't know if it might be useful in some slide)
 
 We transformed the values contained in the columns "Genotype", "Treatment" and "Behavior" into binary variables, so that:
 
