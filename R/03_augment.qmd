@@ -13,11 +13,26 @@ In this file, we augment the data, simplifying the naming of the Genotype, Treat
 library("tidyverse")
 ```
 
-## Loading data
+Loading data
 
 ```{r}
+<<<<<<< HEAD
+file_path <- "/net/pupil1/home/people/s243057/projects/group_23_project/data/02_dat_clean.csv"
+df <- read.csv(file_path)
+```
+
+```{r}
+num <- 1:569
+ggplot(df,
+       aes(x = num,
+           y = radius_mean,
+           color = diagnosis)) +
+  geom_point()
+first_path <- "~/projects/R_project/"
+=======
 first_path <- "/net/pupil1/home/people/s242150/projects/R_project/"
 #first_path <- "~/projects/R_project/"
+>>>>>>> 102d035163dc39d7dedca4709284be9d0ef84627
 file_path <- "data/02_dat_clean.tsv" 
 file_path <- file.path(first_path, file_path)
 
@@ -47,7 +62,32 @@ df_aug <- df_clean |>
   select(MouseID, Genotype, Treatment, Stimulated, class, DYRK1A_N:CaNA_N)
 ```
 
+<<<<<<< HEAD
+Adding columns
+
+```{r}
+df1 <- df |>
+  mutate(radius_gravity = case_when(
+    radius_mean < 10 ~ "Low",
+    radius_mean >= 10 & radius_mean < 20 ~ "Medium",
+    radius_mean >= 20 ~ "High"),
+    radius_gravity = factor(radius_gravity, levels = c("Low", "Medium", "High")))
+
+```
+
+```{r}
+df2 <- df1 |> 
+  mutate(diagnosis_binary = if_else(diagnosis == "M", 1, 0))
+file_path <- "data/03_dat_aug.tsv"
+file_path <- file.path(first_path, file_path)
+
+
+df_aug2 |>
+  write_tsv(file = file_path)
+```
+=======
 ### **Creating 2 New Variables:**
+>>>>>>> 102d035163dc39d7dedca4709284be9d0ef84627
 
 **VARIABLE 1: MAPK_Activity**
 
