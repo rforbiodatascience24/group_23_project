@@ -25,9 +25,13 @@ df <- read_tsv(file = file_path)
 ## Cleaning data
 
 ```{r}
-proteins <- names(df[2:78])
-classes <- as.vector(unique(as.character(df$class)))
+proteins <- df |>
+  select(2:78) |>
+  names()
 
+classes <- df |>
+  distinct(class) |>
+  pull(class)
 ```
 
 Checking how many missing values appear in each column.
@@ -54,12 +58,11 @@ missing_summary <- colSums(is.na(df_mean))
 print(missing_summary)
 ```
 
-
 ## Reshape data for visualization
 
 ```{r}
 df_long <- df |>
-pivot_longer(cols = c(H3MeK4_N, 
+  pivot_longer(cols = c(H3MeK4_N, 
                       EGR1_N, 
                       H3AcK18_N, 
                       BCL2_N, 
@@ -78,14 +81,14 @@ df_mean_long <- df_mean |>
                names_to = "Protein", 
                values_to = "Expression")
 
+# Combine all datasets for comparison 
 
-# Combine all datasets for comparison
-df_compare <- bind_rows(
-  mutate(df_long, 
-         Method = "Original"),
-  mutate(df_mean_long, 
-         Method = "Mean Replacement")
-)
+df_compare <- df_long |>
+  mutate(Method = "Original") |>
+  bind_rows(
+    df_mean_long |>
+      mutate(Method = "Mean Replacement")
+    )
 
 # Plot density
 ggplot(data = df_compare, 
@@ -93,7 +96,7 @@ ggplot(data = df_compare,
                      fill = Method)) +
   geom_density(alpha = 0.5) +
   facet_wrap(~Protein, 
-           scales = "free") +
+             scales = "fixed") +
   theme_minimal() +
   labs(title = "Distribution of Protein Expression After Replacements",
        x = "Expression Level",
