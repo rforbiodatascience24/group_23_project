@@ -3,39 +3,28 @@ title: "Analysis of Mice Protein Expression"
 author: "Gaia Marraffa, Natalia Najuch, Gioele Tiraboschi"
 format: revealjs
 editor: visual
+output: ioslides_presentation
 ---
-
-## **Group 23**
-
-### **Analysis of Mice Protein Expression**
-
-Gaia Marraffa
-
-Natalia Najuch
-
-Gioele Tiraboschi
-
-------------------------------------------------------------------------
 
 ## Introduction
 
-\# Topic: Analysis of Mice Protein Expression
+- **Topic**: Analysis of Mice Protein Expression\\
 
-Understanding protein patterns and relationships in the dataset.
+ 	Understanding protein patterns and relationships in the dataset.
 
-# Objective:
+  - **Objective**:
 
-\<span style="font-size: 12px;"\>Explore data to identify patterns and correlations among proteins.\</span\>
+ 	- Explore data to identify patterns and correlations among proteins.
 
-\<span style="font-size: 12px;"\>Apply advanced data analysis techniques for deeper insights.\</span\>
+ 	-   Apply advanced data analysis techniques for deeper insights.
 
-# Approach:
+ -   \*\*Approach\*\*:
 
-\<span style="font-size: 10px;"\>Data preprocessing and visualization.\</span\>
+ 	-   Data preprocessing and visualization.
 
-\<span style="font-size: 10px;"\>Statistical modeling.\</span\>
+ 	-   Statistical modeling.
 
-\<span style="font-size: 10px;"\>Correlation analysis to uncover hidden relationships.\</span\>
+ 	-   Correlation analysis to uncover hidden relationships.
 
 ------------------------------------------------------------------------
 
