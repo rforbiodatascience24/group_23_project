@@ -339,21 +339,23 @@ Gaia Marraffa, Natalia Najuch, Gioele Tiraboschi
 </section>
 <section id="introduction" class="slide level2">
 <h2>Introduction</h2>
-</section>
-<section id="topic-analysis-of-mice-protein-expression" class="slide level2">
-<h2>Topic: Analysis of Mice Protein Expression</h2>
+<ul>
+<li><p><strong>Topic</strong>: Analysis of Mice Protein Expression</p>
 <p>Understanding protein patterns and relationships in the dataset.</p>
-</section>
-<section id="objective" class="slide level2">
-<h2>Objective:</h2>
-<p><span style="font-size: 10px;">Explore data to identify patterns and correlations among proteins.</span></p>
-<p><span style="font-size: 10px;">Apply advanced data analysis techniques for deeper insights.</span></p>
-</section>
-<section id="approach" class="slide level2">
-<h2>Approach:</h2>
-<p><span style="font-size: 10px;">Data preprocessing and visualization.</span></p>
-<p><span style="font-size: 10px;">Statistical modeling.</span></p>
-<p><span style="font-size: 10px;">Correlation analysis to uncover hidden relationships.</span></p>
+<ul>
+<li><p><strong>Objective</strong>:</p>
+<ul>
+<li><p>Explore data to identify patterns and correlations among proteins.</p></li>
+<li><p>&nbsp; Apply advanced data analysis techniques for deeper insights.</p></li>
+</ul></li>
+</ul></li>
+<li><p>&nbsp; <strong>Approach</strong>:</p>
+<ul>
+<li><p>&nbsp; Data preprocessing and visualization.</p></li>
+<li><p>&nbsp; Statistical modeling.</p></li>
+<li><p>&nbsp; Correlation analysis to uncover hidden relationships.</p></li>
+</ul></li>
+</ul>
 </section>
 <section id="materials-and-methods" class="slide level2">
 <h2>Materials and methods</h2>
@@ -385,45 +387,72 @@ Gaia Marraffa, Natalia Najuch, Gioele Tiraboschi
 <li>Linear regression to test protein relationships</li>
 </ul></li>
 </ol>
-<p>We transformed the values contained in the columns “Genotype”, “Treatment” and “Behavior” into binary variables, so that:</p>
+</section>
+<section id="cleaning-and-augmenting" class="slide level2">
+<h2>Cleaning and Augmenting</h2>
+<p>Natalia:</p>
+<p>Gioele:</p>
+<p><strong>Augmenting:</strong></p>
 <ul>
-<li><p>trisomic mice are assigned 1 and control mice 0;</p></li>
-<li><p>mice treated with memantine are assigned 1 and with saline 0;</p></li>
-<li><p>stimulated mice are assigned 1 and non-stimulated 0 in the new column “Stimulated”.</p></li>
-</ul>
-<p>We created 2 new variables:</p>
-<p><strong>MAPK_Activity</strong></p>
+<li><p>Binarization of Genotype, Treatment, and Stimulated</p></li>
+<li><p>Creation of 2 new variables:</p>
 <ul>
-<li><p>BRAF_N: A kinase that starts the MAPK signaling pathway, often altered in cancers like melanoma.</p></li>
-<li><p>pERK_N: which transmits growth signals in the cell.</p></li>
+<li><p>MAPK_Activity = BRAF_N * pERK_N</p></li>
+<li><p>Chromatin_Activation_Index = AcetylH3K9_N / DYRK1A_N</p></li>
+</ul></li>
 </ul>
-<p>We multiplied BRAF_N and pERK_N, and the new variable measures the MAPK signaling pathway’s activity, which is often dysregulated in cancer.</p>
-<p><strong>Chromatin_Activation_Index</strong></p>
-<ul>
-<li><p>AcetylH3K9_N: A modification that marks active genes by loosening chromatin, allowing gene expression.</p></li>
-<li><p>DYRK1A_N: A kinase that influences gene expression and cell function.</p></li>
-</ul>
-<p>We divide AcetylH3K9_N by DYRK1A_N and this new index should reflect how epigenetic changes and kinase signaling work together to regulate gene expression in response to external signals.</p>
 </section>
 <section id="statistical-modeling" class="slide level2">
 <h2>Statistical modeling</h2>
-<p>We grouped the 8 categories: genotype (control = 0 or Ts65Dn = 1), treatment (Memantine = 1 or Saline = 0), and Stimulated (yes = 1, no = 0).</p>
-<p>Then we created a linear model between the 2 variables BRAF_N and pERK_N:</p>
+<ul>
+<li><p>Grouping into the 8 categories, depending on Genotype, Treatment, and Stimulated</p></li>
+<li><p>Creating a linear model between the 2 variables BRAF_N and pERK_N</p></li>
+<li><p>analyzing the coefficient estimates for the 8 groups</p></li>
+</ul>
 </section>
-<section id="analysis-1" class="slide level2">
-<h2>Analysis 1</h2>
+<section id="data-understanding" class="slide level2">
+<h2>Data Understanding</h2>
 </section>
-<section id="results-1" class="slide level2">
-<h2><strong>Results #1</strong></h2>
+<section id="heatmaps" class="slide level2">
+<h2>Heatmaps</h2>
 </section>
-<section id="results-2" class="slide level2">
-<h2>Results #2</h2>
+<section id="specific-protein-analysis" class="slide level2">
+<h2>Specific Protein Analysis</h2>
 </section>
-<section id="results-3" class="slide level2">
-<h2>Results #3</h2>
+<section id="mapk_activity-and-chromatin_activation_index-analysis" class="slide level2">
+<h2>MAPK_Activity and Chromatin_Activation_Index Analysis</h2>
+<ul>
+<li>Analyzing how the 2 variables depend on Genotype, Treatment, and Stimulated, using boxplots.</li>
+</ul>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="~/projects/R_project/doc/images/MAPK.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="~/projects/R_project/doc/images/CAI.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="discussion" class="slide level2">
-<h2>Discussion</h2>
+<section id="mapk_activity-and-chromatin_activation_index-analysis-1" class="slide level2">
+<h2>MAPK_Activity and Chromatin_Activation_Index Analysis</h2>
+<ul>
+<li>Analyzing how the 2 variables depend on Genotype, Treatment, and Stimulated, using boxplots.</li>
+</ul>
+<p><img data-src="~/projects/R_project/doc/images/MAPK.png"></p>
+<p><img data-src="~/projects/R_project/doc/images/CAI.png"></p>
+</section>
+<section id="pca" class="slide level2">
+<h2>PCA</h2>
+</section>
+<section id="discussion-and-conclusions" class="slide level2">
+<h2>Discussion and Conclusions</h2>
 </section>
 <section class="slide level2">
 
@@ -646,44 +675,6 @@ Gaia Marraffa, Natalia Najuch, Gioele Tiraboschi
         ]
       });
     </script>
-    
-    <script>
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-      // slide changes (different for each slide format).
-      (function () {
-        // dispatch for htmlwidgets
-        function fireSlideEnter() {
-          const event = window.document.createEvent("Event");
-          event.initEvent("slideenter", true, true);
-          window.document.dispatchEvent(event);
-        }
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-          fireSlideEnter();
-
-          // dispatch for shiny
-          if (window.jQuery) {
-            if (previousSlide) {
-              window.jQuery(previousSlide).trigger("hidden");
-            }
-            if (currentSlide) {
-              window.jQuery(currentSlide).trigger("shown");
-            }
-          }
-        }
-
-        // hookup for slidy
-        if (window.w3c_slidy) {
-          window.w3c_slidy.add_observer(function (slide_num) {
-            // slide_num starts at position 1
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-          });
-        }
-
-      })();
-    </script>
-
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

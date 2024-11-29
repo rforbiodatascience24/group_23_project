@@ -8,23 +8,23 @@ output: ioslides_presentation
 
 ## Introduction
 
-- **Topic**: Analysis of Mice Protein Expression\\
+-   **Topic**: Analysis of Mice Protein Expression
 
- 	Understanding protein patterns and relationships in the dataset.
+    Understanding protein patterns and relationships in the dataset.
 
-  - **Objective**:
+    -   **Objective**:
 
- 	- Explore data to identify patterns and correlations among proteins.
+        -   Explore data to identify patterns and correlations among proteins.
 
- 	-   Apply advanced data analysis techniques for deeper insights.
+        -     Apply advanced data analysis techniques for deeper insights.
 
- -   \*\*Approach\*\*:
+-     **Approach**:
 
- 	-   Data preprocessing and visualization.
+    -     Data preprocessing and visualization.
 
- 	-   Statistical modeling.
+    -     Statistical modeling.
 
- 	-   Correlation analysis to uncover hidden relationships.
+    -     Correlation analysis to uncover hidden relationships.
 
 ------------------------------------------------------------------------
 
@@ -54,77 +54,79 @@ output: ioslides_presentation
 
     -   Linear regression to test protein relationships
 
-We transformed the values contained in the columns "Genotype", "Treatment" and "Behavior" into binary variables, so that:
+------------------------------------------------------------------------
 
--   trisomic mice are assigned 1 and control mice 0;
+## Cleaning and Augmenting
 
--   mice treated with memantine are assigned 1 and with saline 0;
+Natalia:
 
--   stimulated mice are assigned 1 and non-stimulated 0 in the new column "Stimulated".
+Gioele:
 
-We created 2 new variables:
+**Augmenting:**
 
-**MAPK_Activity**
+-   Binarization of Genotype, Treatment, and Stimulated
 
-```{r}
-#df_aug1 <- df_aug |>
- # mutate(MAPK_Activity = BRAF_N * pERK_N)
-```
+-   Creation of 2 new variables:
 
--   BRAF_N: A kinase that starts the MAPK signaling pathway, often altered in cancers like melanoma.
+    -   MAPK_Activity = BRAF_N \* pERK_N
 
--   pERK_N: which transmits growth signals in the cell.
-
-We multiplied BRAF_N and pERK_N, and the new variable measures the MAPK signaling pathway's activity, which is often dysregulated in cancer.
-
-**Chromatin_Activation_Index**
-
-```{r}
-#df_aug2 <- df_aug1 |>
- # mutate(Chromatin_Activation_Index = AcetylH3K9_N / DYRK1A_N)
-```
-
--   AcetylH3K9_N: A modification that marks active genes by loosening chromatin, allowing gene expression.
-
--   DYRK1A_N: A kinase that influences gene expression and cell function.
-
-We divide AcetylH3K9_N by DYRK1A_N and this new index should reflect how epigenetic changes and kinase signaling work together to regulate gene expression in response to external signals.
+    -   Chromatin_Activation_Index = AcetylH3K9_N / DYRK1A_N
 
 ------------------------------------------------------------------------
 
 ## Statistical modeling
 
-We grouped the 8 categories: genotype (control = 0 or Ts65Dn = 1), treatment (Memantine = 1 or Saline = 0), and Stimulated (yes = 1, no = 0).
+-   Grouping into the 8 categories, depending on Genotype, Treatment, and Stimulated
 
-Then we created a linear model between the 2 variables BRAF_N and pERK_N:
+-   Creating a linear model between the 2 variables BRAF_N and pERK_N
 
-```{r}
-#df_models <- df_nested |>
- # mutate(model = map(data, 
-  #                   ~lm(BRAF_N ~ pERK_N, 
-   #                      data = .x))  )
-
-```
+-   analyzing the coefficient estimates for the 8 groups
 
 ------------------------------------------------------------------------
 
-## Analysis 1
+## Data Understanding
 
 ------------------------------------------------------------------------
 
-## **Results #1**
+## Heatmaps
 
 ------------------------------------------------------------------------
 
-## Results #2
+## Specific Protein Analysis
 
 ------------------------------------------------------------------------
 
-## Results #3
+## MAPK_Activity and Chromatin_Activation_Index Analysis
+
+-   Analyzing how the 2 variables depend on Genotype, Treatment, and Stimulated, using boxplots.
+
+::: columns
+::: {.column width="50%"}
+![](~/projects/R_project/doc/images/MAPK.png){fig-align="center"}{width="90%"}
+:::
+
+::: {.column width="50%"}
+![](~/projects/R_project/doc/images/CAI.png){fig-align="center"}{width="90%"}
+:::
+:::
 
 ------------------------------------------------------------------------
 
-## Discussion
+## MAPK_Activity and Chromatin_Activation_Index Analysis
+
+-   Analyzing how the 2 variables depend on Genotype, Treatment, and Stimulated, using boxplots.
+
+![](~/projects/R_project/doc/images/MAPK.png)
+
+![](~/projects/R_project/doc/images/CAI.png)
+
+------------------------------------------------------------------------
+
+## PCA
+
+------------------------------------------------------------------------
+
+## Discussion and Conclusions
 
 ------------------------------------------------------------------------
 

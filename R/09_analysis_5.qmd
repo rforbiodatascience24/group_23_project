@@ -6,19 +6,12 @@ editor: visual
 
 In this analysis we will implement PCA, since our dataset is quite large, so it will be useful to identify patterns and make interesting observations.
 
-## Installing packages
-
-```{r}
-install.packages("patchwork")
-```
-
 ## Loading libraries
 
 ```{r}
 #| message: false 
 library("tidyverse")
 library("broom")
-library("patchwork")
 ```
 
 ## Loading data
@@ -111,8 +104,8 @@ df_pca |>
              .fittedPC2, 
              color = as.factor(Genotype))) + 
   geom_point(size = 1.5) + 
-  scale_color_manual(values = c("0" = "blue",
-                                "1" = "black"),  
+  scale_color_manual(values = c("0" = "salmon",
+                                "1" = "#56B4E9"),  
                      labels = c("Trisomic", "Control")) +  
   labs(color = "Genotype") +
   xlab("PC1") +
@@ -128,8 +121,8 @@ df_pca |>
              .fittedPC2, 
              color = as.factor(Treatment))) + 
   geom_point(size = 1.5) + 
-  scale_color_manual(values = c("0" = "blue",
-                                "1" = "black"),  
+  scale_color_manual(values = c("0" = "salmon",
+                                "1" = "#56B4E9"),  
                      labels = c("Saline", "Memantine")) +  
   labs(color = "Treatment") +
   xlab("PC1") +
@@ -145,8 +138,8 @@ df_pca |>
              .fittedPC2, 
              color = as.factor(Stimulated))) + 
   geom_point(size = 1.5) + 
-  scale_color_manual(values = c("0" = "blue",
-                                "1" = "black"),  
+  scale_color_manual(values = c("0" = "salmon",
+                                "1" = "#56B4E9"),  
                      labels = c("No", "Yes")) +  
   labs(color = "Stimulated") +
   xlab("PC1") +

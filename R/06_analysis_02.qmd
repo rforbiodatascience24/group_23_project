@@ -163,7 +163,7 @@ ggplot(data = trisomy_long,
   theme(
     axis.text.x = element_text(angle = 45, 
                                hjust = 1,
-                               size = 5),
+                               size = 4),
     axis.text.y = element_blank()
   ) +
   labs(
@@ -186,7 +186,7 @@ ggplot(data = control_long,
   theme(
     axis.text.x = element_text(angle = 45, 
                                hjust = 1,
-                               size = 5),
+                               size = 4),
     axis.text.y = element_blank()
   ) +
   labs(

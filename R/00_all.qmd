@@ -4,36 +4,55 @@ format: html
 editor: visual
 ---
 
-Loading libraries
+## Loading libraries
 
 ```{r}
 #| message: false
 library("tidyverse")
 ```
 
-Loading the .qmd files
+## Loading the .qmd files
 
 ```{r}
-quarto::quarto_render("/net/pupil1/home/people/s242150/projects/R_project/R/01_load.qmd")
-#quarto::quarto_render("R/01_load.qmd")
-```
+# put your first_path, the directory of your project
+#first_path <- "/net/pupil1/home/people/s242150/projects/R_project/"
+#first_path <- "/net/pupil1/home/people/s243057/projects/R_project/"
+first_path <- "~/projects/R_project/"
 
-```{r}
-quarto::quarto_render("/net/pupil1/home/people/s242150/projects/R_project/R/02_clean.qmd")
-#quarto::quarto_render("R/02_clean.qmd")
-```
 
-```{r}
-quarto::quarto_render("/net/pupil1/home/people/s242150/projects/R_project/R/03_augment.qmd")
-#quarto::quarto_render("R/03_augment.qmd")
-```
+file_path <- "R/01_load.qmd"
+file_path <- file.path(first_path, file_path)
+source(file_path)
 
-```{r}
-quarto::quarto_render("/net/pupil1/home/people/s242150/projects/R_project/R/04_describe.qmd")
-#quarto::quarto_render("R/04_describe.qmd")
-```
+file_path <- "R/02_clean.qmd"
+file_path <- file.path(first_path, file_path)
+source(file_path)
 
-```{r}
-quarto::quarto_render("/net/pupil1/home/people/s242150/projects/R_project/R/05_analysis_1.qmd")
-#quarto::quarto_render("R/05_analysis_1.qmd")
+file_path <- "R/03_augment.qmd"
+file_path <- file.path(first_path, file_path)
+source(file_path)
+
+file_path <- "R/04_describe.qmd"
+file_path <- file.path(first_path, file_path)
+source(file_path)
+
+file_path <- "R/05_analysis_1.qmd"
+file_path <- file.path(first_path, file_path)
+source(file_path)
+
+file_path <- "R/06_analysis_2.qmd"
+file_path <- file.path(first_path, file_path)
+source(file_path)
+
+file_path <- "R/07_analysis_3.qmd"
+file_path <- file.path(first_path, file_path)
+source(file_path)
+
+file_path <- "R/08_analysis_4.qmd"
+file_path <- file.path(first_path, file_path)
+source(file_path)
+
+file_path <- "R/09_analysis_5.qmd"
+file_path <- file.path(first_path, file_path)
+source(file_path)
 ```
