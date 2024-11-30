@@ -10,8 +10,6 @@ output: ioslides_presentation
 
 -   **Topic**: Analysis of Mice Protein Expression
 
-    Understanding protein patterns and relationships in the dataset. (i would delete this line from the presentation)
-
 -   **Objective**:
 
     -   Explore data to identify patterns and correlations among proteins.
@@ -94,7 +92,7 @@ output: ioslides_presentation
 
 ![Protein Heatmap for Trisomy](~/projects/R_project/doc/images/Heatmap_pvsp_genotype.png){fig-align="center"}
 
-## \>\>\>\>\>\>\> b8e158d2a2cfd88561ada20cb1c2fdb177eb0697
+------------------------------------------------------------------------
 
 ## Specific Protein Analysis
 
