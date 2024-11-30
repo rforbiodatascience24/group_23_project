@@ -84,7 +84,7 @@ css: custom.css
 1.  Sample vs. Protein correlation
 2.  Protein vs. Protein correlation
 
-![](~/projects/R_project/results/Heatmap_pvsp_genotype.png){fig-align="center"}
+![](~/results/Heatmap_pvsp_genotype.png){fig-align="center"}
 
 ------------------------------------------------------------------------
 
@@ -97,7 +97,7 @@ css: custom.css
 -   Analyzing how the 2 variables depend on Genotype, Treatment, and Stimulation, using boxplots.
 
 ::: {style="display: flex; justify-content: space-between; align-items: center;"}
-<img src="~/projects/R_project/results/MAPK.png" style="width: 48%; height: auto;"/> <img src="~/projects/R_project/results/CAI.png" style="width: 48%; height: auto;"/>
+<img src="~/results/MAPK.png" style="width: 48%; height: auto;"/> <img src="~/results/CAI.png" style="width: 48%; height: auto;"/>
 :::
 
 ------------------------------------------------------------------------
