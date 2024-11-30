@@ -17,11 +17,9 @@ css: custom.css
 
     -   Apply data analysis techniques for deeper insights.
 
-<<<<<<< HEAD
+
         -   Apply advanced data analysis techniques for deeper insights.
-=======
 -   **Approach**:
->>>>>>> d694fed8e7049ae49bcaf0015b6bc1575cc212f8
 
     -   Data preprocessing and visualization.
 
