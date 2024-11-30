@@ -31,6 +31,7 @@
     }
   </style>
   <link rel="stylesheet" href="presentation_v1_files/libs/revealjs/dist/theme/quarto.css">
+  <link rel="stylesheet" href="custom.css">
   <link href="presentation_v1_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="presentation_v1_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="presentation_v1_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -340,43 +341,37 @@ Gaia Marraffa, Natalia Najuch, Gioele Tiraboschi
 <section id="introduction" class="slide level2">
 <h2>Introduction</h2>
 <ul>
-<li><p><strong>Topic</strong>: Analysis of Mice Protein Expression</p>
-<p>Understanding protein patterns and relationships in the dataset.</p>
-<ul>
+<li><p><strong>Topic</strong>: Analysis of Mice Protein Expression</p></li>
 <li><p><strong>Objective</strong>:</p>
 <ul>
 <li><p>Explore data to identify patterns and correlations among proteins.</p></li>
-<li><p>&nbsp; Apply advanced data analysis techniques for deeper insights.</p></li>
+<li><p>Apply data analysis techniques for deeper insights.</p></li>
 </ul></li>
-</ul></li>
-<li><p>&nbsp; <strong>Approach</strong>:</p>
+<li><p><strong>Approach</strong>:</p>
 <ul>
-<li><p>&nbsp; Data preprocessing and visualization.</p></li>
-<li><p>&nbsp; Statistical modeling.</p></li>
-<li><p>&nbsp; Correlation analysis to uncover hidden relationships.</p></li>
+<li><p>Data preprocessing and visualization.</p></li>
+<li><p>Statistical modeling.</p></li>
+<li><p>Correlation analysis to uncover hidden relationships.</p></li>
 </ul></li>
 </ul>
 </section>
-<section id="materials-and-methods" class="slide level2">
+<section id="materials-and-methods" class="slide level2 small-text">
 <h2>Materials and methods</h2>
 <h3 id="materials">Materials</h3>
 <ul>
-<li><strong>Data Source</strong>:
+<li><p><strong>Data Source</strong>:</p>
 <ul>
-<li>Mice Protein Expression Dataset (<a href="https://www.kaggle.com/datasets/ruslankl/mice-protein-expression">Kaggle</a>).</li>
-<li>Contains protein levels from the cortex and hippocampus of mice across different experimental conditions.<br>
-</li>
-<li><strong>Features</strong>:
-<ul>
-<li>Protein expression levels for 77 proteins.</li>
-<li>72 mice, including both control and trisomy cases.</li>
-<li>Additional grouping such as genotype and behavior.</li>
+<li><p>Mice Protein Expression Dataset (<a href="https://www.kaggle.com/datasets/ruslankl/mice-protein-expression">Kaggle</a>).</p></li>
+<li><p>Contains protein levels from the cortex and hippocampus of mice across different experimental conditions.</p></li>
 </ul></li>
+<li><p><strong>Features</strong>:</p>
+<ul>
+<li><p>Protein expression levels for 77 proteins, from 72 mice, including both control and trisomy cases.</p></li>
+<li><p>Additional groupings such as genotype and behavior.</p></li>
 </ul></li>
 </ul>
 <h3 id="methods">Methods</h3>
-<h4 id="workflow-overview">Workflow Overview:</h4>
-<ol type="1">
+<ul>
 <li><p><strong>Data Preparation</strong>:</p>
 <ul>
 <li><p>Import and clean dataset (handle missing values, standardization).</p></li>
@@ -386,12 +381,14 @@ Gaia Marraffa, Natalia Najuch, Gioele Tiraboschi
 <ul>
 <li>Linear regression to test protein relationships</li>
 </ul></li>
-</ol>
+</ul>
 </section>
 <section id="cleaning-and-augmenting" class="slide level2">
 <h2>Cleaning and Augmenting</h2>
-<p>Natalia:</p>
-<p>Gioele:</p>
+<p><strong>Cleaning:</strong></p>
+<ul>
+<li>Handling NaN values</li>
+</ul>
 <p><strong>Augmenting:</strong></p>
 <ul>
 <li><p>Binarization of Genotype, Treatment, and Stimulated</p></li>
@@ -402,12 +399,12 @@ Gaia Marraffa, Natalia Najuch, Gioele Tiraboschi
 </ul></li>
 </ul>
 </section>
-<section id="statistical-modeling" class="slide level2">
+<section id="statistical-modeling" class="slide level2 large-text">
 <h2>Statistical modeling</h2>
 <ul>
 <li><p>Grouping into the 8 categories, depending on Genotype, Treatment, and Stimulated</p></li>
 <li><p>Creating a linear model between the 2 variables BRAF_N and pERK_N</p></li>
-<li><p>analyzing the coefficient estimates for the 8 groups</p></li>
+<li><p>Analyzing the coefficient estimates for the 8 groups</p></li>
 </ul>
 </section>
 <section id="data-understanding" class="slide level2">
@@ -415,7 +412,12 @@ Gaia Marraffa, Natalia Najuch, Gioele Tiraboschi
 </section>
 <section id="heatmaps" class="slide level2">
 <h2>Heatmaps</h2>
-</section>
+<ol type="1">
+<li>Sample vs.&nbsp;Protein correlation</li>
+<li>Protein vs.&nbsp;Protein correlation</li>
+</ol>
+
+<img data-src="images/Heatmap_pvsp_genotype.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="specific-protein-analysis" class="slide level2">
 <h2>Specific Protein Analysis</h2>
 </section>
@@ -424,35 +426,20 @@ Gaia Marraffa, Natalia Najuch, Gioele Tiraboschi
 <ul>
 <li>Analyzing how the 2 variables depend on Genotype, Treatment, and Stimulated, using boxplots.</li>
 </ul>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="~/projects/R_project/doc/images/MAPK.png" class="quarto-figure quarto-figure-center"></p>
-</figure>
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<p><img src="images/MAPK.png" style="width: 48%; height: auto;"> <img src="images/CAI.png" style="width: 48%; height: auto;"></p>
 </div>
-</div><div class="column" style="width:50%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="~/projects/R_project/doc/images/CAI.png" class="quarto-figure quarto-figure-center"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="mapk_activity-and-chromatin_activation_index-analysis-1" class="slide level2">
-<h2>MAPK_Activity and Chromatin_Activation_Index Analysis</h2>
-<ul>
-<li>Analyzing how the 2 variables depend on Genotype, Treatment, and Stimulated, using boxplots.</li>
-</ul>
-<p><img data-src="~/projects/R_project/doc/images/MAPK.png"></p>
-<p><img data-src="~/projects/R_project/doc/images/CAI.png"></p>
 </section>
 <section id="pca" class="slide level2">
 <h2>PCA</h2>
 </section>
 <section id="discussion-and-conclusions" class="slide level2">
 <h2>Discussion and Conclusions</h2>
+<ul>
+<li><p>Objectives</p></li>
+<li><p>Results</p></li>
+<li><p>What we could have done</p></li>
+</ul>
 </section>
 <section class="slide level2">
 
