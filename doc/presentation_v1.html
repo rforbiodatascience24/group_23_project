@@ -342,16 +342,10 @@ Gaia Marraffa, Natalia Najuch, Gioele Tiraboschi
 <h2>Introduction</h2>
 <ul>
 <li><p><strong>Topic</strong>: Analysis of Mice Protein Expression</p></li>
-<li><p><strong>Objective</strong>:</p>
+<li><p><strong>Objectives</strong>:</p>
 <ul>
 <li><p>Explore data to identify patterns and correlations among proteins.</p></li>
 <li><p>Apply data analysis techniques for deeper insights.</p></li>
-</ul></li>
-<li><p><strong>Approach</strong>:</p>
-<ul>
-<li><p>Data preprocessing and visualization.</p></li>
-<li><p>Statistical modeling.</p></li>
-<li><p>Correlation analysis to uncover hidden relationships.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -359,28 +353,23 @@ Gaia Marraffa, Natalia Najuch, Gioele Tiraboschi
 <h2>Materials and methods</h2>
 <h3 id="materials">Materials</h3>
 <ul>
-<li><p><strong>Data Source</strong>:</p>
-<ul>
-<li><p>Mice Protein Expression Dataset (<a href="https://www.kaggle.com/datasets/ruslankl/mice-protein-expression">Kaggle</a>).</p></li>
-<li><p>Contains protein levels from the cortex and hippocampus of mice across different experimental conditions.</p></li>
-</ul></li>
+<li><p><strong>Data Source</strong>: Mice Protein Expression Dataset (<a href="https://www.kaggle.com/datasets/ruslankl/mice-protein-expression">Kaggle</a>) → protein expression levels measured in the cerebral cortex of mice under different conditions</p></li>
 <li><p><strong>Features</strong>:</p>
 <ul>
-<li><p>Protein expression levels for 77 proteins, from 72 mice, including both control and trisomy cases.</p></li>
-<li><p>Additional groupings such as genotype and behavior.</p></li>
+<li><p>77 proteins, from 38 control mice and 34 trisomic mice separated into 8 classes</p></li>
+<li><p>Classification based on</p>
+<ul>
+<li><p>Genotype: control or trisomic</p></li>
+<li><p>Treatment: injection of memantine or saline</p></li>
+<li><p>Behavior: absence (shock-context) or presence (context-shock) of stimulation to learn</p></li>
+</ul></li>
 </ul></li>
 </ul>
 <h3 id="methods">Methods</h3>
 <ul>
-<li><p><strong>Data Preparation</strong>:</p>
-<ul>
-<li><p>Import and clean dataset (handle missing values, standardization).</p></li>
-<li><p>Data Augmentation.</p></li>
-</ul></li>
-<li><p><strong>Modeling</strong>:</p>
-<ul>
-<li>Linear regression to test protein relationships</li>
-</ul></li>
+<li><p>Data processing and visualization</p></li>
+<li><p>Statistical modeling</p></li>
+<li><p>Correlation analysis to uncover hidden relationships</p></li>
 </ul>
 </section>
 <section id="cleaning-and-augmenting" class="slide level2">
@@ -402,7 +391,7 @@ Gaia Marraffa, Natalia Najuch, Gioele Tiraboschi
 <section id="statistical-modeling" class="slide level2 large-text">
 <h2>Statistical modeling</h2>
 <ul>
-<li><p>Grouping into the 8 categories, depending on Genotype, Treatment, and Stimulated</p></li>
+<li><p>Grouping into the 8 categories, depending on Genotype, Treatment, and Stimulation</p></li>
 <li><p>Creating a linear model between the 2 variables BRAF_N and pERK_N</p></li>
 <li><p>Analyzing the coefficient estimates for the 8 groups</p></li>
 </ul>
@@ -424,7 +413,7 @@ Gaia Marraffa, Natalia Najuch, Gioele Tiraboschi
 <section id="mapk_activity-and-chromatin_activation_index-analysis" class="slide level2">
 <h2>MAPK_Activity and Chromatin_Activation_Index Analysis</h2>
 <ul>
-<li>Analyzing how the 2 variables depend on Genotype, Treatment, and Stimulated, using boxplots.</li>
+<li>Analyzing how the 2 variables depend on Genotype, Treatment, and Stimulation, using boxplots.</li>
 </ul>
 <div style="display: flex; justify-content: space-between; align-items: center;">
 <p><img src="images/MAPK.png" style="width: 48%; height: auto;"> <img src="images/CAI.png" style="width: 48%; height: auto;"></p>
@@ -433,12 +422,12 @@ Gaia Marraffa, Natalia Najuch, Gioele Tiraboschi
 <section id="pca" class="slide level2">
 <h2>PCA</h2>
 </section>
-<section id="discussion-and-conclusions" class="slide level2">
+<section id="discussion-and-conclusions" class="slide level2 large-text">
 <h2>Discussion and Conclusions</h2>
 <ul>
-<li><p>Objectives</p></li>
-<li><p>Results</p></li>
-<li><p>What we could have done</p></li>
+<li><p><strong>Objectives</strong>: identify <strong>patterns and correlations</strong> among proteins based on different classes</p></li>
+<li><p><strong>Results</strong>: presence or absence of <strong>stimulation</strong> mainly affects the protein expression levels</p></li>
+<li><p><strong>What we could have done</strong>: interactive ShinyApp, further analysis on the combined effects of the variables</p></li>
 </ul>
 </section>
 <section class="slide level2">

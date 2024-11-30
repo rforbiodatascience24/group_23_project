@@ -11,19 +11,11 @@ css: custom.css
 
 -   **Topic**: Analysis of Mice Protein Expression
 
--   **Objective**:
+-   **Objectives**:
 
     -   Explore data to identify patterns and correlations among proteins.
 
     -   Apply data analysis techniques for deeper insights.
-
--   **Approach**:
-
-    -   Data preprocessing and visualization.
-
-    -   Statistical modeling.
-
-    -   Correlation analysis to uncover hidden relationships.
 
 ------------------------------------------------------------------------
 
@@ -31,29 +23,27 @@ css: custom.css
 
 ### Materials
 
--   **Data Source**:
-
-    -   Mice Protein Expression Dataset ([Kaggle](https://www.kaggle.com/datasets/ruslankl/mice-protein-expression)).
-    
-    -   Contains protein levels from the cortex and hippocampus of mice across different experimental conditions.
+-   **Data Source**: Mice Protein Expression Dataset ([Kaggle](https://www.kaggle.com/datasets/ruslankl/mice-protein-expression)) → protein expression levels measured in the cerebral cortex of mice under different conditions
 
 -   **Features**:
 
-    -   Protein expression levels for 77 proteins, from 72 mice, including both control and trisomy cases.
+    -   77 proteins, from 38 control mice and 34 trisomic mice separated into 8 classes
     
-    -   Additional groupings such as genotype and behavior.
+    -   Classification based on
+    
+        -   Genotype: control or trisomic
+      
+        -   Treatment: injection of memantine or saline
+      
+        -   Behavior: absence (shock-context) or presence (context-shock) of stimulation to learn
 
 ### Methods
 
--  **Data Preparation**:
+-   Data processing and visualization
 
-    -   Import and clean dataset (handle missing values, standardization).
+-   Statistical modeling
 
-    -   Data Augmentation.
-
--  **Modeling**:
-
-    -   Linear regression to test protein relationships
+-   Correlation analysis to uncover hidden relationships
 
 ------------------------------------------------------------------------
 
@@ -77,7 +67,7 @@ css: custom.css
 
 ## Statistical modeling {.large-text}
 
--   Grouping into the 8 categories, depending on Genotype, Treatment, and Stimulated
+-   Grouping into the 8 categories, depending on Genotype, Treatment, and Stimulation
 
 -   Creating a linear model between the 2 variables BRAF_N and pERK_N
 
@@ -104,7 +94,7 @@ css: custom.css
 
 ## MAPK_Activity and Chromatin_Activation_Index Analysis
 
--   Analyzing how the 2 variables depend on Genotype, Treatment, and Stimulated, using boxplots.
+-   Analyzing how the 2 variables depend on Genotype, Treatment, and Stimulation, using boxplots.
 
 ::: {style="display: flex; justify-content: space-between; align-items: center;"}
 <img src="images/MAPK.png" style="width: 48%; height: auto;"/> <img src="images/CAI.png" style="width: 48%; height: auto;"/>
@@ -116,13 +106,13 @@ css: custom.css
 
 ------------------------------------------------------------------------
 
-## Discussion and Conclusions
+## Discussion and Conclusions {.large-text}
 
--   Objectives
+-   **Objectives**: identify **patterns and correlations** among proteins based on different classes
 
--   Results
+-   **Results**: presence or absence of **stimulation** mainly affects the protein expression levels 
 
--   What we could have done
+-   **What we could have done**: interactive ShinyApp, further analysis on the combined effects of the variables
 
 ------------------------------------------------------------------------
 
