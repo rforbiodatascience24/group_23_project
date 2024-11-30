@@ -10,13 +10,13 @@ output: ioslides_presentation
 
 -   **Topic**: Analysis of Mice Protein Expression
 
-    Understanding protein patterns and relationships in the dataset.
+    Understanding protein patterns and relationships in the dataset. (i would delete this line from the presentation)
 
-    -   **Objective**:
+-   **Objective**:
 
-        -   Explore data to identify patterns and correlations among proteins.
+    -   Explore data to identify patterns and correlations among proteins.
 
-        -     Apply advanced data analysis techniques for deeper insights.
+    -     Apply data analysis techniques for deeper insights.
 
 -     **Approach**:
 
@@ -36,9 +36,8 @@ output: ioslides_presentation
     -   Mice Protein Expression Dataset ([Kaggle](https://www.kaggle.com/datasets/ruslankl/mice-protein-expression)).
     -   Contains protein levels from the cortex and hippocampus of mice across different experimental conditions.\
     -   **Features**:
-        -   Protein expression levels for 77 proteins.
-        -   72 mice, including both control and trisomy cases.
-        -   Additional grouping such as genotype and behavior.
+        -   Protein expression levels for 77 proteins, from 72 mice, including both control and trisomy cases.
+        -   Additional groupings such as genotype and behavior.
 
 ### Methods
 
@@ -132,6 +131,10 @@ output: ioslides_presentation
 ------------------------------------------------------------------------
 
 ## Discussion and Conclusions
+
+-   What we got
+
+-   What we wanted to study deeply
 
 ------------------------------------------------------------------------
 
