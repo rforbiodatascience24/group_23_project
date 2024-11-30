@@ -77,10 +77,6 @@ output: ioslides_presentation
 
 -   Grouping into the 8 categories, depending on Genotype, Treatment, and Stimulated
 
-<<<<<<< HEAD
-Gioele:
-
-=======
 -   Creating a linear model between the 2 variables BRAF_N and pERK_N
 
 -   analyzing the coefficient estimates for the 8 groups
@@ -98,8 +94,7 @@ Gioele:
 
 ![Protein Heatmap for Trisomy](~/projects/R_project/doc/images/Heatmap_pvsp_genotype.png){fig-align="center"}
 
->>>>>>> b8e158d2a2cfd88561ada20cb1c2fdb177eb0697
-------------------------------------------------------------------------
+## \>\>\>\>\>\>\> b8e158d2a2cfd88561ada20cb1c2fdb177eb0697
 
 ## Specific Protein Analysis
 
