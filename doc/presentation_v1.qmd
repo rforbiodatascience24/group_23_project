@@ -10,13 +10,13 @@ output: ioslides_presentation
 
 -   **Topic**: Analysis of Mice Protein Expression
 
-    Understanding protein patterns and relationships in the dataset.
+    Understanding protein patterns and relationships in the dataset. (i would delete this line from the presentation)
 
-    -   **Objective**:
+-   **Objective**:
 
-        -   Explore data to identify patterns and correlations among proteins.
+    -   Explore data to identify patterns and correlations among proteins.
 
-        -     Apply advanced data analysis techniques for deeper insights.
+    -     Apply data analysis techniques for deeper insights.
 
 -     **Approach**:
 
@@ -36,9 +36,8 @@ output: ioslides_presentation
     -   Mice Protein Expression Dataset ([Kaggle](https://www.kaggle.com/datasets/ruslankl/mice-protein-expression)).
     -   Contains protein levels from the cortex and hippocampus of mice across different experimental conditions.\
     -   **Features**:
-        -   Protein expression levels for 77 proteins.
-        -   72 mice, including both control and trisomy cases.
-        -   Additional grouping such as genotype and behavior.
+        -   Protein expression levels for 77 proteins, from 72 mice, including both control and trisomy cases.
+        -   Additional groupings such as genotype and behavior.
 
 ### Methods
 
@@ -54,67 +53,37 @@ output: ioslides_presentation
 
     -   Linear regression to test protein relationships
 
-(from here, it was in the first presentation, I don't know if it might be useful in some slide)
-
-We transformed the values contained in the columns "Genotype", "Treatment" and "Behavior" into binary variables, so that:
-
--   trisomic mice are assigned 1 and control mice 0;
-
--   mice treated with memantine are assigned 1 and with saline 0;
-
--   stimulated mice are assigned 1 and non-stimulated 0 in the new column "Stimulated".
-
-We created 2 new variables:
-
-**MAPK_Activity**
-
-```{r}
-#df_aug1 <- df_aug |>
- # mutate(MAPK_Activity = BRAF_N * pERK_N)
-```
-
--   BRAF_N: A kinase that starts the MAPK signaling pathway, often altered in cancers like melanoma.
-
--   pERK_N: which transmits growth signals in the cell.
-
-We multiplied BRAF_N and pERK_N, and the new variable measures the MAPK signaling pathway's activity, which is often dysregulated in cancer.
-
-**Chromatin_Activation_Index**
-
-```{r}
-#df_aug2 <- df_aug1 |>
- # mutate(Chromatin_Activation_Index = AcetylH3K9_N / DYRK1A_N)
-```
-
--   AcetylH3K9_N: A modification that marks active genes by loosening chromatin, allowing gene expression.
-
--   DYRK1A_N: A kinase that influences gene expression and cell function.
-
-We divide AcetylH3K9_N by DYRK1A_N and this new index should reflect how epigenetic changes and kinase signaling work together to regulate gene expression in response to external signals.
-
 ------------------------------------------------------------------------
 
 ## Cleaning and Augmenting
 
-Natalia:
+**Cleaning:**
 
-Gioele:
+-   Handling NaN values
+
+**Augmenting:**
+
+-   Binarization of Genotype, Treatment, and Stimulated
+
+-   Creation of 2 new variables:
+
+    -   MAPK_Activity = BRAF_N \* pERK_N
+
+    -   Chromatin_Activation_Index = AcetylH3K9_N / DYRK1A_N
 
 ------------------------------------------------------------------------
 
 ## Statistical modeling
 
-We grouped the 8 categories: genotype (control = 0 or Ts65Dn = 1), treatment (Memantine = 1 or Saline = 0), and Stimulated (yes = 1, no = 0).
+-   Grouping into the 8 categories, depending on Genotype, Treatment, and Stimulated
 
-Then we created a linear model between the 2 variables BRAF_N and pERK_N:
+<<<<<<< HEAD
+Gioele:
 
-```{r}
-#df_models <- df_nested |>
- # mutate(model = map(data, 
-  #                   ~lm(BRAF_N ~ pERK_N, 
-   #                      data = .x))  )
+=======
+-   Creating a linear model between the 2 variables BRAF_N and pERK_N
 
-```
+-   analyzing the coefficient estimates for the 8 groups
 
 ------------------------------------------------------------------------
 
@@ -124,6 +93,12 @@ Then we created a linear model between the 2 variables BRAF_N and pERK_N:
 
 ## Heatmaps
 
+1.  Sample vs. Protein correlation
+2.  Protein vs. Protein correlation
+
+![Protein Heatmap for Trisomy](~/projects/R_project/doc/images/Heatmap_pvsp_genotype.png){fig-align="center"}
+
+>>>>>>> b8e158d2a2cfd88561ada20cb1c2fdb177eb0697
 ------------------------------------------------------------------------
 
 ## Specific Protein Analysis
@@ -132,6 +107,28 @@ Then we created a linear model between the 2 variables BRAF_N and pERK_N:
 
 ## MAPK_Activity and Chromatin_Activation_Index Analysis
 
+-   Analyzing how the 2 variables depend on Genotype, Treatment, and Stimulated, using boxplots.
+
+::: columns
+::: {.column width="50%"}
+![](~/projects/R_project/doc/images/MAPK.png){fig-align="center"}{width="90%"}
+:::
+
+::: {.column width="50%"}
+![](~/projects/R_project/doc/images/CAI.png){fig-align="center"}{width="90%"}
+:::
+:::
+
+------------------------------------------------------------------------
+
+## MAPK_Activity and Chromatin_Activation_Index Analysis
+
+-   Analyzing how the 2 variables depend on Genotype, Treatment, and Stimulated, using boxplots.
+
+![](~/projects/R_project/doc/images/MAPK.png)
+
+![](~/projects/R_project/doc/images/CAI.png)
+
 ------------------------------------------------------------------------
 
 ## PCA
@@ -139,6 +136,10 @@ Then we created a linear model between the 2 variables BRAF_N and pERK_N:
 ------------------------------------------------------------------------
 
 ## Discussion and Conclusions
+
+-   What we got
+
+-   What we wanted to study deeply
 
 ------------------------------------------------------------------------
 

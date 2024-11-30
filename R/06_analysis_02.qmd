@@ -1,4 +1,4 @@
-This file provides a detailed analysis of the Mice Protein Expression dataset. It includes generating heatmaps to visualize protein expression across all samples, different classes, and genotypes. The analysis identifies proteins with the highest variability and those showing the largest differences between groups. Statistical methods like t-tests are applied to highlight significant protein variations, providing insights into the dataset's underlying patterns and group-specific differences.
+This file provides a detailed analysis of the Mice Protein Expression dataset. It includes generating heatmaps to visualize protein expression across all samples, different classes, and genotypes. The analysis intends to dentify proteins with the highest variability and those showing the largest differences between groups. Statistical methods like t-tests are applied to highlight significant protein variations, providing insights into the dataset's underlying patterns and group-specific differences.
 
 ## Load libraries
 
@@ -27,13 +27,11 @@ Preparing data for heatmap visualization - changing to the long data, using pivo
 
 ```{r}
 protein_data_long <- df |>
-  select(ends_with("_N")) |>
-  rownames_to_column(var = "MouseID") |> 
+  select(ends_with("_N"), MouseID) |>
   pivot_longer(-MouseID, 
                names_to = "Protein", 
                values_to = "Expression")
 
-# Heatmap using ggplot
 ggplot(data = protein_data_long, 
        mapping = aes(x = Protein, 
                      y = MouseID, 
@@ -44,14 +42,13 @@ ggplot(data = protein_data_long,
                        high = "red", 
                        midpoint = 0) +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 90, 
-                                   hjust = 1),
-        axis.text.y = element_text(size = 5, 
-                                   angle = 90, 
-                                   hjust = 1)) +
+  theme(axis.text.x = element_text(size = 5, 
+                                   angle = 45,
+                                   hjust = 1), 
+        axis.text.y = element_blank()) +
   labs(title = "Heatmap of Protein Expression (All Mice)",
        x = "Proteins", 
-       y = "MouseID", 
+       y = "Samples - MouseID", 
        fill = "Expression")
 
 ```
@@ -64,57 +61,58 @@ Starting with the z-normalization following by min-max normalization to obtain \
 
 ```{r}
 df_z <- df |>
-  mutate(across(ends_with("_N"), ~ scale(.) 
-                |> as.vector()))
+  mutate(across(ends_with("_N"), ~ scale(.) |>  
+                  as.vector()))
+
 
 df <- df_z |>
-  mutate(across(ends_with("_N"), ~ (2 * ((. - min(., 
-                                                  na.rm = TRUE)) / 
-                                         (max(., 
-                                              na.rm = TRUE) - min(.,
-                                                                  na.rm = TRUE))) - 1)))
+  mutate(across(ends_with("_N"), ~ (2 * ((. - min(.)) / (max(.) - min(.))) - 1)))
+
 
 ```
 
 ```{r}
-# Loop over each class and create heatmap
-unique_classes <- unique(df$class)
+# Dividing the data set into smaller groups split by class 
+class_data <- df |>
+  group_split(class)
 
-for (cls in unique_classes) {
-  protein_data_long_class <- df |>
-    filter(class == cls) |>
-    select(ends_with("_N")) |>
-    rownames_to_column(var = "MouseID") |>
-    pivot_longer(-MouseID, 
-                 names_to = "Protein", 
-                 values_to = "Expression")
-  
-  # Create ggplot object
-  heatmap_plot <- ggplot(data = protein_data_long_class, 
-                         mapping = aes(x = Protein, 
-                                       y = MouseID, 
-                                       fill = Expression)) +
+# Transforming into long data for visualization
+class_data_long <- map(class_data, ~ .x |>
+  select(ends_with("_N"), MouseID) |> 
+  pivot_longer(-MouseID, 
+               names_to = "Protein", 
+               values_to = "Expression")
+)
+
+# Creating heatmaps for each class
+# class_data_long - .x
+# class_data - .y
+heatmaps <- map2(class_data_long, 
+                 class_data, ~ {
+                   
+  class_name <- .y |> 
+    pull(class)
+                   
+  ggplot(data = .x, 
+         mapping = aes(x = Protein, 
+                       y = MouseID, 
+                       fill = Expression)) +
     geom_tile() +
     scale_fill_gradient2(low = "blue", 
                          mid = "white", 
                          high = "red", 
                          midpoint = 0) +
     theme_minimal() +
-    theme(axis.text.y = element_text(size = 2, 
-                                     angle = 90),
-          axis.text.x = element_text(size = 5, 
+    theme(axis.text.x = element_text(size = 5, 
                                      angle = 45, 
-                                     hjust = 1)) +
-    labs(title = paste("Heatmap for Class:", 
-                       cls),
+                                     hjust = 1), 
+          axis.text.y = element_blank()) +
+    labs(title = paste("Heatmap for Class:", class_name),
          x = "Proteins", 
          y = "MouseID", 
          fill = "Expression")
-  
-  # Explicitly print the plot
-  print(heatmap_plot)
-}
-
+})
+walk(heatmaps, print)
 
 ```
 
@@ -145,6 +143,7 @@ control_long <- control_data |>
   pivot_longer(cols = -MouseID, 
                names_to = "Protein", 
                values_to = "Expression")
+
 
 ```
 
@@ -197,10 +196,148 @@ ggplot(data = control_long,
     fill = "Expression"
   )
 
+```
+
+### Heatmap #4 among proteins
+
+#### All proteins
+
+```{r}
+correlation_matrix <- df |>
+  select(ends_with("_N")) |> 
+  cor()
+
+correlation_long <- correlation_matrix |>
+  as_tibble(rownames = "Protein1") |>
+  pivot_longer(-Protein1, 
+               names_to = "Protein2", 
+               values_to = "Correlation")
+
+ggplot(correlation_long, aes(x = Protein1, 
+                             y = Protein2, 
+                             fill = Correlation)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "blue", 
+                       mid = "white", 
+                       high = "red", 
+                       midpoint = 0) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(size = 5, 
+                                   angle = 45, 
+                                   hjust = 1),
+        axis.text.y = element_text(size = 5, 
+                                   angle = 0, 
+                                   hjust = 1)) +
+  labs(title = "Heatmap of Protein Correlations (All Samples)",
+       x = "Protein name",
+       y = "Protein name",
+       fill = "Correlation")
 
 ```
 
+#### Proteins per class
+
+```{r}
+corr_data_long <- map(class_data, ~ .x |>
+  select(ends_with("_N")) |>
+  cor() |>
+  as_tibble(rownames = "Protein1") |>
+  pivot_longer(-Protein1, 
+               names_to = "Protein2", 
+               values_to = "Correlation")
+)
+
+corr_heatmaps <- map2(corr_data_long, 
+                 class_data, ~ {
+  class_name <- .y |> 
+    pull(class)
+                   
+  ggplot(data = .x, 
+         mapping = aes(x = Protein1, 
+                       y = Protein2, 
+                       fill = Correlation)) +
+    geom_tile() +
+    scale_fill_gradient2(low = "blue", 
+                         mid = "white", 
+                         high = "red", 
+                         midpoint = 0) +
+    theme_minimal() +
+    theme(axis.text.x = element_text(size = 5, 
+                                     angle = 45, 
+                                     hjust = 1), 
+          axis.text.y = element_text(size = 5)) +  
+    labs(title = paste("Heatmap for Class:", class_name),
+         x = "Protein 1", 
+         y = "Protein 2", 
+         fill = "Correlation")
+
+})
+walk(corr_heatmaps, print)
+```
+
+#### Proteins per genotype
+
+```{r}
+gen_data <- df |>
+  group_split(Genotype)
+  
+corr_gen_data_long <- map(gen_data, ~ .x |>
+  select(ends_with("_N")) |>
+  cor() |>
+  as_tibble(rownames = "Protein1") |>
+  pivot_longer(-Protein1, 
+               names_to = "Protein2", 
+               values_to = "Correlation")
+)
+
+corr_heatmaps <- map2(corr_gen_data_long, 
+                      gen_data, ~ {
+                        genotype_name <- .y |> 
+                          pull(Genotype)
+                        
+                        class_name <- ifelse(genotype_name == 1,
+                                             "Trisomy",
+                                             "Control")
+                   
+  ggplot(data = .x, 
+         mapping = aes(x = Protein1, 
+                       y = Protein2, 
+                       fill = Correlation)) +
+    geom_tile() +
+    scale_fill_gradient2(low = "blue", 
+                         mid = "white", 
+                         high = "red", 
+                         midpoint = 0) +
+    theme_minimal() +
+    theme(axis.text.x = element_text(size = 3, 
+                                     angle = 45, 
+                                     hjust = 1), 
+          axis.text.y = element_text(size = 3)) +  
+    labs(title = paste("Heatmap for Class:", class_name),
+         x = "Protein 1", 
+         y = "Protein 2", 
+         fill = "Correlation")
+
+})
+walk(corr_heatmaps, print)
+```
+
+Having obtained the above results, we can visually select areas on the heatmap which show high correlations for example between pNR1_N and pNR2A
+
 ## Analysis
+
+### Correlation in proteins, by genotype
+
+```{r}
+combined_corr_data <- bind_rows(corr_gen_data_long,
+                                .id = "Genotype")
+gen_corr_list <- combined_corr_data |>
+  filter(Protein1 != Protein2) |>
+  distinct(Protein1, Protein2, .keep_all = TRUE) |>
+  arrange(desc(Correlation)) 
+
+gen_corr_list
+```
 
 ### Highest variability in proteins
 
@@ -262,5 +399,34 @@ t_test_results <- df |>
   slice_head(n = 10)  
 
 t_test_results
+
+```
+
+```{r}
+correlation_matrix <- df |>
+  select(ends_with("_N")) |>
+  cor()
+
+correlation_long <- correlation_matrix |>
+  as_tibble(rownames = "Protein1") |>  
+  pivot_longer(-Protein1, 
+               names_to = "Protein2", 
+               values_to = "Correlation")
+
+ggplot(correlation_long, aes(x = Protein1, 
+                             y = Protein2, 
+                             fill = Correlation)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "blue", 
+                       mid = "white", 
+                       high = "red", 
+                       midpoint = 0) + 
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, 
+                                   hjust = 1)) +  
+  labs(title = "Heatmap of Protein Correlations",
+       x = "Protein 1",
+       y = "Protein 2",
+       fill = "Correlation")
 
 ```
