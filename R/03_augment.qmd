@@ -16,9 +16,9 @@ library("tidyverse")
 ## Loading data
 
 ```{r}
-#first_path <- "/net/pupil1/home/people/s242150/projects/R_project/"
-#first_path <- "/net/pupil1/home/people/s243057/projects/R_project/"
-first_path <- "~/projects/R_project/"
+#first_path <- "/net/pupil1/home/people/s242150/projects/R_project"
+#first_path <- "/net/pupil1/home/people/s243057/projects/R_project"
+first_path <- "~/projects/R_project"
 file_path <- "data/02_dat_clean.tsv" 
 file_path <- file.path(first_path, file_path)
 
