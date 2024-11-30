@@ -10,7 +10,6 @@ editor: visual
 #| message: false
 library("tidyverse")
 library("knitr")
-
 ```
 
 ## Loading the .qmd files

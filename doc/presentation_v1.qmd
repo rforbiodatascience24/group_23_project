@@ -3,54 +3,59 @@ title: "Analysis of Mice Protein Expression"
 author: "Gaia Marraffa, Natalia Najuch, Gioele Tiraboschi"
 format: revealjs
 editor: visual
-output: ioslides_presentation
+output: xaringan::xaringan_presentation
+css: custom.css
 ---
 
-## Introduction
+## Introduction 
 
 -   **Topic**: Analysis of Mice Protein Expression
 
-    Understanding protein patterns and relationships in the dataset.
+-   **Objective**:
 
-    -   **Objective**:
+    -   Explore data to identify patterns and correlations among proteins.
 
-        -   Explore data to identify patterns and correlations among proteins.
+    -   Apply data analysis techniques for deeper insights.
 
+<<<<<<< HEAD
         -   Apply advanced data analysis techniques for deeper insights.
+=======
+-   **Approach**:
+>>>>>>> d694fed8e7049ae49bcaf0015b6bc1575cc212f8
 
--     **Approach**:
+    -   Data preprocessing and visualization.
 
-    -     Data preprocessing and visualization.
+    -   Statistical modeling.
 
-    -     Statistical modeling.
-
-    -     Correlation analysis to uncover hidden relationships.
+    -   Correlation analysis to uncover hidden relationships.
 
 ------------------------------------------------------------------------
 
-## Materials and methods
+## Materials and methods {.small-text}
 
 ### Materials
 
 -   **Data Source**:
+
     -   Mice Protein Expression Dataset ([Kaggle](https://www.kaggle.com/datasets/ruslankl/mice-protein-expression)).
-    -   Contains protein levels from the cortex and hippocampus of mice across different experimental conditions.\
-    -   **Features**:
-        -   Protein expression levels for 77 proteins.
-        -   72 mice, including both control and trisomy cases.
-        -   Additional grouping such as genotype and behavior.
+    
+    -   Contains protein levels from the cortex and hippocampus of mice across different experimental conditions.
+
+-   **Features**:
+
+    -   Protein expression levels for 77 proteins, from 72 mice, including both control and trisomy cases.
+    
+    -   Additional groupings such as genotype and behavior.
 
 ### Methods
 
-#### Workflow Overview:
-
-1.  **Data Preparation**:
+-  **Data Preparation**:
 
     -   Import and clean dataset (handle missing values, standardization).
 
     -   Data Augmentation.
 
-2.  **Modeling**:
+-  **Modeling**:
 
     -   Linear regression to test protein relationships
 
@@ -58,11 +63,9 @@ output: ioslides_presentation
 
 ## Cleaning and Augmenting
 
-Natalia:
+**Cleaning:**
 
 -   Handling NaN values
-
-Gioele:
 
 **Augmenting:**
 
@@ -76,13 +79,13 @@ Gioele:
 
 ------------------------------------------------------------------------
 
-## Statistical modeling
+## Statistical modeling {.large-text}
 
 -   Grouping into the 8 categories, depending on Genotype, Treatment, and Stimulated
 
 -   Creating a linear model between the 2 variables BRAF_N and pERK_N
 
--   analyzing the coefficient estimates for the 8 groups
+-   Analyzing the coefficient estimates for the 8 groups
 
 ------------------------------------------------------------------------
 
@@ -95,7 +98,7 @@ Gioele:
 1.  Sample vs. Protein correlation
 2.  Protein vs. Protein correlation
 
-![Protein Heatmap for Trisomy](images/Heatmap_pvsp_genotype.png){fig-align="center"}
+![](images/Heatmap_pvsp_genotype.png){fig-align="center"}
 
 ------------------------------------------------------------------------
 
@@ -107,25 +110,9 @@ Gioele:
 
 -   Analyzing how the 2 variables depend on Genotype, Treatment, and Stimulated, using boxplots.
 
-::: columns
-::: {.column width="50%"}
-![](~/projects/R_project/doc/images/MAPK.png){fig-align="center"}{width="90%"}
+::: {style="display: flex; justify-content: space-between; align-items: center;"}
+<img src="images/MAPK.png" style="width: 48%; height: auto;"/> <img src="images/CAI.png" style="width: 48%; height: auto;"/>
 :::
-
-::: {.column width="50%"}
-![](~/projects/R_project/doc/images/CAI.png){fig-align="center"}{width="90%"}
-:::
-:::
-
-------------------------------------------------------------------------
-
-## MAPK_Activity and Chromatin_Activation_Index Analysis
-
--   Analyzing how the 2 variables depend on Genotype, Treatment, and Stimulated, using boxplots.
-
-![](~/projects/R_project/doc/images/MAPK.png)
-
-![](~/projects/R_project/doc/images/CAI.png)
 
 ------------------------------------------------------------------------
 
@@ -134,6 +121,12 @@ Gioele:
 ------------------------------------------------------------------------
 
 ## Discussion and Conclusions
+
+-   Objectives
+
+-   Results
+
+-   What we could have done
 
 ------------------------------------------------------------------------
 
