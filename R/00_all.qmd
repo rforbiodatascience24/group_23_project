@@ -9,50 +9,30 @@ editor: visual
 ```{r}
 #| message: false
 library("tidyverse")
+library("knitr")
+
 ```
 
 ## Loading the .qmd files
 
 ```{r}
-# put your first_path, the directory of your project
-#first_path <- "/net/pupil1/home/people/s242150/projects/R_project/"
-#first_path <- "/net/pupil1/home/people/s243057/projects/R_project/"
-first_path <- "~/projects/R_project/"
+first_path <- "/net/pupil1/home/people/s243057/projects/R_project"
 
+files <- c("R/01_load.qmd",
+           "R/02_clean.qmd",
+           "R/03_augment.qmd",
+           "R/04_describe.qmd",
+           "R/05_analysis_1.qmd",
+           "R/06_analysis_02.qmd",
+           "R/07_analysis_3.qmd",
+           "R/08_analysis_4.qmd",
+           "R/09_analysis_5.qmd"
+           )
 
-file_path <- "R/01_load.qmd"
-file_path <- file.path(first_path, file_path)
-source(file_path)
-
-file_path <- "R/02_clean.qmd"
-file_path <- file.path(first_path, file_path)
-source(file_path)
-
-file_path <- "R/03_augment.qmd"
-file_path <- file.path(first_path, file_path)
-source(file_path)
-
-file_path <- "R/04_describe.qmd"
-file_path <- file.path(first_path, file_path)
-source(file_path)
-
-file_path <- "R/05_analysis_1.qmd"
-file_path <- file.path(first_path, file_path)
-source(file_path)
-
-file_path <- "R/06_analysis_2.qmd"
-file_path <- file.path(first_path, file_path)
-source(file_path)
-
-file_path <- "R/07_analysis_3.qmd"
-file_path <- file.path(first_path, file_path)
-source(file_path)
-
-file_path <- "R/08_analysis_4.qmd"
-file_path <- file.path(first_path, file_path)
-source(file_path)
-
-file_path <- "R/09_analysis_5.qmd"
-file_path <- file.path(first_path, file_path)
-source(file_path)
+purrr::walk(files, ~{
+  file_path <- file.path(first_path, .x)  
+  purl_file <- purl(file_path, output = tempfile(fileext = ".R"))
+  source(purl_file)
+  message("File was run and executed: ", file_path)
+})
 ```
