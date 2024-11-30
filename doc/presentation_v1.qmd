@@ -98,14 +98,7 @@ We divide AcetylH3K9_N by DYRK1A_N and this new index should reflect how epigene
 
 Natalia:
 
-
-
-
-
 Gioele:
-
-
-
 
 ------------------------------------------------------------------------
 
