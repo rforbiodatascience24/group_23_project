@@ -16,7 +16,7 @@ output: ioslides_presentation
 
         -   Explore data to identify patterns and correlations among proteins.
 
-        -     Apply advanced data analysis techniques for deeper insights.
+        -   Apply advanced data analysis techniques for deeper insights.
 
 -     **Approach**:
 
