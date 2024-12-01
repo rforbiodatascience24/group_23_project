@@ -127,8 +127,6 @@ css: custom.css
 
 -   Scatter plots in PC coordinates: Class, Genotype, Treatment, Stimulation
 
--   Pattern based on presence/absence of stimulation
-
 ![](../results/PCA.png){fig-align="center"}
 
 ------------------------------------------------------------------------

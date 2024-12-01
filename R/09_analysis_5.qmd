@@ -78,7 +78,7 @@ scree_plot + xlim(0, 20)
 
 The first two principal components capture, respectively, about 25% and 17.5% of the variation in the data, so we will use them for further analysis.
 
-We plot the data in PC coordinates combining them with the original dataset. First, we visualize all the classes together, then we separate the data based on different categories (Genotype, Treatment, Stimulated), in order to eventually recognize a significative pattern.
+We plot the data in PC coordinates combining them with the original dataset. First, we visualize all the classes together, then we separate the data based on different categories (Genotype, Treatment, Stimulated), in order to eventually recognize a significant pattern.
 
 ```{r}
 df_pca |>
@@ -95,7 +95,7 @@ df_pca |>
   theme_light(base_family = "Avenir")
 ```
 
-As we can see, visualizing all the classes together is not very clear. That's the reason why we distinguish the categories below.
+As we can see, visualizing all the classes together is not very clear. That's the reason why we distinguish into different categories below.
 
 ```{r}
 df_pca |>
@@ -134,9 +134,9 @@ df_pca |>
 ```{r}
 df_pca |>
   augment(df_aug) |>
-  ggplot(aes(.fittedPC1, 
-             .fittedPC2, 
-             color = as.factor(Stimulated))) + 
+  ggplot(mapping = aes(.fittedPC1, 
+                       .fittedPC2, 
+                       color = as.factor(Stimulated))) + 
   geom_point(size = 1.5) + 
   scale_color_manual(values = c("0" = "salmon",
                                 "1" = "#56B4E9"),  
@@ -183,3 +183,5 @@ rot_mat_stim |>
 ```
 
 In this way we can easily see that P70S6 mainly contributes to the formation of PC2 for the non-stimulated samples, with a loading equal to 0.208, while PSD95 mainly contributes for the stimulated samples, with a loading equal to 0.172.
+
+In summary, while the first two principal components capture significant variation, only the presence or absence of stimulation shows a clear separation, particularly along PC2. Further analysis of variable loadings reveals how protein expression levels contribute to this distinction, providing insights into the role of stimulation in the dataset.

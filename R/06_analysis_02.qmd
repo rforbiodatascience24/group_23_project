@@ -1,4 +1,4 @@
-This file provides a detailed analysis of the Mice Protein Expression dataset. It includes generating heatmaps to visualize protein expression across all samples, different classes, and genotypes. The analysis intends to dentify proteins with the highest variability and those showing the largest differences between groups. Statistical methods like t-tests are applied to highlight significant protein variations, providing insights into the dataset's underlying patterns and group-specific differences.
+This file provides a detailed analysis of the Mice Protein Expression dataset. It includes generating heatmaps to visualize protein expression across all samples, different classes, and genotypes. The analysis intends to identify proteins with the highest variability and those showing the largest differences between groups. Statistical methods like t-tests are applied to highlight significant protein variations, providing insights into the dataset's underlying patterns and group-specific differences.
 
 ## Load libraries
 
