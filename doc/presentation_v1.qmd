@@ -17,7 +17,7 @@ css: custom.css
 
     -   Apply data analysis techniques for deeper insights.
 
-![](../results/Workflow.png){fig-align="center"}
+![](../results/01_Workflow.png){fig-align="center"}
 
 ------------------------------------------------------------------------
 
@@ -37,7 +37,7 @@ css: custom.css
 
         -   Treatment: injection of memantine or saline
 
-        -   Behavior: absence (shock-context) or presence (context-shock) of stimulation to learn
+        -   Behavior: absence (Shock-Context) or presence (Context-Shock) of stimulation to learn
 
 ### Methods
 
@@ -84,7 +84,7 @@ css: custom.css
 -   Protein distributions using boxplots 
 
 ::: {style="display: flex; justify-content: space-between; align-items: center;"}
-<img src="../results/BRAF_N_boxplot.png" style="width: 49%; height: auto;"/> <img src="../results/pERK_N_boxplot.png" style="width: 49%; height: auto;"/>
+<img src="../results/02_boxplot_1.png" style="width: 49%; height: auto;"/> <img src="../results/02_boxplot_2.png" style="width: 49%; height: auto;"/>
 :::
 
 ------------------------------------------------------------------------
@@ -95,7 +95,7 @@ css: custom.css
 
 -   Protein vs. Protein correlation
 
-![](../results/Heatmap_pvsp_genotype.png){fig-align="center"}
+![](../results/03_Heatmap_pvsp_genotype.png){fig-align="center"}
 
 ------------------------------------------------------------------------
 
@@ -106,7 +106,7 @@ css: custom.css
 -   Influence of stimulation
 
 ::: {style="display: flex; justify-content: space-between; align-items: center;"}
-<img src="../results/BRAF_N_densitogram.png" style="width: 49%; height: auto;"/> <img src="../results/pERK_N_densitogram.png" style="width: 49%; height: auto;"/>
+<img src="../results/04_densitogram_1.png" style="width: 49%; height: auto;"/> <img src="../results/04_densitogram_2.png" style="width: 49%; height: auto;"/>
 :::
 
 ------------------------------------------------------------------------
@@ -116,7 +116,7 @@ css: custom.css
 -   Analyzing how the 2 variables depend on Genotype, Treatment, and Stimulation, using boxplots
 
 ::: {style="display: flex; justify-content: space-between; align-items: center;"}
-<img src="../results/MAPK.png" style="width: 48%; height: auto;"/> <img src="../results/CAI.png" style="width: 48%; height: auto;"/>
+<img src="../results/05_MAPK.png" style="width: 48%; height: auto;"/> <img src="../results/05_CAI.png" style="width: 48%; height: auto;"/>
 :::
 
 ------------------------------------------------------------------------
@@ -127,7 +127,7 @@ css: custom.css
 
 -   Scatter plots in PC coordinates: Class, Genotype, Treatment, Stimulation
 
-![](../results/PCA.png){fig-align="center"}
+![](../results/06_PCA.png){fig-align="center"}
 
 ------------------------------------------------------------------------
 
