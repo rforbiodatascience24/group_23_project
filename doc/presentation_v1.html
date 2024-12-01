@@ -348,7 +348,8 @@ Gaia Marraffa, Natalia Najuch, Gioele Tiraboschi
 <li><p>Apply data analysis techniques for deeper insights.</p></li>
 </ul></li>
 </ul>
-</section>
+
+<img data-src="../results/Workflow.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="materials-and-methods" class="slide level2 small-text">
 <h2>Materials and methods</h2>
 <h3 id="materials">Materials</h3>
@@ -398,41 +399,66 @@ Gaia Marraffa, Natalia Najuch, Gioele Tiraboschi
 </section>
 <section id="data-understanding" class="slide level2">
 <h2>Data Understanding</h2>
+<ul>
+<li><p>Count of each class using a bar chart</p></li>
+<li><p>Protein distributions using boxplots</p></li>
+</ul>
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<p><img src="../results/BRAF_N_boxplot.png" style="width: 49%; height: auto;"> <img src="../results/pERK_N_boxplot.png" style="width: 49%; height: auto;"></p>
+</div>
 </section>
 <section id="heatmaps" class="slide level2">
 <h2>Heatmaps</h2>
-<ol type="1">
-<li>Sample vs.&nbsp;Protein correlation</li>
-<li>Protein vs.&nbsp;Protein correlation</li>
-</ol>
+<ul>
+<li><p>Sample vs.&nbsp;Protein correlation</p></li>
+<li><p>Protein vs.&nbsp;Protein correlation</p></li>
+</ul>
 
-<img data-src="~/results/Heatmap_pvsp_genotype.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<img data-src="../results/Heatmap_pvsp_genotype.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="specific-protein-analysis" class="slide level2">
 <h2>Specific Protein Analysis</h2>
+<ul>
+<li><p>Densitograms to compare genotypes</p></li>
+<li><p>Influence of stimulation</p></li>
+</ul>
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<p><img src="../results/BRAF_N_densitogram.png" style="width: 49%; height: auto;"> <img src="../results/pERK_N_densitogram.png" style="width: 49%; height: auto;"></p>
+</div>
 </section>
 <section id="mapk_activity-and-chromatin_activation_index-analysis" class="slide level2">
 <h2>MAPK_Activity and Chromatin_Activation_Index Analysis</h2>
 <ul>
-<li>Analyzing how the 2 variables depend on Genotype, Treatment, and Stimulation, using boxplots.</li>
+<li>Analyzing how the 2 variables depend on Genotype, Treatment, and Stimulation, using boxplots</li>
 </ul>
 <div style="display: flex; justify-content: space-between; align-items: center;">
-<p><img src="~/results/MAPK.png" style="width: 48%; height: auto;"> <img src="~/results/CAI.png" style="width: 48%; height: auto;"></p>
+<p><img src="../results/MAPK.png" style="width: 48%; height: auto;"> <img src="../results/CAI.png" style="width: 48%; height: auto;"></p>
 </div>
 </section>
 <section id="pca" class="slide level2">
 <h2>PCA</h2>
-</section>
+<ul>
+<li><p>Scree plot</p></li>
+<li><p>Scatter plots in PC coordinates: Class, Genotype, Treatment, Stimulation</p></li>
+<li><p>Pattern based on presence/absence of stimulation</p></li>
+</ul>
+
+<img data-src="../results/PCA.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="discussion-and-conclusions" class="slide level2 large-text">
 <h2>Discussion and Conclusions</h2>
 <ul>
-<li><p><strong>Objectives</strong>: identify <strong>patterns and correlations</strong> among proteins based on different classes</p></li>
-<li><p><strong>Results</strong>: presence or absence of <strong>stimulation</strong> mainly affects the protein expression levels</p></li>
-<li><p><strong>What we could have done</strong>: interactive ShinyApp, further analysis on the combined effects of the variables</p></li>
+<li><p><strong>Objectives</strong>: identify patterns and correlations among proteins</p></li>
+<li><p><strong>Results</strong>: influence of stimulation on protein expression levels</p></li>
+<li><p><strong>Problems</strong>: file path for external users</p></li>
+<li><p><strong>Further development</strong>:</p>
+<ul>
+<li><p>Interactive ShinyApp</p></li>
+<li><p>Analysis on the combined effects</p></li>
+</ul></li>
 </ul>
 </section>
 <section class="slide level2">
 
-<div style="text-align: center; font-size: 2em; font-weight: bold;">
+<div style="display: flex; justify-content: center; align-items: center; height: 100%; font-size: 2em; font-weight: bold;">
 <p>Thanks for your attention!</p>
 </div>
 <div class="quarto-auto-generated-content">

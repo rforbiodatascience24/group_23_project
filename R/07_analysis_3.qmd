@@ -68,6 +68,8 @@ p2 <- ggplot(data = control,
   geom_density(alpha = 0.5) + 
   labs(title = "Densitogram of BRAF_N for control classes") +
   theme_minimal(base_family = "Avenir")
+
+p1 / p2
 ```
 
 We set the same axis in order to better compare the two groups.
@@ -104,6 +106,8 @@ p4 <- ggplot(data = control,
   geom_density(alpha = 0.5) + 
   labs(title = "Densitogram of pERK_N for control classes") +
   theme_minimal(base_family = "Avenir")
+
+p3 / p4
 ```
 
 We set the same axis in order to better compare the two groups.
@@ -127,3 +131,7 @@ This clear separation between the presence and the absence of stimulation sugges
 Unlike the previous one, in this case the SC-m class (no stimulation, treated with memantine) is dominant in the trisomic group as it is in the control group. The main difference is represented by the SC-s class (no stimulation, treated with saline), which is dominant in the control group but not in the trisomic group, suggesting a possible biological effect.
 
 In general, trisomic classes appear to have more diverse distributions than controls, which was also noticed for BRAF_N and in the first analysis as well. The differences in the distribution of pERK_N between the two groups could suggest alterations in the phosphorylation levels of the ERK protein, potentially linked to differences in the molecular mechanisms between the two conditions.
+
+In conclusion, this analysis reveals distinct protein expression patterns between stimulation and non-stimulation classes for both BRAF_N and pERK_N. Stimulation classes show greater variability, while non-stimulation classes are more concentrated at lower levels.
+
+Key differences between control and trisomic groups also suggest potential biological effects, with trisomic groups consistently displaying more diverse distributions.

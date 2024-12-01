@@ -15,7 +15,8 @@ library("knitr")
 ## Loading the .qmd files
 
 ```{r}
-first_path <- "/net/pupil1/home/people/s243057/projects/R_project"
+#first_path <- "/net/pupil1/home/people/s243057/projects/R_project"
+first_path <- "~/projects/R_project"
 
 files <- c("R/01_load.qmd",
            "R/02_clean.qmd",
