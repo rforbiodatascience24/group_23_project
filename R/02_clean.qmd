@@ -42,6 +42,8 @@ missing_summary <- colSums(is.na(df))
 print(missing_summary)
 ```
 
+In the shown data we can see that it is mostly full, with few exceptions, when the number of NaNs is above 20 (around 2%). For the data we decided to proceed with replacing the missing data with mean values based on the class, as deleting all of the values could result in missing a big part of data, without which we could not analyse it properly.
+
 Replacing the missing data (NaN) with mean values within each class
 
 ```{r}
@@ -103,6 +105,10 @@ ggplot(data = df_compare,
        x = "Expression Level",
        y = "Density")
 ```
+
+Plot shows a distribution of expression levels for the six proteins which had the highest number of missing values. The plot suggests that the overall shape of the density curve stays similar, and the mean replacement does not distort the distribution. We can also notice that in certain proteins there is a slight difference in the density peak.
+
+Such replacement could potentially alter results of further analysis, as it makes the data more concentrated around the mean values, but overall it preserves the data distribution.
 
 Writing the cleaned .tsv file in the *data* folder:
 
