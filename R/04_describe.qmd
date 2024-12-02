@@ -20,7 +20,8 @@ library("purrr")
 ```{r}
 first_path <- "~/projects/R_project"
 file_path <- "data/03_dat_aug.tsv" 
-file_path <- file.path(first_path, file_path)
+file_path <- file.path(first_path, 
+                       file_path)
 df_aug <- read_tsv(file = file_path)
 ```
 

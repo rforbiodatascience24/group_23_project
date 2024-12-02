@@ -19,7 +19,8 @@ library("tidyverse")
 #| message: false
 first_path <- "~/projects/R_project"
 file_path <- "data/03_dat_aug.tsv" 
-file_path <- file.path(first_path, file_path)
+file_path <- file.path(first_path, 
+                       file_path)
 
 df_aug <- read_tsv(file = file_path)
 df <- df_aug
@@ -33,7 +34,8 @@ Preparing data for heatmap visualization - changing to the long data, using pivo
 
 ```{r}
 protein_data_long <- df |>
-  select(ends_with("_N"), MouseID) |>
+  select(ends_with("_N"), 
+         MouseID) |>
   pivot_longer(-MouseID, 
                names_to = "Protein", 
                values_to = "Expression")
@@ -190,8 +192,8 @@ ggplot(data = trisomy_long,
 
 ggplot(data = control_long, 
        mapping = aes(x = Protein, 
-                         y = MouseID, 
-                         fill = Expression)) +
+                     y = MouseID, 
+                     fill = Expression)) +
   geom_tile() +
   scale_fill_gradient2(low = "blue", 
                        mid = "white", 

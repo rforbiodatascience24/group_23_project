@@ -17,10 +17,10 @@ library("broom")
 ## Loading data
 
 ```{r}
-#first_path <- "/net/pupil1/home/people/s242150/projects/R_project"
 first_path <- "~/projects/R_project" 
 file_path <- "data/03_dat_aug.tsv"  
-file_path <- file.path(first_path, file_path) 
+file_path <- file.path(first_path, 
+                       file_path) 
 df_aug <- read_tsv(file = file_path)
 ```
 
@@ -58,8 +58,8 @@ tidy_pca <- df_pca |>
   mutate(percent = percent * 100) 
 
 scree_plot <- tidy_pca |>
-  ggplot(aes(x = PC,
-             y = percent)) +
+  ggplot(mapping = aes(x = PC,
+                       y = percent)) +
   geom_hline(yintercept = 0) +
   geom_col(fill = "blue",
            alpha = 0.7) +
@@ -83,10 +83,10 @@ We plot the data in PC coordinates combining them with the original dataset. Fir
 ```{r}
 df_pca |>
   augment(df_aug) |>
-  ggplot(aes(.fittedPC1, 
-             .fittedPC2, 
-             color = class,
-             shape = class)) + 
+  ggplot(mapping = aes(.fittedPC1, 
+                       .fittedPC2, 
+                       color = class,
+                       shape = class)) + 
   geom_point(size = 1.5) + 
   scale_shape_manual(values = 1:8) +
   xlab("PC1") +
@@ -100,13 +100,14 @@ As we can see, visualizing all the classes together is not very clear. That's th
 ```{r}
 df_pca |>
   augment(df_aug) |>
-  ggplot(aes(.fittedPC1, 
-             .fittedPC2, 
-             color = as.factor(Genotype))) + 
+  ggplot(mapping = aes(.fittedPC1, 
+                       .fittedPC2, 
+                       color = as.factor(Genotype))) + 
   geom_point(size = 1.5) + 
   scale_color_manual(values = c("0" = "salmon",
                                 "1" = "#56B4E9"),  
-                     labels = c("Trisomic", "Control")) +  
+                     labels = c("Trisomic", 
+                                "Control")) +  
   labs(color = "Genotype") +
   xlab("PC1") +
   ylab("PC2") +
@@ -117,13 +118,14 @@ df_pca |>
 ```{r}
 df_pca |>
   augment(df_aug) |>
-  ggplot(aes(.fittedPC1, 
-             .fittedPC2, 
-             color = as.factor(Treatment))) + 
+  ggplot(mapping = aes(.fittedPC1, 
+                       .fittedPC2, 
+                       color = as.factor(Treatment))) + 
   geom_point(size = 1.5) + 
   scale_color_manual(values = c("0" = "salmon",
                                 "1" = "#56B4E9"),  
-                     labels = c("Saline", "Memantine")) +  
+                     labels = c("Saline", 
+                                "Memantine")) +  
   labs(color = "Treatment") +
   xlab("PC1") +
   ylab("PC2") +
@@ -140,7 +142,8 @@ df_pca |>
   geom_point(size = 1.5) + 
   scale_color_manual(values = c("0" = "salmon",
                                 "1" = "#56B4E9"),  
-                     labels = c("No", "Yes")) +  
+                     labels = c("No", 
+                                "Yes")) +  
   labs(color = "Stimulated") +
   xlab("PC1") +
   ylab("PC2") +

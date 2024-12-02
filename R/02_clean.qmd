@@ -17,7 +17,8 @@ library("tidyverse")
 
 ```{r}
 first_path <- "~/projects/R_project"
-file_path <- file.path(first_path, "data/01_dat_load.tsv")
+file_path <- file.path(first_path, 
+                       "data/01_dat_load.tsv")
 df <- read_tsv(file = file_path)
 ```
 
@@ -112,7 +113,8 @@ Writing the cleaned .tsv file in the *data* folder:
 
 ```{r}
 file_path <- "data/02_dat_clean.tsv"
-file_path <- file.path(first_path, file_path)
+file_path <- file.path(first_path, 
+                       file_path)
 
 df <- df_mean
 
