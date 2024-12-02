@@ -9,7 +9,7 @@ In this file we analyse specific protein level distributions separating the samp
 ## Installing packages
 
 ```{r}
-install.packages("patchwork")
+#install.packages("patchwork")
 ```
 
 ## Loading libraries
