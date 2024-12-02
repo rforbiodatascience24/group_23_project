@@ -81,7 +81,7 @@ css: custom.css
 
 -   Count of each class using a bar chart
 
--   Protein distributions using boxplots 
+-   Protein distributions using boxplots
 
 ::: {style="display: flex; justify-content: space-between; align-items: center;"}
 <img src="../results/02_boxplot_1.png" style="width: 49%; height: auto;"/> <img src="../results/02_boxplot_2.png" style="width: 49%; height: auto;"/>
@@ -93,7 +93,7 @@ css: custom.css
 
 -   Sample vs. Protein correlation
 
--   Protein vs. Protein correlation (pERK_N - BRAF_N; BRAF_N	- DYRK1A_N)
+-   Protein vs. Protein correlation (pERK_N - BRAF_N; BRAF_N - DYRK1A_N)
 
 ![](../results/03_Heatmap_pvsp_genotype.png){fig-align="center"}
 
@@ -133,16 +133,16 @@ css: custom.css
 
 ## Discussion and Conclusions {.large-text}
 
--   **Objectives**: identify patterns and correlations among proteins 
+-   **Objectives**: identify patterns and correlations among proteins
 
 -   **Results**: influence of stimulation on protein expression levels
 
 -   **Problems**: file path for external users
 
--   **Further development**: 
+-   **Further development**:
 
     -   Interactive ShinyApp
-  
+
     -   Analysis on the combined effects
 
 ------------------------------------------------------------------------
