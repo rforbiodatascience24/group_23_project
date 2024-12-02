@@ -23,10 +23,10 @@ library("patchwork")
 ## Loading data
 
 ```{r}
-#first_path <- "/net/pupil1/home/people/s242150/projects/R_project"
 first_path <- "~/projects/R_project"
 file_path <- "data/03_dat_aug.tsv" 
-file_path <- file.path(first_path, file_path)
+file_path <- file.path(first_path, 
+                       file_path)
 df_aug <- read_tsv(file = file_path)
 ```
 
@@ -50,6 +50,7 @@ source(file = "densitogram.R")
 
 ```{r}
 #| eval: false
+# Unsuccessful attempt to use a function to plot the densitograms:
 p1 <- densitogram(trisomic, "BRAF_N", deparse(substitute(trisomic)))
 p1
 ```
@@ -94,15 +95,15 @@ The non-stimulation classes are dominant in the control group but not in the tri
 
 ```{r}
 p3 <- ggplot(data = trisomic,
-             aes(x = pERK_N,
-                 fill = class)) +
+             mapping = aes(x = pERK_N,
+                           fill = class)) +
   geom_density(alpha = 0.5) +
   labs(title = "Densitogram of pERK_N for trisomic classes") +
   theme_minimal(base_family = "Avenir")
 
 p4 <- ggplot(data = control,
-             aes(x = pERK_N,
-                 fill = class)) +
+             mapping = aes(x = pERK_N,
+                           fill = class)) +
   geom_density(alpha = 0.5) + 
   labs(title = "Densitogram of pERK_N for control classes") +
   theme_minimal(base_family = "Avenir")

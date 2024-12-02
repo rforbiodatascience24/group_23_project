@@ -18,7 +18,8 @@ library("tidyverse")
 ```{r}
 first_path <- "~/projects/R_project"
 file_path <- "data/03_dat_aug.tsv" 
-file_path <- file.path(first_path, file_path)
+file_path <- file.path(first_path, 
+                       file_path)
 
 df_aug <- read_tsv(file = file_path)
 ```
@@ -45,7 +46,7 @@ First, we count the occurance of each class in the dataset. The classes are the 
 
 ```{r}
 ggplot(data = df_aug,
-       mapping = aes(class, 
+       mapping = aes(x = class, 
                      fill = class)) +
   geom_bar(alpha = 0.5) +
   scale_fill_manual(values = rainbow(8)) +

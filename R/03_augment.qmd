@@ -18,7 +18,8 @@ library("tidyverse")
 ```{r}
 first_path <- "~/projects/R_project"
 file_path <- "data/02_dat_clean.tsv" 
-file_path <- file.path(first_path, file_path)
+file_path <- file.path(first_path, 
+                       file_path)
 
 df_clean <- read_tsv(file = file_path)
 ```
@@ -43,7 +44,12 @@ df_aug <- df_clean |>
                                Treatment == "Saline" ~ 0),
          Stimulated = case_when(Behavior == "C/S" ~ 1,
                                 Behavior == "S/C" ~ 0)) |>
-  select(MouseID, Genotype, Treatment, Stimulated, class, DYRK1A_N:CaNA_N)
+  select(MouseID, 
+         Genotype, 
+         Treatment, 
+         Stimulated, 
+         class, 
+         DYRK1A_N:CaNA_N)
 ```
 
 ### **Creating 2 New Variables:**
@@ -82,7 +88,8 @@ This ratio could highlight the balance between kinase-driven cellular signaling 
 
 ```{r}
 file_path <- "data/03_dat_aug.tsv"
-file_path <- file.path(first_path, file_path)
+file_path <- file.path(first_path, 
+                       file_path)
 
 
 df_aug2 |>
