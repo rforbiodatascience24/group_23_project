@@ -23,16 +23,19 @@ files <- c("R/01_load.qmd",
            "R/03_augment.qmd",
            "R/04_describe.qmd",
            "R/05_analysis_1.qmd",
-           "R/06_analysis_02.qmd",
+           "R/06_analysis_2.qmd",
            "R/07_analysis_3.qmd",
            "R/08_analysis_4.qmd",
            "R/09_analysis_5.qmd"
            )
 
 purrr::walk(files, ~{
-  file_path <- file.path(first_path, .x)  
-  purl_file <- purl(file_path, output = tempfile(fileext = ".R"))
+  file_path <- file.path(first_path, 
+                         .x)  
+  purl_file <- purl(file_path, 
+                    output = tempfile(fileext = ".R"))
   source(purl_file)
-  message("File was run and executed: ", file_path)
+  message("File was run and executed: ", 
+          file_path)
 })
 ```

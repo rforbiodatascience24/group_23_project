@@ -21,9 +21,6 @@ file_path <- "data/_raw/Data_Cortex_Nuclear.csv"
 file_path <- file.path(first_path, 
                        file_path)
 
-#fpath <- "/net/pupil1/home/people/s243057/projects/group_23_project/data/_raw/Data_Cortex_Nuclear.csv"
-#df <- read.csv(fpath)
-
 df <- read.csv(file_path)
 ```
 

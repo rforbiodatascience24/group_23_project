@@ -1,3 +1,9 @@
+---
+title: "06_analysis_2"
+format: html
+editor: visual
+---
+
 This file provides a detailed analysis of the Mice Protein Expression dataset. It includes generating heatmaps to visualize protein expression across all samples, different classes, and genotypes. The analysis intends to identify proteins with the highest variability and those showing the largest differences between groups. Statistical methods like t-tests are applied to highlight significant protein variations, providing insights into the dataset's underlying patterns and group-specific differences.
 
 ## Load libraries
@@ -62,13 +68,15 @@ Starting with the z-normalization following by min-max normalization to obtain \
 ```{r}
 # z - normalization
 df_z <- df |>
-  mutate(across(ends_with("_N"), ~ scale(.) |>  
+  mutate(across(ends_with("_N"), 
+                ~ scale(.) |>  
                   as.vector()))
 
 
 # min-max normalization
 df <- df_z |>
-  mutate(across(ends_with("_N"), ~ (2 * ((. - min(.)) / (max(.) - min(.))) - 1)))
+  mutate(across(ends_with("_N"), 
+                ~ (2 * ((. - min(.)) / (max(.) - min(.))) - 1)))
 
 
 ```
@@ -79,8 +87,10 @@ class_data <- df |>
   group_split(class)
 
 # Transforming into long data for visualization
-class_data_long <- map(class_data, ~ .x |>
-  select(ends_with("_N"), MouseID) |> 
+class_data_long <- map(class_data, 
+                       ~ .x |>
+  select(ends_with("_N"), 
+         MouseID) |> 
   pivot_longer(-MouseID, 
                names_to = "Protein", 
                values_to = "Expression")
@@ -114,7 +124,8 @@ heatmaps <- map2(class_data_long,
          y = "MouseID", 
          fill = "Expression")
 })
-walk(heatmaps, print)
+walk(heatmaps, 
+     print)
 
 ```
 
@@ -250,7 +261,8 @@ This heatmap provides with an overview on the relationships between all protein 
 Dividing the data by class and visualizing the heatmap can show us potential interactions between proteins among certain groups
 
 ```{r}
-corr_data_long <- map(class_data, ~ .x |>
+corr_data_long <- map(class_data, 
+                      ~ .x |>
   select(ends_with("_N")) |>
   cor() |>
   as_tibble(rownames = "Protein1") |>
@@ -284,7 +296,8 @@ corr_heatmaps <- map2(corr_data_long,
          fill = "Correlation")
 
 })
-walk(corr_heatmaps, print)
+walk(corr_heatmaps, 
+     print)
 ```
 
 Heatmaps repeatedly show impact of stimulus to protein expression. We can also start to recognize certains groups of proteins that show higher correlations.
@@ -295,7 +308,8 @@ Heatmaps repeatedly show impact of stimulus to protein expression. We can also s
 gen_data <- df |>
   group_split(Genotype)
   
-corr_gen_data_long <- map(gen_data, ~ .x |>
+corr_gen_data_long <- map(gen_data, 
+                          ~ .x |>
   select(ends_with("_N")) |>
   cor() |>
   as_tibble(rownames = "Protein1") |>
@@ -333,7 +347,8 @@ corr_heatmaps <- map2(corr_gen_data_long,
          fill = "Correlation")
 
 })
-walk(corr_heatmaps, print)
+walk(corr_heatmaps, 
+     print)
 ```
 
 Having obtained the above results, we can visually select areas on the heatmap which show high correlations for example between pNR1_N and pNR2A.
@@ -349,7 +364,9 @@ combined_corr_data <- bind_rows(corr_gen_data_long,
                                 .id = "Genotype")
 gen_corr_list <- combined_corr_data |>
   filter(Protein1 != Protein2) |>
-  distinct(Protein1, Protein2, .keep_all = TRUE) |>
+  distinct(Protein1, 
+           Protein2, 
+           .keep_all = TRUE) |>
   arrange(desc(Correlation)) 
 
 gen_corr_list
@@ -401,23 +418,4 @@ protein_differences <- group_means |>
 protein_differences
 ```
 
-### T-test
-
-Using t-test to identify the proteins variety between the trisomy and the control group
-
-```{r}
-t_test_results <- df |>
-  pivot_longer(cols = ends_with("_N"), 
-               names_to = "Protein", 
-               values_to = "Expression") |>
-  group_by(Protein) |>
-  summarise(p_value = t.test(Expression ~ Genotype, 
-                             data = cur_data())$p.value) |>
-  arrange(p_value) |>
-  slice_head(n = 10)  
-
-t_test_results
-
-```
-
-Proteins like APP_N, S6_N, and Tau_N stand out with very low p-values, indicating strong genotype-dependent effects.
+Given the results, we can distinguish few proteins, like S6_N or pPKCG_N that could imply having impact on the existence of trisomy in mice.

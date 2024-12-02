@@ -19,8 +19,6 @@ library("purrr")
 
 ```{r}
 first_path <- "~/projects/R_project"
-#first_path <- "/net/pupil1/home/people/s242150/projects/R_project"
-#first_path <- "/net/pupil1/home/people/s243057/projects/R_project"
 file_path <- "data/03_dat_aug.tsv" 
 file_path <- file.path(first_path, file_path)
 df_aug <- read_tsv(file = file_path)
@@ -32,7 +30,9 @@ We first group by three categories: Genotype (control = 0 or Ts65Dn = 1), Treatm
 
 ```{r}
 df_nested <- df_aug |>
-  group_by(Genotype, Treatment, Stimulated) |>
+  group_by(Genotype, 
+           Treatment, 
+           Stimulated) |>
   nest()
 ```
 
@@ -58,7 +58,13 @@ Showing the results.
 
 ```{r}
 df_results |>
-  select(Genotype, Treatment, Stimulated, term, estimate, std.error, p.value)
+  select(Genotype, 
+         Treatment, 
+         Stimulated, 
+         term, 
+         estimate, 
+         std.error, 
+         p.value)
 ```
 
 Then, we decided to add the q.value and the variable is_significant. We set the threshold to 0.01 because it is the highest (reasonable) value that creates a distinction between significant and non-significant values. With a higher threshold (e.g., 5%), there are no differences between significant and non-significant values, as all values are classified as significant.
@@ -90,19 +96,21 @@ Then we can do the plot, showing the 8 groups, each with the two bars coming fro
 
 ```{r, fig.width=14, fig.height=12}
 df_final |>
-  ggplot(aes(x = term, 
-             y = estimate, 
-             fill = is_significant)) +
+  ggplot(mapping = aes(x = term,
+                       y = estimate, 
+                       fill = is_significant)) +
   geom_bar(stat = "identity", 
            position = "dodge") +
   facet_wrap(~ Group) +
   labs(title = "Coefficient estimates for each group",
        x = "Predictive variable: Intercept (Left), pERK_N (Right)",
        y = " ") +
-  scale_x_discrete(labels = c("(Intercept)" = "", "pERK_N" = "")) +
+  scale_x_discrete(labels = c("(Intercept)" = "", 
+                              "pERK_N" = "")) +
   theme_minimal() +
   theme(
-    plot.title = element_text(size = 25, face = "bold"), 
+    plot.title = element_text(size = 25, 
+                              face = "bold"), 
     axis.title = element_text(size = 16),                
     axis.text = element_text(size = 14),                
     legend.title = element_text(size = 14),             
