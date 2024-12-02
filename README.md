@@ -21,3 +21,9 @@ Click on the download symbol
 Save the downloaded file so that it follows this relative path: data/_raw/Data_Cortex_Nuclear.csv
 
 Scrolling through our code, in each file every time you see the definition of the variable "first_path", write down your personal path in order to have access to the "file path".
+
+
+## Install packages
+Install the following package to run 07_analysis_3.qmd:
+
+install.packages("patchwork")

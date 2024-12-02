@@ -93,7 +93,7 @@ css: custom.css
 
 -   Sample vs. Protein correlation
 
--   Protein vs. Protein correlation (pERK_N - BRAF_N; BRAF_N	DYRK1A_N)
+-   Protein vs. Protein correlation (pERK_N - BRAF_N; BRAF_N	- DYRK1A_N)
 
 ![](../results/03_Heatmap_pvsp_genotype.png){fig-align="center"}
 
