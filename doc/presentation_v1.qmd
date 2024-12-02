@@ -7,7 +7,7 @@ output: xaringan::xaringan_presentation
 css: custom.css
 ---
 
-## Introduction 
+## Introduction
 
 -   **Topic**: Analysis of Mice Protein Expression
 
@@ -16,6 +16,8 @@ css: custom.css
     -   Explore data to identify patterns and correlations among proteins.
 
     -   Apply data analysis techniques for deeper insights.
+
+![](../results/01_Workflow.png){fig-align="center"}
 
 ------------------------------------------------------------------------
 
@@ -28,14 +30,14 @@ css: custom.css
 -   **Features**:
 
     -   77 proteins, from 38 control mice and 34 trisomic mice separated into 8 classes
-    
+
     -   Classification based on
-    
+
         -   Genotype: control or trisomic
-      
+
         -   Treatment: injection of memantine or saline
-      
-        -   Behavior: absence (shock-context) or presence (context-shock) of stimulation to learn
+
+        -   Behavior: absence (Shock-Context) or presence (Context-Shock) of stimulation to learn
 
 ### Methods
 
@@ -77,45 +79,74 @@ css: custom.css
 
 ## Data Understanding
 
+-   Count of each class using a bar chart
+
+-   Protein distributions using boxplots 
+
+::: {style="display: flex; justify-content: space-between; align-items: center;"}
+<img src="../results/02_boxplot_1.png" style="width: 49%; height: auto;"/> <img src="../results/02_boxplot_2.png" style="width: 49%; height: auto;"/>
+:::
+
 ------------------------------------------------------------------------
 
 ## Heatmaps
 
-1.  Sample vs. Protein correlation
-2.  Protein vs. Protein correlation
+-   Sample vs. Protein correlation
 
-![](~/results/Heatmap_pvsp_genotype.png){fig-align="center"}
+-   Protein vs. Protein correlation
+
+![](../results/03_Heatmap_pvsp_genotype.png){fig-align="center"}
 
 ------------------------------------------------------------------------
 
 ## Specific Protein Analysis
 
+-   Densitograms to compare genotypes
+
+-   Influence of stimulation
+
+::: {style="display: flex; justify-content: space-between; align-items: center;"}
+<img src="../results/04_densitogram_1.png" style="width: 49%; height: auto;"/> <img src="../results/04_densitogram_2.png" style="width: 49%; height: auto;"/>
+:::
+
 ------------------------------------------------------------------------
 
 ## MAPK_Activity and Chromatin_Activation_Index Analysis
 
--   Analyzing how the 2 variables depend on Genotype, Treatment, and Stimulation, using boxplots.
+-   Analyzing how the 2 variables depend on Genotype, Treatment, and Stimulation, using boxplots
 
 ::: {style="display: flex; justify-content: space-between; align-items: center;"}
-<img src="~/results/MAPK.png" style="width: 48%; height: auto;"/> <img src="~/results/CAI.png" style="width: 48%; height: auto;"/>
+<img src="../results/05_MAPK.png" style="width: 48%; height: auto;"/> <img src="../results/05_CAI.png" style="width: 48%; height: auto;"/>
 :::
 
 ------------------------------------------------------------------------
 
 ## PCA
 
+-   Scree plot
+
+-   Scatter plots in PC coordinates: Class, Genotype, Treatment, Stimulation
+
+![](../results/06_PCA.png){fig-align="center"}
+
 ------------------------------------------------------------------------
 
 ## Discussion and Conclusions {.large-text}
 
--   **Objectives**: identify **patterns and correlations** among proteins based on different classes
+-   **Objectives**: identify patterns and correlations among proteins 
 
--   **Results**: presence or absence of **stimulation** mainly affects the protein expression levels 
+-   **Results**: influence of stimulation on protein expression levels
 
--   **What we could have done**: interactive ShinyApp, further analysis on the combined effects of the variables
+-   **Problems**: file path for external users
+
+-   **Further development**: 
+
+    -   Interactive ShinyApp
+  
+    -   Analysis on the combined effects
 
 ------------------------------------------------------------------------
 
-::: {style="text-align: center; font-size: 2em; font-weight: bold;"}
+::: {style="display: flex; justify-content: center; align-items: center; height: 100%; font-size: 2em; font-weight: bold;"}
 Thanks for your attention!
 :::

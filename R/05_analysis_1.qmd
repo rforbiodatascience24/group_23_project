@@ -53,9 +53,9 @@ ggplot(data = df_aug,
   labs(title = "Count of each class")
 ```
 
-The classes related to control mice appear to have a slightly higher count compared to the classes related to trisomy mice, suggesting an imbalance in the data between the two groups. The imbalanced distribution could be significant, but not necessarily problematic, as it reflects a true disparity between the groups (e.g., more mice in the control group). So, for this study we won't apply techniques to address balancing.
+The classes related to control mice appear to have a slightly higher count compared to the classes related to trisomic mice, suggesting an imbalance in the data between the two groups. The imbalanced distribution could be significant, but not necessarily problematic, as it reflects a true disparity between the groups (more mice in the control group). So, for this study we won't apply techniques to address balancing.
 
-Going into details, we pick the two proteins that we used to create the model in 04_describe (BRAF_N and pERK_N), and we analize their expression levels based on the class.
+Going into details, we pick the two proteins that we used to create the model in 04_describe (BRAF_N and pERK_N), and we analise their expression levels based on the class.
 
 ```{r}
 ggplot(data = df_aug,
@@ -66,7 +66,8 @@ ggplot(data = df_aug,
   scale_fill_manual(values = rainbow(8)) +
   theme_light(base_family = "Avenir") +
   scale_y_continuous(limits = c(0, 3.75)) +
-  labs(title = "Distribution of BRAF_N by class")
+  labs(title = "Distribution of BRAF_N by class") +
+  theme(legend.position = "none")
 
 ggplot(data = df_aug,
        mapping = aes(x = class,
@@ -76,9 +77,10 @@ ggplot(data = df_aug,
   scale_fill_manual(values = rainbow(8)) +
   theme_light(base_family = "Avenir") +
   scale_y_continuous(limits = c(0, 3.75)) +
-  labs(title = "Distribution of pERK_N by class")
+  labs(title = "Distribution of pERK_N by class") +
+  theme(legend.position = "none")
 ```
 
 We may notice that just a few of the boxplots are similar between the two proteins.
 
-The expression levels of BRAF_N appear to be more stable and less variable, especially in the control group. Instead, pERK_N shows greater variability across classes, particularly in the trisomy group: this is represented by larger boxes, longer whiskers and a higher number of outliers. However, they both present most of the outliers in c-CS-s and a very small variance in c-SC-m and c-SC-s.
+The expression levels of BRAF_N appear to be more stable and less variable, especially in the control group. Instead, pERK_N shows greater variability across classes, particularly in the trisomic group: this is represented by larger boxes, longer whiskers and a higher number of outliers. However, they both present most of the outliers in c-CS-s and a very small variance in c-SC-m and c-SC-s.

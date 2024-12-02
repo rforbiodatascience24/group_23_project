@@ -1,4 +1,4 @@
-This file provides a detailed analysis of the Mice Protein Expression dataset. It includes generating heatmaps to visualize protein expression across all samples, different classes, and genotypes. The analysis intends to dentify proteins with the highest variability and those showing the largest differences between groups. Statistical methods like t-tests are applied to highlight significant protein variations, providing insights into the dataset's underlying patterns and group-specific differences.
+This file provides a detailed analysis of the Mice Protein Expression dataset. It includes generating heatmaps to visualize protein expression across all samples, different classes, and genotypes. The analysis intends to identify proteins with the highest variability and those showing the largest differences between groups. Statistical methods like t-tests are applied to highlight significant protein variations, providing insights into the dataset's underlying patterns and group-specific differences.
 
 ## Load libraries
 
@@ -53,18 +53,20 @@ ggplot(data = protein_data_long,
 
 ```
 
-The plot above doesn't look very informative, so we proceed with another solution.
+The plot visualizes protein expression across all mice samples, but due to a large number of samples, the plot lacks group-specific information, what makes it difficult to draw conclusions.
 
 ### Heatmap #2 - proteins divided by class
 
 Starting with the z-normalization following by min-max normalization to obtain \[-1, 1\]
 
 ```{r}
+# z - normalization
 df_z <- df |>
   mutate(across(ends_with("_N"), ~ scale(.) |>  
                   as.vector()))
 
 
+# min-max normalization
 df <- df_z |>
   mutate(across(ends_with("_N"), ~ (2 * ((. - min(.)) / (max(.) - min(.))) - 1)))
 
@@ -89,7 +91,7 @@ class_data_long <- map(class_data, ~ .x |>
 # class_data - .y
 heatmaps <- map2(class_data_long, 
                  class_data, ~ {
-                   
+  # extracting the class name for later plot title                 
   class_name <- .y |> 
     pull(class)
                    
@@ -115,6 +117,8 @@ heatmaps <- map2(class_data_long,
 walk(heatmaps, print)
 
 ```
+
+Having plots divided by class allows a clearer visualization of proteins, but it still does not highlight any noticeable patterns.
 
 ### Heatmap #3 - divided by genotype
 
@@ -198,6 +202,10 @@ ggplot(data = control_long,
 
 ```
 
+Direct comparison between the Trisomy and the Control.
+
+Overall the created heatmaps of Samples vs Proteins are not as informative as expected. There are few conclusions we can draw from them, ex. there is a clear impact coming from the Stimulation factor.
+
 ### Heatmap #4 among proteins
 
 #### All proteins
@@ -235,7 +243,11 @@ ggplot(correlation_long, aes(x = Protein1,
 
 ```
 
+This heatmap provides with an overview on the relationships between all protein pairs, which could be useful for pathway analysis.
+
 #### Proteins per class
+
+Dividing the data by class and visualizing the heatmap can show us potential interactions between proteins among certain groups
 
 ```{r}
 corr_data_long <- map(class_data, ~ .x |>
@@ -274,6 +286,8 @@ corr_heatmaps <- map2(corr_data_long,
 })
 walk(corr_heatmaps, print)
 ```
+
+Heatmaps repeatedly show impact of stimulus to protein expression. We can also start to recognize certains groups of proteins that show higher correlations.
 
 #### Proteins per genotype
 
@@ -322,9 +336,11 @@ corr_heatmaps <- map2(corr_gen_data_long,
 walk(corr_heatmaps, print)
 ```
 
-Having obtained the above results, we can visually select areas on the heatmap which show high correlations for example between pNR1_N and pNR2A
+Having obtained the above results, we can visually select areas on the heatmap which show high correlations for example between pNR1_N and pNR2A.
 
 ## Analysis
+
+Proteins with the largest differences in correlation might serve as biomarkers for distinguishing trisomy from control.
 
 ### Correlation in proteins, by genotype
 
@@ -338,6 +354,8 @@ gen_corr_list <- combined_corr_data |>
 
 gen_corr_list
 ```
+
+Analytical calculations provide us with pairs with the highest correlations, which match the conclusions drawn from the previous heatmap.
 
 ### Highest variability in proteins
 
@@ -402,31 +420,4 @@ t_test_results
 
 ```
 
-```{r}
-correlation_matrix <- df |>
-  select(ends_with("_N")) |>
-  cor()
-
-correlation_long <- correlation_matrix |>
-  as_tibble(rownames = "Protein1") |>  
-  pivot_longer(-Protein1, 
-               names_to = "Protein2", 
-               values_to = "Correlation")
-
-ggplot(correlation_long, aes(x = Protein1, 
-                             y = Protein2, 
-                             fill = Correlation)) +
-  geom_tile() +
-  scale_fill_gradient2(low = "blue", 
-                       mid = "white", 
-                       high = "red", 
-                       midpoint = 0) + 
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, 
-                                   hjust = 1)) +  
-  labs(title = "Heatmap of Protein Correlations",
-       x = "Protein 1",
-       y = "Protein 2",
-       fill = "Correlation")
-
-```
+Proteins like APP_N, S6_N, and Tau_N stand out with very low p-values, indicating strong genotype-dependent effects.
