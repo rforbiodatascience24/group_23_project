@@ -106,6 +106,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="loading-the-.qmd-files" class="level2">
 <h2 class="anchored" data-anchor-id="loading-the-.qmd-files">Loading the .qmd files</h2>
 <div class="cell">
+<<<<<<< HEAD
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>qmd_file1 <span class="ot">&lt;-</span> <span class="st">"~/projects/R_project/R/01_load.qmd"</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>purl_file1 <span class="ot">&lt;-</span> <span class="fu">purl</span>(qmd_file1, <span class="at">output =</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".R"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -738,6 +739,20 @@ dbl (82): Genotype, Treatment, Stimulated, DYRK1A_N, ITSN1_N, BDNF_N, NR1_N,...
 <div class="cell-output cell-output-stderr">
 <pre><code>File was loaded and executed: ~/projects/R_project/R/09_analysis_5.qmd</code></pre>
 </div>
+=======
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>first_path <span class="ot">&lt;-</span> <span class="st">"~/projects/R_project"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>files <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"R/01_load.qmd"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>           <span class="st">"R/02_clean.qmd"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>           <span class="st">"R/03_augment.qmd"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>           <span class="st">"R/04_describe.qmd"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>           <span class="st">"R/05_analysis_1.qmd"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>           <span class="st">"R/06_analysis_2.qmd"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>           <span class="st">"R/07_analysis_3.qmd"</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>           <span class="st">"R/08_analysis_4.qmd"</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>           <span class="st">"R/09_analysis_5.qmd"</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>           )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+>>>>>>> 7f437600fcc7df99fc39447439f78b5d473eda82
 </div>
 </section>
 

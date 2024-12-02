@@ -9,7 +9,7 @@ s243057 natalianajuch1
 
 
 ## Link to the presentation
-
+https://raw.githack.com/rforbiodatascience24/group_23_project/main/doc/presentation.html
 
 ## How to obtain the dataset we used
 Open this link: https://www.kaggle.com/datasets/ruslankl/mice-protein-expression
