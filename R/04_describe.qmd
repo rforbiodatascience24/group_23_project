@@ -8,7 +8,7 @@ In this file, we create a linear model between 2 variables, and we try to analyz
 
 ## Loading libraries
 
-```{r}
+```{r loadLib_04}
 #| message: false
 library("tidyverse")
 library("broom")
@@ -17,7 +17,7 @@ library("purrr")
 
 ## Loading data
 
-```{r}
+```{r loadData_04}
 first_path <- "~/projects/R_project"
 file_path <- "data/03_dat_aug.tsv" 
 file_path <- file.path(first_path, 
@@ -29,7 +29,7 @@ df_aug <- read_tsv(file = file_path)
 
 We first group by three categories: Genotype (control = 0 or Ts65Dn = 1), Treatment (Memantine = 1 or Saline = 0), and Stimulated (yes = 1, no = 0)
 
-```{r}
+```{r model1}
 df_nested <- df_aug |>
   group_by(Genotype, 
            Treatment, 
@@ -39,7 +39,7 @@ df_nested <- df_aug |>
 
 Then we create a linear model between the two variables BRAF_N and pERK_N.
 
-```{r}
+```{r model2}
 df_models <- df_nested |>
   mutate(model = map(data, 
                      ~lm(BRAF_N ~ pERK_N, 
@@ -48,7 +48,7 @@ df_models <- df_nested |>
 
 Here we get the coefficients.
 
-```{r}
+```{r model3}
 df_results <- df_models |>
   mutate(model_summary = map(model, 
                              tidy)) |>
@@ -57,7 +57,7 @@ df_results <- df_models |>
 
 Showing the results.
 
-```{r}
+```{r model4}
 df_results |>
   select(Genotype, 
          Treatment, 
@@ -70,14 +70,14 @@ df_results |>
 
 Then, we decided to add the q.value and the variable is_significant. We set the threshold to 0.01 because it is the highest (reasonable) value that creates a distinction between significant and non-significant values. With a higher threshold (e.g., 5%), there are no differences between significant and non-significant values, as all values are classified as significant.
 
-```{r}
+```{r model5}
 df_estimates <- df_results |>
   mutate(q.value = p.adjust(p.value),
          is_significant = case_when(q.value <= 0.01 ~ "yes",
                                     q.value > 0.01 ~ "no"))
 ```
 
-```{r}
+```{r model6}
 df_final <- df_estimates |>
   unnest(data)
 ```
@@ -86,7 +86,7 @@ df_final <- df_estimates |>
 
 We first need a new variable we will be using in the plot showing which group we're studying.
 
-```{r}
+```{r model7}
 df_final <- df_final |>
   mutate(Group = paste0("Genotype: ", Genotype, 
                         ", Treatment: ", Treatment, 
@@ -95,7 +95,7 @@ df_final <- df_final |>
 
 Then we can do the plot, showing the 8 groups, each with the two bars coming from the statistics: Intercept (bar on the left of each group subplot), and pERK_N (bar on the right of each group subplot).
 
-```{r, fig.width=14, fig.height=12}
+```{r, model8, fig.width=14, fig.height=12}
 df_final |>
   ggplot(mapping = aes(x = term,
                        y = estimate, 

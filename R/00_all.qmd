@@ -14,27 +14,74 @@ library("knitr")
 
 ## Loading the .qmd files
 
-```{r loadQMD}
-first_path <- "~/projects/R_project"
+```{r loadQMD1}
+qmd_file1 <- "~/projects/R_project/R/01_load.qmd"
+purl_file1 <- purl(qmd_file1, output = tempfile(fileext = ".R"))
+source(purl_file1)
 
-files <- c("R/01_load.qmd",
-           "R/02_clean.qmd",
-           "R/03_augment.qmd",
-           "R/04_describe.qmd",
-           "R/05_analysis_1.qmd",
-           "R/06_analysis_2.qmd",
-           "R/07_analysis_3.qmd",
-           "R/08_analysis_4.qmd",
-           "R/09_analysis_5.qmd"
-           )
+message("File was loaded and executed: ", qmd_file1)
+```
 
-purrr::walk(files, ~{
-  file_path <- file.path(first_path, 
-                         .x)  
-  purl_file <- purl(file_path, 
-                    output = tempfile(fileext = ".R"))
-  source(purl_file)
-  message("File was run and executed: ", 
-          file_path)
-})
+```{r LoadQMD2}
+qmd_file2 <- "~/projects/R_project/R/02_clean.qmd"
+purl_file2 <- purl(qmd_file2, output = tempfile(fileext = ".R"))
+source(purl_file2)
+
+message("File was loaded and executed: ", qmd_file2)
+```
+
+```{r LoadQMD3}
+qmd_file3 <- "~/projects/R_project/R/03_augment.qmd"
+purl_file3 <- purl(qmd_file3, output = tempfile(fileext = ".R"))
+source(purl_file3)
+
+message("File was loaded and executed: ", qmd_file3)
+```
+
+```{r LoadQMD4}
+qmd_file4 <- "~/projects/R_project/R/04_describe.qmd"
+purl_file4 <- purl(qmd_file4, output = tempfile(fileext = ".R"))
+source(purl_file4)
+
+message("File was loaded and executed: ", qmd_file4)
+```
+
+```{r LoadQMD5}
+qmd_file5 <- "~/projects/R_project/R/05_analysis_1.qmd"
+purl_file5 <- purl(qmd_file5, output = tempfile(fileext = ".R"))
+source(purl_file3)
+
+message("File was loaded and executed: ", qmd_file5)
+```
+
+```{r LoadQMD6}
+qmd_file6 <- "~/projects/R_project/R/06_analysis_2.qmd"
+purl_file6 <- purl(qmd_file6, output = tempfile(fileext = ".R"))
+source(purl_file6)
+
+message("File was loaded and executed: ", qmd_file6)
+```
+
+```{r LoadQMD7}
+qmd_file7 <- "~/projects/R_project/R/07_analysis_3.qmd"
+purl_file7 <- purl(qmd_file7, output = tempfile(fileext = ".R"))
+source(purl_file7)
+
+message("File was loaded and executed: ", qmd_file7)
+```
+
+```{r LoadQMD8}
+qmd_file8 <- "~/projects/R_project/R/08_analysis_4.qmd"
+purl_file8 <- purl(qmd_file8, output = tempfile(fileext = ".R"))
+source(purl_file8)
+
+message("File was loaded and executed: ", qmd_file8)
+```
+
+```{r LoadQMD9}
+qmd_file9 <- "~/projects/R_project/R/09_analysis_5.qmd"
+purl_file9 <- purl(qmd_file9, output = tempfile(fileext = ".R"))
+source(purl_file9)
+
+message("File was loaded and executed: ", qmd_file9)
 ```

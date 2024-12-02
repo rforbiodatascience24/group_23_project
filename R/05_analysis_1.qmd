@@ -8,14 +8,14 @@ Before going into descriptive statistics, we analyze the general trend of the da
 
 ## Loading libraries
 
-```{r}
+```{r loadLib_05}
 #| message: false
 library("tidyverse")
 ```
 
 ## Loading data
 
-```{r}
+```{r loadData_05}
 first_path <- "~/projects/R_project"
 file_path <- "data/03_dat_aug.tsv" 
 file_path <- file.path(first_path, 

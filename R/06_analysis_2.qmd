@@ -8,14 +8,14 @@ This file provides a detailed analysis of the Mice Protein Expression dataset. I
 
 ## Load libraries
 
-```{r}
+```{r loadLib_06}
 #| message: false
 library("tidyverse")
 ```
 
 ## Loading data
 
-```{r}
+```{r loadData_06}
 #| message: false
 first_path <- "~/projects/R_project"
 file_path <- "data/03_dat_aug.tsv" 
@@ -32,7 +32,7 @@ df <- df_aug
 
 Preparing data for heatmap visualization - changing to the long data, using pivot_longer
 
-```{r}
+```{r heatmap1}
 protein_data_long <- df |>
   select(ends_with("_N"), 
          MouseID) |>
@@ -67,7 +67,7 @@ The plot visualizes protein expression across all mice samples, but due to a lar
 
 Starting with the z-normalization following by min-max normalization to obtain \[-1, 1\]
 
-```{r}
+```{r heatmap2}
 # z - normalization
 df_z <- df |>
   mutate(across(ends_with("_N"), 
@@ -83,7 +83,7 @@ df <- df_z |>
 
 ```
 
-```{r}
+```{r heatmap3}
 # Dividing the data set into smaller groups split by class 
 class_data <- df |>
   group_split(class)
@@ -137,7 +137,7 @@ Having plots divided by class allows a clearer visualization of proteins, but it
 
 #### Data manipulation
 
-```{r}
+```{r heatma4}
 trisomy_data <- df |>
   filter(Genotype == 1)
 
@@ -166,7 +166,7 @@ control_long <- control_data |>
 
 #### Plots
 
-```{r}
+```{r heatmap5}
 ggplot(data = trisomy_long, 
        mapping = aes(x = Protein, 
                      y = MouseID, 
@@ -223,7 +223,7 @@ Overall the created heatmaps of Samples vs Proteins are not as informative as ex
 
 #### All proteins
 
-```{r}
+```{r heatmap6}
 correlation_matrix <- df |>
   select(ends_with("_N")) |> 
   cor()
@@ -262,7 +262,7 @@ This heatmap provides with an overview on the relationships between all protein 
 
 Dividing the data by class and visualizing the heatmap can show us potential interactions between proteins among certain groups
 
-```{r}
+```{r heatmap7}
 corr_data_long <- map(class_data, 
                       ~ .x |>
   select(ends_with("_N")) |>
@@ -306,7 +306,7 @@ Heatmaps repeatedly show impact of stimulus to protein expression. We can also s
 
 #### Proteins per genotype
 
-```{r}
+```{r heatmap8}
 gen_data <- df |>
   group_split(Genotype)
   
@@ -361,7 +361,7 @@ Proteins with the largest differences in correlation might serve as biomarkers f
 
 ### Correlation in proteins, by genotype
 
-```{r}
+```{r analysis_061}
 combined_corr_data <- bind_rows(corr_gen_data_long,
                                 .id = "Genotype")
 gen_corr_list <- combined_corr_data |>
@@ -380,7 +380,7 @@ Analytical calculations provide us with pairs with the highest correlations, whi
 
 Trying to distinguish the proteins with the biggest sd
 
-```{r}
+```{r analysis_062}
 most_variable_proteins <- df |>
   select(ends_with("_N")) |>
   summarise(across(everything(), 
@@ -399,7 +399,7 @@ most_variable_proteins
 
 Trying to identify the proteins that differ the most between the trisomy and the control group
 
-```{r}
+```{r analysis_063}
 group_means <- df |>
   group_by(Genotype) |>
   summarise(across(ends_with("_N"), 

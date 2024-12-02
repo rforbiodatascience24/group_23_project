@@ -8,7 +8,7 @@ In this analysis we will implement PCA, since our dataset is quite large, so it 
 
 ## Loading libraries
 
-```{r}
+```{r loadLib_09}
 #| message: false 
 library("tidyverse")
 library("broom")
@@ -16,7 +16,7 @@ library("broom")
 
 ## Loading data
 
-```{r}
+```{r loadData_09}
 first_path <- "~/projects/R_project" 
 file_path <- "data/03_dat_aug.tsv"  
 file_path <- file.path(first_path, 

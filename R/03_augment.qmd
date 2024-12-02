@@ -8,14 +8,14 @@ In this file, we augment the data, simplifying the naming of the Genotype, Treat
 
 ## Loading libraries
 
-```{r}
+```{r loadLib_03}
 #| message: false
 library("tidyverse")
 ```
 
 ## Loading data
 
-```{r}
+```{r loadData_03}
 first_path <- "~/projects/R_project"
 file_path <- "data/02_dat_clean.tsv" 
 file_path <- file.path(first_path, 

@@ -8,7 +8,7 @@ In this file, we take the raw data we have in the *data* folder, and we clean it
 
 ## Loading libraries
 
-```{r}
+```{r loadLibraries_02}
 #| message: false
 library("tidyverse")
 ```
@@ -24,7 +24,7 @@ df <- read_tsv(file = file_path)
 
 ## Cleaning data
 
-```{r}
+```{r cleanData}
 proteins <- df |>
   select(2:78) |>
   names()
@@ -36,7 +36,7 @@ classes <- df |>
 
 Checking how many missing values appear in each column.
 
-```{r}
+```{r NaNvals}
 missing_summary <- colSums(is.na(df))
 print(missing_summary)
 ```
@@ -45,7 +45,7 @@ In the shown data we can see that it is mostly full, with few exceptions, when t
 
 Replacing the missing data (NaN) with mean values within each class
 
-```{r}
+```{r Nan2}
 df <- as.data.frame(df)
 
 df_mean <- df |>
@@ -62,7 +62,7 @@ print(missing_summary)
 
 ## Reshape data for visualization
 
-```{r}
+```{r NaNvisualization}
 df_long <- df |>
   pivot_longer(cols = c(H3MeK4_N, 
                       EGR1_N, 
@@ -111,7 +111,7 @@ Such replacement could potentially alter results of further analysis, as it make
 
 Writing the cleaned .tsv file in the *data* folder:
 
-```{r}
+```{r writeFile_02}
 file_path <- "data/02_dat_clean.tsv"
 file_path <- file.path(first_path, 
                        file_path)

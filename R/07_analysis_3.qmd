@@ -8,13 +8,13 @@ In this file we analyse specific protein level distributions separating the samp
 
 ## Installing packages
 
-```{r}
-install.packages("patchwork")
+```{r installPatchwork}
+#install.packages("patchwork")
 ```
 
 ## Loading libraries
 
-```{r}
+```{r loadLib_07}
 #| message: false
 library("tidyverse")
 library("patchwork")
@@ -22,7 +22,7 @@ library("patchwork")
 
 ## Loading data
 
-```{r}
+```{r loadData_07}
 first_path <- "~/projects/R_project"
 file_path <- "data/03_dat_aug.tsv" 
 file_path <- file.path(first_path, 
@@ -34,7 +34,7 @@ df_aug <- read_tsv(file = file_path)
 
 We're going to visualize the distribution of BRAF_N and pERK_N for the control and trisomic groups separately.
 
-```{r}
+```{r analysis_31}
 trisomic <- df_aug |>
   filter(Genotype == 1)
 
@@ -42,13 +42,13 @@ control <- df_aug |>
   filter(Genotype == 0)
 ```
 
-```{r}
+```{r analysis_32}
 #| eval: false
 # Unsuccessful attempt to use a function to plot the densitograms:
 source(file = "10_densitogram.R")
 ```
 
-```{r}
+```{r analysis_33}
 #| eval: false
 # Unsuccessful attempt to use a function to plot the densitograms:
 p1 <- densitogram(trisomic, 
@@ -57,7 +57,7 @@ p1 <- densitogram(trisomic,
 p1
 ```
 
-```{r}
+```{r analysis_34}
 p1 <- ggplot(data = trisomic,
              mapping = aes(x = BRAF_N,
                            fill = class)) +
@@ -77,7 +77,7 @@ p1 / p2
 
 We set the same axis in order to better compare the two groups.
 
-```{r}
+```{r analysis_35}
 p1 <- p1 +
   xlim(0.1, 0.9) +
   ylim(0, 11.0)
@@ -95,7 +95,7 @@ This clear separation between the presence and the absence of stimulation sugges
 
 The non-stimulation classes are dominant in the control group but not in the trisomic group, suggesting a possible biological effect. In general, trisomic classes appear to have more diverse distributions than controls, which was also noticed in the first analysis.
 
-```{r}
+```{r analysis_36}
 p3 <- ggplot(data = trisomic,
              mapping = aes(x = pERK_N,
                            fill = class)) +
@@ -115,7 +115,7 @@ p3 / p4
 
 We set the same axis in order to better compare the two groups.
 
-```{r}
+```{r analysis_37}
 p3 <- p3 +   
   xlim(0.1, 1.5) +   
   ylim(0, 10.0)  
