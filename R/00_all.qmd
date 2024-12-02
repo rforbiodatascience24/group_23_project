@@ -6,7 +6,7 @@ editor: visual
 
 ## Loading libraries
 
-```{r}
+```{r loadLibraries_00}
 #| message: false
 library("tidyverse")
 library("knitr")
@@ -14,7 +14,7 @@ library("knitr")
 
 ## Loading the .qmd files
 
-```{r}
+```{r loadQMD}
 first_path <- "~/projects/R_project"
 
 files <- c("R/01_load.qmd",

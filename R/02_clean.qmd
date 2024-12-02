@@ -15,7 +15,7 @@ library("tidyverse")
 
 ## Loading data
 
-```{r}
+```{r loadingData_02}
 first_path <- "~/projects/R_project"
 file_path <- file.path(first_path, 
                        "data/01_dat_load.tsv")

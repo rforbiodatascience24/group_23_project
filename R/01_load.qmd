@@ -8,14 +8,14 @@ In this file, we're loading the raw data, and we write it as .tsv in the /data f
 
 ## Loading libraries
 
-```{r}
+```{r loadLibraries_01}
 #| message: false
 library("tidyverse")
 ```
 
 ## Loading data
 
-```{r}
+```{r loadData_01}
 first_path <- "~/projects/R_project"
 file_path <- "data/_raw/Data_Cortex_Nuclear.csv" 
 file_path <- file.path(first_path, 
