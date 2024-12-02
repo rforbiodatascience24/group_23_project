@@ -4,7 +4,8 @@ densitogram <- function(genotype, protein, genotype_name) {
                           fill = class)) +
     geom_density(alpha = 0.5) +
     labs(title = paste0("Densitogram of ", 
-                        protein, " for ", 
+                        protein, 
+                        " for ", 
                         genotype_name, 
                         " classes")) +
     theme_minimal(base_family = "Avenir")

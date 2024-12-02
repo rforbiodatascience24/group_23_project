@@ -45,13 +45,15 @@ control <- df_aug |>
 ```{r}
 #| eval: false
 # Unsuccessful attempt to use a function to plot the densitograms:
-source(file = "densitogram.R")
+source(file = "10_densitogram.R")
 ```
 
 ```{r}
 #| eval: false
 # Unsuccessful attempt to use a function to plot the densitograms:
-p1 <- densitogram(trisomic, "BRAF_N", deparse(substitute(trisomic)))
+p1 <- densitogram(trisomic, 
+                  "BRAF_N", 
+                  deparse(substitute(trisomic)))
 p1
 ```
 
